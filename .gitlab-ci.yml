@@ -1,10 +1,10 @@
 stages:
   - build
 
-tags: [mac, x64, xcode]
   
 build:
   stage: build
+  tags: [mac, x64, xcode]
   script:
     - project=IntTestiOSEmpty
     - cd ${project}
