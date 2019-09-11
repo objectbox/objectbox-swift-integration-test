@@ -1,0 +1,13 @@
+stages:
+  - build
+
+tags: [mac, x64, xcode]
+  
+build:
+  stage: build
+  script:
+    - project=IntTestiOSEmpty
+    - cd ${project}
+    - xcodebuild clean -project ${project}.xcodeproj -scheme ${project} | xcpretty
+    - xcodebuild test -project ${project}.xcodeproj -scheme ${project} -destination 'platform=OS X,arch=x86_64' | xcpretty -s
+
