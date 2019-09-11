@@ -24,4 +24,4 @@ pod repo update
 pod install
 Pods/ObjectBox/setup.rb
 
-xcodebuild clean build ${options} -project ${project}.xcodeproj -scheme ${project} | xcpretty
+xcodebuild clean build ${options} -project ${project}.xcodeproj -scheme ${project}
