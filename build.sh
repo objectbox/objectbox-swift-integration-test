@@ -13,7 +13,7 @@ cat > Podfile << EOL
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
-source 'https://github.com/objectbox/objectbox-swift-spec-staging.git
+source 'https://github.com/objectbox/objectbox-swift-spec-staging.git'
 
 target '${project}' do
   use_frameworks!
