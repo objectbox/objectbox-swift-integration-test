@@ -9,5 +9,5 @@ build:
     - project=IntTestiOSEmpty
     - cd ${project}
     - xcodebuild clean -project ${project}.xcodeproj -scheme ${project} 
-    - xcodebuild test -project ${project}.xcodeproj -scheme ${project} -destination 'platform=OS X,arch=x86_64'
+    - # xcodebuild test -project ${project}.xcodeproj -scheme ${project} -destination 'platform=OS X,arch=x86_64'
 
