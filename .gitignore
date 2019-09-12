@@ -5,5 +5,5 @@ xcuserdata/
 **/Podfile*
 **/Pods/
 **/generated/
-**/model-*.json
+**/model-*.json*
 **/*.xcworkspace

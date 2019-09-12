@@ -8,6 +8,7 @@
 
 import XCTest
 @testable import IntTestiOSRegular
+import ObjectBox
 
 class IntTestiOSRegularTests: XCTestCase {
 
@@ -22,6 +23,8 @@ class IntTestiOSRegularTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let store = try! Store(directoryPath: "objectbox")
+        try! store.closeAndDeleteAllFiles()
     }
 
     func testPerformanceExample() {
