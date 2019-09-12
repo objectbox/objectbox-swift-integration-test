@@ -1,3 +1,9 @@
 .DS_Store
 .idea/
 xcuserdata/
+**/DerivedData/
+**/Podfile*
+**/Pods/
+**/generated/
+**/model-*.json
+**/*.xcworkspace
