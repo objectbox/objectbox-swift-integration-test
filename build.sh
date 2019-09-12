@@ -9,6 +9,7 @@ echo "========================================================================="
 
 options="CODE_SIGN_IDENTITY= CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS= CODE_SIGNING_ALLOWED=NO ENABLE_BITCODE=NO"
 options="${options} -derivedDataPath ./DerivedData"
+options="${options} -workspace ${project}.xcworkspace -scheme ${project}"
 
 cd ${project}
 
@@ -40,4 +41,8 @@ pod repo update
 pod install
 Pods/ObjectBox/setup.rb
 
-xcodebuild clean build ${options} -workspace ${project}.xcworkspace -scheme ${project}
+xcodebuild clean build ${options}
+
+if [ -d "${project}Tests" ]; then 
+  xcodebuild test ${options} -destination 'platform=iOS Simulator,name=iPhone Xs'
+fi
