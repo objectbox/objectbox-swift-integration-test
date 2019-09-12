@@ -13,7 +13,7 @@ options="${options} -derivedDataPath ./DerivedData"
 cd ${project}
 
 # https://swift.objectbox.io/install
-cat > Podfile << EOL
+echo "
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
@@ -24,12 +24,17 @@ target '${project}' do
 
   # Pods for ${project}
   pod 'ObjectBox', '1.0.0-rc.3'
-  
+" > Podfile
+
+if [ -d "${project}Tests" ]; then 
+  echo "
   target '${project}Tests' do
-    inherit! :complete
-  end
-end
-EOL
+    inherit! :search_paths
+  end" >> Podfile
+fi
+
+echo "
+end" >> Podfile
 
 pod repo update
 pod install

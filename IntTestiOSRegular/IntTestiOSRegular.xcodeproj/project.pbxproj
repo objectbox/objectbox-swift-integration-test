@@ -16,6 +16,7 @@
 		295A7C07232A421700F74FE2 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295A7C06232A421700F74FE2 /* Note.swift */; };
 		295A7C09232A427800F74FE2 /* Author.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295A7C08232A427800F74FE2 /* Author.swift */; };
 		44A6370A52BD801E0570F590 /* EntityInfo-IntTestiOSRegular.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DE71DF68A6CBCE7E532D66 /* EntityInfo-IntTestiOSRegular.generated.swift */; };
+		560AB847FFB1F05A3FFCAB4F /* Pods_IntTestiOSRegularTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 657FE00C023F92F796895920 /* Pods_IntTestiOSRegularTests.framework */; };
 		E780D9B67092AFD31BE01CD7 /* Pods_IntTestiOSRegular.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5A7860AB0E888153C7E37B0 /* Pods_IntTestiOSRegular.framework */; };
 /* End PBXBuildFile section */
 
@@ -42,9 +43,12 @@
 		295A7BFD232A314200F74FE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		295A7C06232A421700F74FE2 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		295A7C08232A427800F74FE2 /* Author.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Author.swift; sourceTree = "<group>"; };
+		657FE00C023F92F796895920 /* Pods_IntTestiOSRegularTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IntTestiOSRegularTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		95DE71DF68A6CBCE7E532D66 /* EntityInfo-IntTestiOSRegular.generated.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "EntityInfo-IntTestiOSRegular.generated.swift"; sourceTree = "<group>"; };
 		BC4ACBA10A6597A92789AB1D /* Pods-IntTestiOSRegular.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntTestiOSRegular.release.xcconfig"; path = "Target Support Files/Pods-IntTestiOSRegular/Pods-IntTestiOSRegular.release.xcconfig"; sourceTree = "<group>"; };
 		BDF1A65BF74DEF43AE2A1E80 /* Pods-IntTestiOSRegular.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntTestiOSRegular.debug.xcconfig"; path = "Target Support Files/Pods-IntTestiOSRegular/Pods-IntTestiOSRegular.debug.xcconfig"; sourceTree = "<group>"; };
+		C744CC29C3500E85DA52392D /* Pods-IntTestiOSRegularTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntTestiOSRegularTests.debug.xcconfig"; path = "Target Support Files/Pods-IntTestiOSRegularTests/Pods-IntTestiOSRegularTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C859607395084FBC80AA1213 /* Pods-IntTestiOSRegularTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntTestiOSRegularTests.release.xcconfig"; path = "Target Support Files/Pods-IntTestiOSRegularTests/Pods-IntTestiOSRegularTests.release.xcconfig"; sourceTree = "<group>"; };
 		F5A7860AB0E888153C7E37B0 /* Pods_IntTestiOSRegular.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IntTestiOSRegular.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -61,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				560AB847FFB1F05A3FFCAB4F /* Pods_IntTestiOSRegularTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +77,8 @@
 			children = (
 				BDF1A65BF74DEF43AE2A1E80 /* Pods-IntTestiOSRegular.debug.xcconfig */,
 				BC4ACBA10A6597A92789AB1D /* Pods-IntTestiOSRegular.release.xcconfig */,
+				C744CC29C3500E85DA52392D /* Pods-IntTestiOSRegularTests.debug.xcconfig */,
+				C859607395084FBC80AA1213 /* Pods-IntTestiOSRegularTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -125,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				F5A7860AB0E888153C7E37B0 /* Pods_IntTestiOSRegular.framework */,
+				657FE00C023F92F796895920 /* Pods_IntTestiOSRegularTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -164,6 +172,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 295A7C03232A314200F74FE2 /* Build configuration list for PBXNativeTarget "IntTestiOSRegularTests" */;
 			buildPhases = (
+				464D5FB21AF13F980C07BCDE /* [CP] Check Pods Manifest.lock */,
 				295A7BF3232A314200F74FE2 /* Sources */,
 				295A7BF4232A314200F74FE2 /* Frameworks */,
 				295A7BF5232A314200F74FE2 /* Resources */,
@@ -237,6 +246,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		464D5FB21AF13F980C07BCDE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-IntTestiOSRegularTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		89CCEBFC205DECA472647906 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -506,6 +537,7 @@
 		};
 		295A7C04232A314200F74FE2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C744CC29C3500E85DA52392D /* Pods-IntTestiOSRegularTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -526,6 +558,7 @@
 		};
 		295A7C05232A314200F74FE2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C859607395084FBC80AA1213 /* Pods-IntTestiOSRegularTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
