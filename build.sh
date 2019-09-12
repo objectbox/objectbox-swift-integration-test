@@ -24,6 +24,10 @@ target '${project}' do
 
   # Pods for ${project}
   pod 'ObjectBox', '1.0.0-rc.3'
+  
+  target '${project}Tests' do
+    inherit! :complete
+  end
 end
 EOL
 
