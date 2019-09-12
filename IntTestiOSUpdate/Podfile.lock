@@ -1,0 +1,16 @@
+PODS:
+  - ObjectBox (0.9.1)
+
+DEPENDENCIES:
+  - ObjectBox
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - ObjectBox
+
+SPEC CHECKSUMS:
+  ObjectBox: 4f27ef74463fce3c977e6bdee4f40fef15f9ff61
+
+PODFILE CHECKSUM: 7fc09ae030e2f1056843c62ce50aaf90296844ee
+
+COCOAPODS: 1.6.1
