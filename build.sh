@@ -3,6 +3,10 @@ set -eu
 
 project=$1
 
+echo "========================================================================="
+echo "Building ${project}"
+echo "========================================================================="
+
 options="CODE_SIGN_IDENTITY= CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS= CODE_SIGNING_ALLOWED=NO ENABLE_BITCODE=NO"
 options="${options} -derivedDataPath ./DerivedData"
 
