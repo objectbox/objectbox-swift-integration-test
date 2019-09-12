@@ -13,7 +13,6 @@
 		295A7BEE232A314200F74FE2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 295A7BED232A314200F74FE2 /* Assets.xcassets */; };
 		295A7BF1232A314200F74FE2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 295A7BEF232A314200F74FE2 /* LaunchScreen.storyboard */; };
 		295A7BFC232A314200F74FE2 /* IntTestiOSRegularTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295A7BFB232A314200F74FE2 /* IntTestiOSRegularTests.swift */; };
-		8508F7A8FFCB323CAB4578FB /* EntityInfo-IntTestiOSRegular.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84068196AACECF7A78A5C9FB /* EntityInfo-IntTestiOSRegular.generated.swift */; };
 		E780D9B67092AFD31BE01CD7 /* Pods_IntTestiOSRegular.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5A7860AB0E888153C7E37B0 /* Pods_IntTestiOSRegular.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,7 +37,6 @@
 		295A7BF7232A314200F74FE2 /* IntTestiOSRegularTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntTestiOSRegularTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		295A7BFB232A314200F74FE2 /* IntTestiOSRegularTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntTestiOSRegularTests.swift; sourceTree = "<group>"; };
 		295A7BFD232A314200F74FE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		84068196AACECF7A78A5C9FB /* EntityInfo-IntTestiOSRegular.generated.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "EntityInfo-IntTestiOSRegular.generated.swift"; sourceTree = "<group>"; };
 		BC4ACBA10A6597A92789AB1D /* Pods-IntTestiOSRegular.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntTestiOSRegular.release.xcconfig"; path = "Target Support Files/Pods-IntTestiOSRegular/Pods-IntTestiOSRegular.release.xcconfig"; sourceTree = "<group>"; };
 		BDF1A65BF74DEF43AE2A1E80 /* Pods-IntTestiOSRegular.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntTestiOSRegular.debug.xcconfig"; path = "Target Support Files/Pods-IntTestiOSRegular/Pods-IntTestiOSRegular.debug.xcconfig"; sourceTree = "<group>"; };
 		F5A7860AB0E888153C7E37B0 /* Pods_IntTestiOSRegular.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IntTestiOSRegular.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,7 +67,6 @@
 				BDF1A65BF74DEF43AE2A1E80 /* Pods-IntTestiOSRegular.debug.xcconfig */,
 				BC4ACBA10A6597A92789AB1D /* Pods-IntTestiOSRegular.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -78,7 +75,6 @@
 			children = (
 				295A7BE5232A314000F74FE2 /* IntTestiOSRegular */,
 				295A7BFA232A314200F74FE2 /* IntTestiOSRegularTests */,
-				5D5677C1200517992062C03B /* generated */,
 				295A7BE4232A314000F74FE2 /* Products */,
 				22E24C750E645148A174424C /* Pods */,
 				4E34D9E2C792E89CD22C03F7 /* Frameworks */,
@@ -122,15 +118,6 @@
 				F5A7860AB0E888153C7E37B0 /* Pods_IntTestiOSRegular.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		5D5677C1200517992062C03B /* generated */ = {
-			isa = PBXGroup;
-			children = (
-				84068196AACECF7A78A5C9FB /* EntityInfo-IntTestiOSRegular.generated.swift */,
-			);
-			name = generated;
-			path = generated;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -304,7 +291,6 @@
 			files = (
 				295A7BE9232A314000F74FE2 /* ViewController.swift in Sources */,
 				295A7BE7232A314000F74FE2 /* AppDelegate.swift in Sources */,
-				8508F7A8FFCB323CAB4578FB /* EntityInfo-IntTestiOSRegular.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
