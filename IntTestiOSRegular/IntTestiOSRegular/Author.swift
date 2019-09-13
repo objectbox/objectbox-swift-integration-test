@@ -11,7 +11,7 @@ import ObjectBox
 
 // objectbox:Entity
 class Author {
-    var id: Id<Author> = 0
+    var id: EntityId<Author> = 0
     var name: String
     // objectbox: backlink = "author"
     var notes: ToMany<Note, Author>

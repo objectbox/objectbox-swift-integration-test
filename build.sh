@@ -24,7 +24,7 @@ target '${project}' do
   use_frameworks!
 
   # Pods for ${project}
-  pod 'ObjectBox', '1.0.0-rc.3'
+  pod 'ObjectBox', '1.0.0-rc.4'
 " > Podfile
 
 if [ -d "${project}Tests" ]; then 

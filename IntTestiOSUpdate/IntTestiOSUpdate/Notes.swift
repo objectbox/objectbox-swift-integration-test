@@ -10,7 +10,7 @@ import Foundation
 import ObjectBox
 
 class Note: Entity {
-    var id: Id<Note> = 0
+    var id: Id = 0
     
     required init() {
         // nothing to do here, ObjectBox calls this
