@@ -23,12 +23,10 @@ class Note: Entity {
     }
     var creationDate: Date? = Date()
     var modificationDate: Date?
-    var author: ToOne<Author> = nil
     
     // An initializer with no parameters is required by ObjectBox
     required init() {
         // Nothing to do since we initialize the properties upon declaration here.
-        // See `Author` for a different approach
     }
     
     convenience init(title: String, text: String) {
