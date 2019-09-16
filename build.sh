@@ -9,7 +9,7 @@ echo "========================================================================="
 
 options="CODE_SIGN_IDENTITY= CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS= CODE_SIGNING_ALLOWED=NO ENABLE_BITCODE=NO"
 options="${options} -derivedDataPath ./DerivedData"
-options="${options} -workspace \"${project}.xcworkspace\" -scheme \"${project}\""
+options="${options} -workspace ${project}.xcworkspace -scheme ${project}"
 
 cd "${project}"
 
