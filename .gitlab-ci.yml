@@ -6,5 +6,5 @@ build:
   stage: build
   tags: [mac, x64, xcode]
   script:
-    - for project in ./*/ ; do (bash -x build.sh $(basename ${project})); done
+    - for project in ./*/ ; do (bash -x build.sh "$(basename "${project}")"); done
 
