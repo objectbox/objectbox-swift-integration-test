@@ -17,6 +17,7 @@ class IntTestiOSRegularTests: XCTestCase {
         let databaseName = "testdata"
         let appSupport = try! FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent(Bundle.main.bundleIdentifier!)
         let directory = appSupport.appendingPathComponent(databaseName)
+        try? FileManager.default.removeItem(at: directory)
         try? FileManager.default.createDirectory(at: directory,
                                                  withIntermediateDirectories: true,
                                                  attributes: nil)
@@ -29,15 +30,12 @@ class IntTestiOSRegularTests: XCTestCase {
         try! store?.closeAndDeleteAllFiles()
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        
+    func testClasses() {
         let noteBox = store?.box(for: Note.self)
         let authorBox = store?.box(for: Author.self)
         
-        assert(noteBox!.isEmpty())
-        assert(authorBox!.isEmpty())
+        XCTAssert(noteBox!.isEmpty())
+        XCTAssert(authorBox!.isEmpty())
         
         let note = Note()
         note.text = "Lorem ipsum"
@@ -46,13 +44,61 @@ class IntTestiOSRegularTests: XCTestCase {
         
         try! noteBox!.put(note)
         
-        assert(noteBox!.count() == 1)
-        assert(authorBox!.count() == 1)
+        XCTAssertEqual(noteBox!.count(), 1)
+        XCTAssertEqual(authorBox!.count(), 1)
         
-        assert(1 == authorBox!
+        XCTAssertEqual(1, authorBox!
             .query{Author.name.contains("a", caseSensitive: false)}
             .link(property: Author.notes){Note.text.contains("Lorem")}
-            .build().count());
+            .build().count())
     }
+    
+    func testStructToClassLink() {
+        // there's a link from NoteStruct to Author
+        let noteBox = store?.box(for: NoteStruct.self)
+        let authorBox = store?.box(for: Author.self)
+        
+        XCTAssert(noteBox!.isEmpty())
+        XCTAssert(authorBox!.isEmpty())
+        
+        let author = Author(name: "Arthur");
+        let relation = ToOne<Author>(author);
+        
+        let note = NoteStruct(id: 0, title: "Title", text: "Lorem ipsum", creationDate: Date(), modificationDate: Date(), author: relation)
+        
+        try! noteBox!.put(note)
+        
+        XCTAssertEqual(noteBox!.count(), 1)
+        XCTAssertEqual(authorBox!.count(), 1)
+        
+        XCTAssertEqual(1, noteBox!
+            .query{NoteStruct.text.contains("Lorem")}
+            .link(property: NoteStruct.author){Author.name.contains("a", caseSensitive: false)}
+            .build().count())
+    }
+    
+    func testStructsToManyStandalone() {
+        // there's a ToMany relation in AuthorStruct for NoteStruct
+        let noteBox = store?.box(for: NoteStruct.self)
+        let authorBox = store?.box(for: AuthorStruct.self)
+        
+        XCTAssert(noteBox!.isEmpty())
+        XCTAssert(authorBox!.isEmpty())
+        
+        let note = NoteStruct(id: 0, title: "Title", text: "Lorem ipsum", creationDate: Date(), modificationDate: Date(), author: ToOne<Author>(nil));
+        let notes = ToMany<NoteStruct, AuthorStruct>([note]);
+        XCTAssertEqual(notes.count, 1)
+        
+        let author = AuthorStruct(id: EntityId<AuthorStruct>(0), name: "Arthur", notes: notes);
 
+        try! authorBox!.put(author)
+        
+        XCTAssertEqual(noteBox!.count(), 1)
+        XCTAssertEqual(authorBox!.count(), 1)
+        
+        XCTAssertEqual(1, authorBox!
+            .query{AuthorStruct.name.contains("a", caseSensitive: false)}
+            .link(property: AuthorStruct.notes){NoteStruct.text.contains("Lorem")}
+            .build().count())
+    }
 }

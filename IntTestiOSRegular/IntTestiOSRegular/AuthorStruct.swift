@@ -13,6 +13,5 @@ import ObjectBox
 struct AuthorStruct {
     var id: EntityId<AuthorStruct> = 0
     var name: String
-    // objectbox: backlink = "author"
-    //var notes: ToMany<NoteStruct, AuthorStruct>
+    var notes: ToMany<NoteStruct, AuthorStruct>
 }

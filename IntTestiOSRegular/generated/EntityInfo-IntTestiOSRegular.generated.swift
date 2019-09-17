@@ -160,6 +160,8 @@ extension AuthorStruct: ObjectBox.EntityInspectable {
         let entityBuilder = try modelBuilder.entityBuilder(for: AuthorStruct.self, id: 2, uid: 7912214780485241856)
         try entityBuilder.addProperty(name: "id", type: EntityId<AuthorStruct>.entityPropertyType, flags: [.id], id: 1, uid: 6007678382023183872)
         try entityBuilder.addProperty(name: "name", type: String.entityPropertyType, id: 2, uid: 3402380277900707584)
+        try entityBuilder.addToManyRelation(id: 1, uid: 5945069275498723584,
+                                            targetId: 4, targetUid: 350948584967196672)
 
         try entityBuilder.lastProperty(id: 2, uid: 3402380277900707584)
     }
@@ -178,6 +180,11 @@ extension AuthorStruct {
     ///
     ///     box.query { AuthorStruct.name.startsWith("X") }
     internal static var name: Property<AuthorStruct, String, Void> { return Property<AuthorStruct, String, Void>(propertyId: 2, isPrimaryKey: false) }
+    /// Use `AuthorStruct.notes` to refer to this ToMany relation property in queries,
+    /// like when using `QueryBuilder.and(property:, conditions:)`.
+
+    internal static var notes: ToManyProperty<AuthorStruct, NoteStruct> { return ToManyProperty(.relationId(1)) }
+
 }
 
 extension ObjectBox.Property where E == AuthorStruct {
@@ -196,6 +203,11 @@ extension ObjectBox.Property where E == AuthorStruct {
     ///     box.query { .name.startsWith("X") }
 
     internal static var name: Property<AuthorStruct, String, Void> { return Property<AuthorStruct, String, Void>(propertyId: 2, isPrimaryKey: false) }
+
+    /// Use `.notes` to refer to this ToMany relation property in queries, like when using
+    /// `QueryBuilder.and(property:, conditions:)`.
+
+    internal static var notes: ToManyProperty<AuthorStruct, NoteStruct> { return ToManyProperty(.relationId(1)) }
 
 }
 
@@ -232,7 +244,12 @@ internal class AuthorStructBinding: NSObject, ObjectBox.EntityBinding {
         let entityId: EntityId<AuthorStruct> = entityReader.read(at: 2 + 2 * 1)
         let entity = AuthorStruct(
             id: entityId, 
-            name: entityReader.read(at: 2 + 2 * 2)
+            name: entityReader.read(at: 2 + 2 * 2), 
+            notes: ToMany<NoteStruct, AuthorStruct>.relation(
+                            sourceBox: store.box(for: ToMany<NoteStruct, AuthorStruct>.OwningType.self),
+                            sourceId: EntityId<ToMany<NoteStruct, AuthorStruct>.OwningType>(entityId.value),
+                            targetBox: store.box(for: ToMany<NoteStruct, AuthorStruct>.ReferencedType.self),
+                            relationId: 1)
         )
         return entity
     }
@@ -252,7 +269,8 @@ extension ObjectBox.Box where E == AuthorStruct {
 
         return AuthorStruct(
             id: entityId, 
-            name: entity.name
+            name: entity.name, 
+            notes: entity.notes
         )
     }
 
@@ -274,7 +292,8 @@ extension ObjectBox.Box where E == AuthorStruct {
 
             newEntities.append(AuthorStruct(
                 id: entityId, 
-                name: entity.name
+                name: entity.name, 
+                notes: entity.notes
             ))
         }
 
@@ -690,6 +709,7 @@ fileprivate func cModel() throws -> OpaquePointer {
     try NoteStruct.buildEntity(modelBuilder: modelBuilder)
     modelBuilder.lastEntity(id: 4, uid: 350948584967196672)
     modelBuilder.lastIndex(id: 2, uid: 2156036334398191872)
+    modelBuilder.lastRelation(id: 1, uid: 5945069275498723584)
     return modelBuilder.finish()
 }
 
