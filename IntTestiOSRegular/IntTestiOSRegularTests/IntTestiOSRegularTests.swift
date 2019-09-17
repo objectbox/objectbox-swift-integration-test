@@ -85,10 +85,10 @@ class IntTestiOSRegularTests: XCTestCase {
         XCTAssert(noteBox!.isEmpty())
         XCTAssert(authorBox!.isEmpty())
         
-        let note = NoteStruct(id: 0, title: "Title", text: "Lorem ipsum", creationDate: Date(), modificationDate: Date(), author: ToOne<Author>(nil));
-        let notes = ToMany<NoteStruct, AuthorStruct>([note]);
-        XCTAssertEqual(notes.count, 1)
+        var note = NoteStruct(id: 0, title: "Title", text: "Lorem ipsum", creationDate: Date(), modificationDate: Date(), author: ToOne<Author>(nil));
+        note.id = try! noteBox!.put(note); // at v1.0, requires an explicit put
         
+        let notes = ToMany<NoteStruct, AuthorStruct>([note]);
         let author = AuthorStruct(id: EntityId<AuthorStruct>(0), name: "Arthur", notes: notes);
 
         try! authorBox!.put(author)
