@@ -36,8 +36,8 @@ class IntTestiOSRegularTests: XCTestCase {
         let noteBox = store?.box(for: Note.self)
         let authorBox = store?.box(for: Author.self)
         
-        assert(noteBox!.isEmpty)
-        assert(authorBox!.isEmpty)
+        assert(noteBox!.isEmpty())
+        assert(authorBox!.isEmpty())
         
         let note = Note()
         note.text = "Lorem ipsum"

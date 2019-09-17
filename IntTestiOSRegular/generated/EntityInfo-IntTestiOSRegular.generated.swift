@@ -248,7 +248,7 @@ extension ObjectBox.Box where E == AuthorStruct {
     /// - Returns: The stored object. If `entity`'s id is 0, an ID is generated.
     /// - Throws: ObjectBoxError errors for database write errors.
     func put(struct entity: AuthorStruct) throws -> AuthorStruct {
-        let entityId: EntityId<AuthorStruct> = try self.put(entity)
+        let entityId: AuthorStruct.EntityBindingType.IdType = try self.put(entity)
 
         return AuthorStruct(
             id: entityId, 
@@ -265,8 +265,8 @@ extension ObjectBox.Box where E == AuthorStruct {
     /// - Returns: The stored objects. If any entity's id is 0, an ID is generated.
     /// - Throws: ObjectBoxError errors for database write errors.
     func put(structs entities: [AuthorStruct]) throws -> [AuthorStruct] {
-        let entityIds: [EntityId<AuthorStruct>] = try self.put(entities)
-        var newEntities = Array<AuthorStruct>()
+        let entityIds: [AuthorStruct.EntityBindingType.IdType] = try self.put(entities)
+        var newEntities = [AuthorStruct]()
 
         for i in 0 ..< min(entities.count, entityIds.count) {
             let entity = entities[i]
@@ -632,7 +632,7 @@ extension ObjectBox.Box where E == NoteStruct {
     /// - Returns: The stored object. If `entity`'s id is 0, an ID is generated.
     /// - Throws: ObjectBoxError errors for database write errors.
     func put(struct entity: NoteStruct) throws -> NoteStruct {
-        let entityId: EntityId<NoteStruct> = try self.put(entity)
+        let entityId: NoteStruct.EntityBindingType.IdType = try self.put(entity)
 
         return NoteStruct(
             id: entityId, 
@@ -653,8 +653,8 @@ extension ObjectBox.Box where E == NoteStruct {
     /// - Returns: The stored objects. If any entity's id is 0, an ID is generated.
     /// - Throws: ObjectBoxError errors for database write errors.
     func put(structs entities: [NoteStruct]) throws -> [NoteStruct] {
-        let entityIds: [EntityId<NoteStruct>] = try self.put(entities)
-        var newEntities = Array<NoteStruct>()
+        let entityIds: [NoteStruct.EntityBindingType.IdType] = try self.put(entities)
+        var newEntities = [NoteStruct]()
 
         for i in 0 ..< min(entities.count, entityIds.count) {
             let entity = entities[i]
