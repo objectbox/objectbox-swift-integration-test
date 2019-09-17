@@ -15,6 +15,8 @@
 		295A7BFC232A314200F74FE2 /* IntTestiOSRegularTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295A7BFB232A314200F74FE2 /* IntTestiOSRegularTests.swift */; };
 		295A7C07232A421700F74FE2 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295A7C06232A421700F74FE2 /* Note.swift */; };
 		295A7C09232A427800F74FE2 /* Author.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295A7C08232A427800F74FE2 /* Author.swift */; };
+		295A7C972330DAC800F74FE2 /* NoteStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295A7C962330DAC800F74FE2 /* NoteStruct.swift */; };
+		295A7C992330DAD300F74FE2 /* AuthorStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295A7C982330DAD300F74FE2 /* AuthorStruct.swift */; };
 		44A6370A52BD801E0570F590 /* EntityInfo-IntTestiOSRegular.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DE71DF68A6CBCE7E532D66 /* EntityInfo-IntTestiOSRegular.generated.swift */; };
 		560AB847FFB1F05A3FFCAB4F /* Pods_IntTestiOSRegularTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 657FE00C023F92F796895920 /* Pods_IntTestiOSRegularTests.framework */; };
 		E780D9B67092AFD31BE01CD7 /* Pods_IntTestiOSRegular.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5A7860AB0E888153C7E37B0 /* Pods_IntTestiOSRegular.framework */; };
@@ -43,6 +45,8 @@
 		295A7BFD232A314200F74FE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		295A7C06232A421700F74FE2 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		295A7C08232A427800F74FE2 /* Author.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Author.swift; sourceTree = "<group>"; };
+		295A7C962330DAC800F74FE2 /* NoteStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteStruct.swift; sourceTree = "<group>"; };
+		295A7C982330DAD300F74FE2 /* AuthorStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorStruct.swift; sourceTree = "<group>"; };
 		657FE00C023F92F796895920 /* Pods_IntTestiOSRegularTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IntTestiOSRegularTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		95DE71DF68A6CBCE7E532D66 /* EntityInfo-IntTestiOSRegular.generated.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "EntityInfo-IntTestiOSRegular.generated.swift"; sourceTree = "<group>"; };
 		BC4ACBA10A6597A92789AB1D /* Pods-IntTestiOSRegular.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntTestiOSRegular.release.xcconfig"; path = "Target Support Files/Pods-IntTestiOSRegular/Pods-IntTestiOSRegular.release.xcconfig"; sourceTree = "<group>"; };
@@ -114,7 +118,9 @@
 				295A7BEF232A314200F74FE2 /* LaunchScreen.storyboard */,
 				295A7BF2232A314200F74FE2 /* Info.plist */,
 				295A7C06232A421700F74FE2 /* Note.swift */,
+				295A7C962330DAC800F74FE2 /* NoteStruct.swift */,
 				295A7C08232A427800F74FE2 /* Author.swift */,
+				295A7C982330DAD300F74FE2 /* AuthorStruct.swift */,
 			);
 			path = IntTestiOSRegular;
 			sourceTree = "<group>";
@@ -337,6 +343,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				295A7C992330DAD300F74FE2 /* AuthorStruct.swift in Sources */,
+				295A7C972330DAC800F74FE2 /* NoteStruct.swift in Sources */,
 				295A7BE9232A314000F74FE2 /* ViewController.swift in Sources */,
 				295A7BE7232A314000F74FE2 /* AppDelegate.swift in Sources */,
 				44A6370A52BD801E0570F590 /* EntityInfo-IntTestiOSRegular.generated.swift in Sources */,
