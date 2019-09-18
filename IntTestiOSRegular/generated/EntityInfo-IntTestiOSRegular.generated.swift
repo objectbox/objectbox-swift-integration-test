@@ -48,6 +48,11 @@ extension Author {
     ///
     ///     box.query { Author.name.startsWith("X") }
     internal static var name: Property<Author, String, Void> { return Property<Author, String, Void>(propertyId: 2, isPrimaryKey: false) }
+    /// Use `Author.notesStandalone` to refer to this ToMany relation property in queries,
+    /// like when using `QueryBuilder.and(property:, conditions:)`.
+
+    internal static var notesStandalone: ToManyProperty<Author, Note> { return ToManyProperty(.backlinkRelationId(2)) }
+
     /// Use `Author.notes` to refer to this ToMany relation property in queries,
     /// like when using `QueryBuilder.and(property:, conditions:)`.
 
@@ -75,6 +80,11 @@ extension ObjectBox.Property where E == Author {
     ///     box.query { .name.startsWith("X") }
 
     internal static var name: Property<Author, String, Void> { return Property<Author, String, Void>(propertyId: 2, isPrimaryKey: false) }
+
+    /// Use `.notesStandalone` to refer to this ToMany relation property in queries, like when using
+    /// `QueryBuilder.and(property:, conditions:)`.
+
+    internal static var notesStandalone: ToManyProperty<Author, Note> { return ToManyProperty(.backlinkRelationId(2)) }
 
     /// Use `.notes` to refer to this ToMany relation property in queries, like when using
     /// `QueryBuilder.and(property:, conditions:)`.
@@ -114,6 +124,14 @@ internal class AuthorBinding: NSObject, ObjectBox.EntityBinding {
 
     internal func postPut(fromEntity entity: EntityType, id: ObjectBox.Id, store: ObjectBox.Store) {
         if entityId(of: entity) == 0 { // Written for first time? Attach ToMany relations:
+            let notesStandalone = ToMany<Note, Author>.backlink(
+                sourceBox: store.box(for: ToMany<Note, Author>.ReferencedType.self),
+                sourceProperty: ToMany<Note, Author>.ReferencedType.author,
+                targetId: EntityId<ToMany<Note, Author>.OwningType>(id.value))
+            if !entity.notesStandalone.isEmpty {
+                notesStandalone.replace(entity.notesStandalone)
+            }
+            entity.notesStandalone = notesStandalone
             let notes = ToMany<Note, Author>.backlink(
                 sourceBox: store.box(for: ToMany<Note, Author>.ReferencedType.self),
                 sourceProperty: ToMany<Note, Author>.ReferencedType.author,
@@ -130,6 +148,10 @@ internal class AuthorBinding: NSObject, ObjectBox.EntityBinding {
         entity.id = entityReader.read(at: 2 + 2 * 1)
         entity.name = entityReader.read(at: 2 + 2 * 2)
 
+        entity.notesStandalone = ToMany<Note, Author>.backlink(
+            sourceBox: store.box(for: ToMany<Note, Author>.ReferencedType.self),
+            sourceProperty: ToMany<Note, Author>.ReferencedType.author,
+            targetId: EntityId<ToMany<Note, Author>.OwningType>(entity.id.value))
         entity.notes = ToMany<Note, Author>.backlink(
             sourceBox: store.box(for: ToMany<Note, Author>.ReferencedType.self),
             sourceProperty: ToMany<Note, Author>.ReferencedType.author,
@@ -709,7 +731,7 @@ fileprivate func cModel() throws -> OpaquePointer {
     try NoteStruct.buildEntity(modelBuilder: modelBuilder)
     modelBuilder.lastEntity(id: 4, uid: 350948584967196672)
     modelBuilder.lastIndex(id: 2, uid: 2156036334398191872)
-    modelBuilder.lastRelation(id: 1, uid: 5945069275498723584)
+    modelBuilder.lastRelation(id: 2, uid: 6088722882551097600)
     return modelBuilder.finish()
 }
 

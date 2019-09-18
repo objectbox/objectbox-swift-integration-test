@@ -13,6 +13,9 @@ import ObjectBox
 class Author {
     var id: EntityId<Author> = 0
     var name: String
+    
+    var notesStandalone: ToMany<Note, Author>
+    
     // objectbox: backlink = "author"
     var notes: ToMany<Note, Author>
     
@@ -21,6 +24,7 @@ class Author {
         self.id = 0
         self.name = ""
         self.notes = nil
+        self.notesStandalone = nil
     }
     
     convenience init(name: String) {
