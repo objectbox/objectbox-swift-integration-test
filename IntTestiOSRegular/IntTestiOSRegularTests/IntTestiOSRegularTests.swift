@@ -49,7 +49,7 @@ class IntTestiOSRegularTests: XCTestCase {
         
         XCTAssertEqual(1, authorBox!
             .query{Author.name.contains("a", caseSensitive: false)}
-            .link(property: Author.notes){Note.text.contains("Lorem")}
+            .link(Author.notes){Note.text.contains("Lorem")}
             .build().count())
     }
     
@@ -65,18 +65,18 @@ class IntTestiOSRegularTests: XCTestCase {
         note.id = try! noteBox!.put(note) // at v1.0.0-rc6, requires an explicit put
         
         let author = Author( name: "Arthur")
-        author.notesStandalone.append(note)
-        
         try! authorBox!.put(author)
-        
+
+        author.notesStandalone.append(note)
+        try! author.notesStandalone.apply()
+
         XCTAssertEqual(noteBox!.count(), 1)
         XCTAssertEqual(authorBox!.count(), 1)
         
-        // TODO at v1.0.0-rc6, this doesn't work
-//        XCTAssertEqual(1, authorBox!
-//            .query{Author.name.contains("a", caseSensitive: false)}
-//            .link(property: Author.notesStandalone){Note.text.contains("Lorem")}
-//            .build().count())
+        XCTAssertEqual(1, authorBox!
+            .query{Author.name.contains("a", caseSensitive: false)}
+            .link(Author.notesStandalone){Note.text.contains("Lorem")}
+            .build().count())
     }
     
     func testStructToClassLink() {
@@ -99,7 +99,7 @@ class IntTestiOSRegularTests: XCTestCase {
         
         XCTAssertEqual(1, noteBox!
             .query{NoteStruct.text.contains("Lorem")}
-            .link(property: NoteStruct.author){Author.name.contains("a", caseSensitive: false)}
+            .link(NoteStruct.author){Author.name.contains("a", caseSensitive: false)}
             .build().count())
     }
     
@@ -122,10 +122,10 @@ class IntTestiOSRegularTests: XCTestCase {
         XCTAssertEqual(noteBox!.count(), 1)
         XCTAssertEqual(authorBox!.count(), 1)
         
-        // TODO at v1.0.0-rc6, this doesn't work
+        // TODO at v1.0.0-rc7, this doesn't work
 //        XCTAssertEqual(1, authorBox!
 //            .query{AuthorStruct.name.contains("a", caseSensitive: false)}
-//            .link(property: AuthorStruct.notes){NoteStruct.text.contains("Lorem")}
+//            .link(AuthorStruct.notes){NoteStruct.text.contains("Lorem")}
 //            .build().count())
     }
 }
