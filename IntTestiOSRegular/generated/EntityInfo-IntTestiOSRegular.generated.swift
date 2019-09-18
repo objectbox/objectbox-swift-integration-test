@@ -27,11 +27,13 @@ extension Author: ObjectBox.EntityInspectable {
     internal static var entityBinding = EntityBindingType()
 
     fileprivate static func buildEntity(modelBuilder: ObjectBox.ModelBuilder) throws {
-        let entityBuilder = try modelBuilder.entityBuilder(for: Author.self, id: 1, uid: 3174579345722166272)
-        try entityBuilder.addProperty(name: "id", type: EntityId<Author>.entityPropertyType, flags: [.id], id: 1, uid: 9202742304785003008)
-        try entityBuilder.addProperty(name: "name", type: String.entityPropertyType, id: 2, uid: 9202834111185565696)
+        let entityBuilder = try modelBuilder.entityBuilder(for: Author.self, id: 1, uid: 1929015859046408192)
+        try entityBuilder.addProperty(name: "id", type: EntityId<Author>.entityPropertyType, flags: [.id], id: 1, uid: 2900800177041107712)
+        try entityBuilder.addProperty(name: "name", type: String.entityPropertyType, id: 2, uid: 6615236515020913152)
+        try entityBuilder.addToManyRelation(id: 1, uid: 818851024577826048,
+                                            targetId: 2, targetUid: 2938133627900000768)
 
-        try entityBuilder.lastProperty(id: 2, uid: 9202834111185565696)
+        try entityBuilder.lastProperty(id: 2, uid: 6615236515020913152)
     }
 }
 
@@ -51,7 +53,7 @@ extension Author {
     /// Use `Author.notesStandalone` to refer to this ToMany relation property in queries,
     /// like when using `QueryBuilder.and(property:, conditions:)`.
 
-    internal static var notesStandalone: ToManyProperty<Author, Note> { return ToManyProperty(.backlinkRelationId(2)) }
+    internal static var notesStandalone: ToManyProperty<Author, Note> { return ToManyProperty(.relationId(1)) }
 
     /// Use `Author.notes` to refer to this ToMany relation property in queries,
     /// like when using `QueryBuilder.and(property:, conditions:)`.
@@ -84,7 +86,7 @@ extension ObjectBox.Property where E == Author {
     /// Use `.notesStandalone` to refer to this ToMany relation property in queries, like when using
     /// `QueryBuilder.and(property:, conditions:)`.
 
-    internal static var notesStandalone: ToManyProperty<Author, Note> { return ToManyProperty(.backlinkRelationId(2)) }
+    internal static var notesStandalone: ToManyProperty<Author, Note> { return ToManyProperty(.relationId(1)) }
 
     /// Use `.notes` to refer to this ToMany relation property in queries, like when using
     /// `QueryBuilder.and(property:, conditions:)`.
@@ -124,10 +126,11 @@ internal class AuthorBinding: NSObject, ObjectBox.EntityBinding {
 
     internal func postPut(fromEntity entity: EntityType, id: ObjectBox.Id, store: ObjectBox.Store) {
         if entityId(of: entity) == 0 { // Written for first time? Attach ToMany relations:
-            let notesStandalone = ToMany<Note, Author>.backlink(
-                sourceBox: store.box(for: ToMany<Note, Author>.ReferencedType.self),
-                sourceProperty: ToMany<Note, Author>.ReferencedType.author,
-                targetId: EntityId<ToMany<Note, Author>.OwningType>(id.value))
+            let notesStandalone = ToMany<Note, Author>.relation(
+                sourceBox: store.box(for: ToMany<Note, Author>.OwningType.self),
+                sourceId: EntityId<ToMany<Note, Author>.OwningType>(id.value),
+                targetBox: store.box(for: ToMany<Note, Author>.ReferencedType.self),
+                relationId: 1)
             if !entity.notesStandalone.isEmpty {
                 notesStandalone.replace(entity.notesStandalone)
             }
@@ -148,10 +151,11 @@ internal class AuthorBinding: NSObject, ObjectBox.EntityBinding {
         entity.id = entityReader.read(at: 2 + 2 * 1)
         entity.name = entityReader.read(at: 2 + 2 * 2)
 
-        entity.notesStandalone = ToMany<Note, Author>.backlink(
-            sourceBox: store.box(for: ToMany<Note, Author>.ReferencedType.self),
-            sourceProperty: ToMany<Note, Author>.ReferencedType.author,
-            targetId: EntityId<ToMany<Note, Author>.OwningType>(entity.id.value))
+        entity.notesStandalone = ToMany<Note, Author>.relation(
+            sourceBox: store.box(for: ToMany<Note, Author>.OwningType.self),
+            sourceId: EntityId<ToMany<Note, Author>.OwningType>(entity.id.value),
+            targetBox: store.box(for: ToMany<Note, Author>.ReferencedType.self),
+            relationId: 1)
         entity.notes = ToMany<Note, Author>.backlink(
             sourceBox: store.box(for: ToMany<Note, Author>.ReferencedType.self),
             sourceProperty: ToMany<Note, Author>.ReferencedType.author,
@@ -174,18 +178,18 @@ extension AuthorStruct: ObjectBox.EntityInspectable {
     internal typealias EntityBindingType = AuthorStructBinding
 
     /// Generated metadata used by ObjectBox to persist the entity.
-    internal static var entityInfo = ObjectBox.EntityInfo(name: "AuthorStruct", id: 2)
+    internal static var entityInfo = ObjectBox.EntityInfo(name: "AuthorStruct", id: 3)
 
     internal static var entityBinding = EntityBindingType()
 
     fileprivate static func buildEntity(modelBuilder: ObjectBox.ModelBuilder) throws {
-        let entityBuilder = try modelBuilder.entityBuilder(for: AuthorStruct.self, id: 2, uid: 7912214780485241856)
-        try entityBuilder.addProperty(name: "id", type: EntityId<AuthorStruct>.entityPropertyType, flags: [.id], id: 1, uid: 6007678382023183872)
-        try entityBuilder.addProperty(name: "name", type: String.entityPropertyType, id: 2, uid: 3402380277900707584)
-        try entityBuilder.addToManyRelation(id: 1, uid: 5945069275498723584,
-                                            targetId: 4, targetUid: 350948584967196672)
+        let entityBuilder = try modelBuilder.entityBuilder(for: AuthorStruct.self, id: 3, uid: 8487821801970196992)
+        try entityBuilder.addProperty(name: "id", type: EntityId<AuthorStruct>.entityPropertyType, flags: [.id], id: 1, uid: 3465244931676925440)
+        try entityBuilder.addProperty(name: "name", type: String.entityPropertyType, id: 2, uid: 7396549316336739584)
+        try entityBuilder.addToManyRelation(id: 2, uid: 1980637644033212928,
+                                            targetId: 4, targetUid: 5165970882468521216)
 
-        try entityBuilder.lastProperty(id: 2, uid: 3402380277900707584)
+        try entityBuilder.lastProperty(id: 2, uid: 7396549316336739584)
     }
 }
 
@@ -205,7 +209,7 @@ extension AuthorStruct {
     /// Use `AuthorStruct.notes` to refer to this ToMany relation property in queries,
     /// like when using `QueryBuilder.and(property:, conditions:)`.
 
-    internal static var notes: ToManyProperty<AuthorStruct, NoteStruct> { return ToManyProperty(.relationId(1)) }
+    internal static var notes: ToManyProperty<AuthorStruct, NoteStruct> { return ToManyProperty(.relationId(2)) }
 
 }
 
@@ -229,7 +233,7 @@ extension ObjectBox.Property where E == AuthorStruct {
     /// Use `.notes` to refer to this ToMany relation property in queries, like when using
     /// `QueryBuilder.and(property:, conditions:)`.
 
-    internal static var notes: ToManyProperty<AuthorStruct, NoteStruct> { return ToManyProperty(.relationId(1)) }
+    internal static var notes: ToManyProperty<AuthorStruct, NoteStruct> { return ToManyProperty(.relationId(2)) }
 
 }
 
@@ -271,7 +275,7 @@ internal class AuthorStructBinding: NSObject, ObjectBox.EntityBinding {
                             sourceBox: store.box(for: ToMany<NoteStruct, AuthorStruct>.OwningType.self),
                             sourceId: EntityId<ToMany<NoteStruct, AuthorStruct>.OwningType>(entityId.value),
                             targetBox: store.box(for: ToMany<NoteStruct, AuthorStruct>.ReferencedType.self),
-                            relationId: 1)
+                            relationId: 2)
         )
         return entity
     }
@@ -336,20 +340,20 @@ extension Note: ObjectBox.EntityInspectable {
     internal typealias EntityBindingType = NoteBinding
 
     /// Generated metadata used by ObjectBox to persist the entity.
-    internal static var entityInfo = ObjectBox.EntityInfo(name: "Note", id: 3)
+    internal static var entityInfo = ObjectBox.EntityInfo(name: "Note", id: 2)
 
     internal static var entityBinding = EntityBindingType()
 
     fileprivate static func buildEntity(modelBuilder: ObjectBox.ModelBuilder) throws {
-        let entityBuilder = try modelBuilder.entityBuilder(for: Note.self, id: 3, uid: 5291077752166514944)
-        try entityBuilder.addProperty(name: "id", type: Id.entityPropertyType, flags: [.id], id: 1, uid: 5379615330345901056)
-        try entityBuilder.addProperty(name: "title", type: String.entityPropertyType, id: 2, uid: 1119999695754210560)
-        try entityBuilder.addProperty(name: "text", type: String.entityPropertyType, id: 3, uid: 5674405313730227712)
-        try entityBuilder.addProperty(name: "creationDate", type: Date.entityPropertyType, id: 4, uid: 8671541655696660224)
-        try entityBuilder.addProperty(name: "modificationDate", type: Date.entityPropertyType, id: 5, uid: 2502047161751865344)
-        try entityBuilder.addToOneRelation(name: "author", targetEntityInfo: ToOne<Author>.Target.entityInfo, id: 6, uid: 8616331647589831680, indexId: 1, indexUid: 4948446702806383104)
+        let entityBuilder = try modelBuilder.entityBuilder(for: Note.self, id: 2, uid: 2938133627900000768)
+        try entityBuilder.addProperty(name: "id", type: Id.entityPropertyType, flags: [.id], id: 1, uid: 5167044809936833536)
+        try entityBuilder.addProperty(name: "title", type: String.entityPropertyType, id: 2, uid: 106626844958824192)
+        try entityBuilder.addProperty(name: "text", type: String.entityPropertyType, id: 3, uid: 8439158285230343936)
+        try entityBuilder.addProperty(name: "creationDate", type: Date.entityPropertyType, id: 4, uid: 1991401841250851072)
+        try entityBuilder.addProperty(name: "modificationDate", type: Date.entityPropertyType, id: 5, uid: 1032771270938277888)
+        try entityBuilder.addToOneRelation(name: "author", targetEntityInfo: ToOne<Author>.Target.entityInfo, id: 6, uid: 542781284570685696, indexId: 1, indexUid: 4249409595716153088)
 
-        try entityBuilder.lastProperty(id: 6, uid: 8616331647589831680)
+        try entityBuilder.lastProperty(id: 6, uid: 542781284570685696)
     }
 }
 
@@ -516,15 +520,15 @@ extension NoteStruct: ObjectBox.EntityInspectable {
     internal static var entityBinding = EntityBindingType()
 
     fileprivate static func buildEntity(modelBuilder: ObjectBox.ModelBuilder) throws {
-        let entityBuilder = try modelBuilder.entityBuilder(for: NoteStruct.self, id: 4, uid: 350948584967196672)
-        try entityBuilder.addProperty(name: "id", type: Id.entityPropertyType, flags: [.id], id: 1, uid: 8251594684070462976)
-        try entityBuilder.addProperty(name: "title", type: String.entityPropertyType, id: 2, uid: 3870789587460478720)
-        try entityBuilder.addProperty(name: "text", type: String.entityPropertyType, id: 3, uid: 4791017530201276928)
-        try entityBuilder.addProperty(name: "creationDate", type: Date.entityPropertyType, id: 4, uid: 7999638070113372672)
-        try entityBuilder.addProperty(name: "modificationDate", type: Date.entityPropertyType, id: 5, uid: 2047841780899238912)
-        try entityBuilder.addToOneRelation(name: "author", targetEntityInfo: ToOne<Author>.Target.entityInfo, id: 6, uid: 230713032830991360, indexId: 2, indexUid: 2156036334398191872)
+        let entityBuilder = try modelBuilder.entityBuilder(for: NoteStruct.self, id: 4, uid: 5165970882468521216)
+        try entityBuilder.addProperty(name: "id", type: Id.entityPropertyType, flags: [.id], id: 1, uid: 6273628422701849088)
+        try entityBuilder.addProperty(name: "title", type: String.entityPropertyType, id: 2, uid: 7056067094280675840)
+        try entityBuilder.addProperty(name: "text", type: String.entityPropertyType, id: 3, uid: 7712887951442338304)
+        try entityBuilder.addProperty(name: "creationDate", type: Date.entityPropertyType, id: 4, uid: 8346543372345148416)
+        try entityBuilder.addProperty(name: "modificationDate", type: Date.entityPropertyType, id: 5, uid: 1756048498335405312)
+        try entityBuilder.addToOneRelation(name: "author", targetEntityInfo: ToOne<Author>.Target.entityInfo, id: 6, uid: 5562157089393177856, indexId: 2, indexUid: 7515899661869751296)
 
-        try entityBuilder.lastProperty(id: 6, uid: 230713032830991360)
+        try entityBuilder.lastProperty(id: 6, uid: 5562157089393177856)
     }
 }
 
@@ -729,9 +733,9 @@ fileprivate func cModel() throws -> OpaquePointer {
     try AuthorStruct.buildEntity(modelBuilder: modelBuilder)
     try Note.buildEntity(modelBuilder: modelBuilder)
     try NoteStruct.buildEntity(modelBuilder: modelBuilder)
-    modelBuilder.lastEntity(id: 4, uid: 350948584967196672)
-    modelBuilder.lastIndex(id: 2, uid: 2156036334398191872)
-    modelBuilder.lastRelation(id: 2, uid: 6088722882551097600)
+    modelBuilder.lastEntity(id: 4, uid: 5165970882468521216)
+    modelBuilder.lastIndex(id: 2, uid: 7515899661869751296)
+    modelBuilder.lastRelation(id: 2, uid: 1980637644033212928)
     return modelBuilder.finish()
 }
 
