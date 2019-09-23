@@ -30,12 +30,12 @@ class IntTestiOSRegularTests: XCTestCase {
         try! store?.closeAndDeleteAllFiles()
     }
 
-    func testClasses() {
+    func testClasses() throws {
         let noteBox = store?.box(for: Note.self)
         let authorBox = store?.box(for: Author.self)
         
-        XCTAssert(noteBox!.isEmpty())
-        XCTAssert(authorBox!.isEmpty())
+        XCTAssert(try noteBox!.isEmpty())
+        XCTAssert(try authorBox!.isEmpty())
         
         let note = Note()
         note.text = "Lorem ipsum"
@@ -44,22 +44,22 @@ class IntTestiOSRegularTests: XCTestCase {
         
         try! noteBox!.put(note)
         
-        XCTAssertEqual(noteBox!.count(), 1)
-        XCTAssertEqual(authorBox!.count(), 1)
+        XCTAssertEqual(try noteBox!.count(), 1)
+        XCTAssertEqual(try authorBox!.count(), 1)
         
-        XCTAssertEqual(1, authorBox!
+        XCTAssertEqual(1, try authorBox!
             .query{Author.name.contains("a", caseSensitive: false)}
             .link(Author.notes){Note.text.contains("Lorem")}
             .build().count())
     }
     
-    func testClassesToManyStandalone() {
+    func testClassesToManyStandalone() throws {
         // there's a ToMany relation in AuthorStruct for NoteStruct
         let noteBox = store?.box(for: Note.self)
         let authorBox = store?.box(for: Author.self)
         
-        XCTAssert(noteBox!.isEmpty())
-        XCTAssert(authorBox!.isEmpty())
+        XCTAssert(try noteBox!.isEmpty())
+        XCTAssert(try authorBox!.isEmpty())
         
         let note = Note(title: "Title", text: "Lorem ipsum")
         note.id = try! noteBox!.put(note) // at v1.0.0-rc6, requires an explicit put
@@ -68,24 +68,24 @@ class IntTestiOSRegularTests: XCTestCase {
         try! authorBox!.put(author)
 
         author.notesStandalone.append(note)
-        try! author.notesStandalone.apply()
+        try! author.notesStandalone.applyToDb()
 
-        XCTAssertEqual(noteBox!.count(), 1)
-        XCTAssertEqual(authorBox!.count(), 1)
+        XCTAssertEqual(try noteBox!.count(), 1)
+        XCTAssertEqual(try authorBox!.count(), 1)
         
-        XCTAssertEqual(1, authorBox!
+        XCTAssertEqual(1, try authorBox!
             .query{Author.name.contains("a", caseSensitive: false)}
             .link(Author.notesStandalone){Note.text.contains("Lorem")}
             .build().count())
     }
     
-    func testStructToClassLink() {
+    func testStructToClassLink() throws {
         // there's a link from NoteStruct to Author
         let noteBox = store?.box(for: NoteStruct.self)
         let authorBox = store?.box(for: Author.self)
         
-        XCTAssert(noteBox!.isEmpty())
-        XCTAssert(authorBox!.isEmpty())
+        XCTAssert(try noteBox!.isEmpty())
+        XCTAssert(try authorBox!.isEmpty())
         
         let author = Author(name: "Arthur")
         let relation = ToOne<Author>(author)
@@ -94,33 +94,33 @@ class IntTestiOSRegularTests: XCTestCase {
         
         try! noteBox!.put(note)
         
-        XCTAssertEqual(noteBox!.count(), 1)
-        XCTAssertEqual(authorBox!.count(), 1)
+        XCTAssertEqual(try noteBox!.count(), 1)
+        XCTAssertEqual(try authorBox!.count(), 1)
         
-        XCTAssertEqual(1, noteBox!
+        XCTAssertEqual(1, try noteBox!
             .query{NoteStruct.text.contains("Lorem")}
             .link(NoteStruct.author){Author.name.contains("a", caseSensitive: false)}
             .build().count())
     }
     
-    func testStructsToManyStandalone() {
+    func testStructsToManyStandalone() throws {
         // there's a ToMany relation in AuthorStruct for NoteStruct
         let noteBox = store?.box(for: NoteStruct.self)
         let authorBox = store?.box(for: AuthorStruct.self)
         
-        XCTAssert(noteBox!.isEmpty())
-        XCTAssert(authorBox!.isEmpty())
+        XCTAssert(try noteBox!.isEmpty())
+        XCTAssert(try authorBox!.isEmpty())
         
         var note = NoteStruct(id: 0, title: "Title", text: "Lorem ipsum", creationDate: Date(), modificationDate: Date(), author: ToOne<Author>(nil))
         note.id = try! noteBox!.put(note) // at v1.0.0-rc6, requires an explicit put
         
-        let notes = ToMany<NoteStruct, AuthorStruct>([note])
+        let notes = ToMany<NoteStruct>([note])
         let author = AuthorStruct(id: EntityId<AuthorStruct>(0), name: "Arthur", notes: notes)
 
         try! authorBox!.put(author)
         
-        XCTAssertEqual(noteBox!.count(), 1)
-        XCTAssertEqual(authorBox!.count(), 1)
+        XCTAssertEqual(try noteBox!.count(), 1)
+        XCTAssertEqual(try authorBox!.count(), 1)
         
         // TODO at v1.0.0-rc7, this doesn't work
 //        XCTAssertEqual(1, authorBox!
