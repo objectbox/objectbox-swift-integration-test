@@ -320,16 +320,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-IntTestiOSRegular/Pods-IntTestiOSRegular-frameworks.sh",
-				"${PODS_ROOT}/ObjectBox/Carthage/Build/iOS/ObjectBox.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-IntTestiOSRegular/Pods-IntTestiOSRegular-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectBox.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-IntTestiOSRegular/Pods-IntTestiOSRegular-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

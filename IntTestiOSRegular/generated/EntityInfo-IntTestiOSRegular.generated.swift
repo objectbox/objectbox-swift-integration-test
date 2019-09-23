@@ -53,12 +53,12 @@ extension Author {
     /// Use `Author.notesStandalone` to refer to this ToMany relation property in queries,
     /// like when using `QueryBuilder.and(property:, conditions:)`.
 
-    internal static var notesStandalone: ToManyProperty<Author, Note> { return ToManyProperty(.relationId(1)) }
+    internal static var notesStandalone: ToManyProperty<Note> { return ToManyProperty(.relationId(1)) }
 
     /// Use `Author.notes` to refer to this ToMany relation property in queries,
     /// like when using `QueryBuilder.and(property:, conditions:)`.
 
-    internal static var notes: ToManyProperty<Author, Note> { return ToManyProperty(.valuePropertyId(6)) }
+    internal static var notes: ToManyProperty<Note> { return ToManyProperty(.valuePropertyId(6)) }
 
 
     fileprivate func __setId(identifier: ObjectBox.Id) {
@@ -86,12 +86,12 @@ extension ObjectBox.Property where E == Author {
     /// Use `.notesStandalone` to refer to this ToMany relation property in queries, like when using
     /// `QueryBuilder.and(property:, conditions:)`.
 
-    internal static var notesStandalone: ToManyProperty<Author, Note> { return ToManyProperty(.relationId(1)) }
+    internal static var notesStandalone: ToManyProperty<Note> { return ToManyProperty(.relationId(1)) }
 
     /// Use `.notes` to refer to this ToMany relation property in queries, like when using
     /// `QueryBuilder.and(property:, conditions:)`.
 
-    internal static var notes: ToManyProperty<Author, Note> { return ToManyProperty(.valuePropertyId(6)) }
+    internal static var notes: ToManyProperty<Note> { return ToManyProperty(.valuePropertyId(6)) }
 
 }
 
@@ -126,19 +126,18 @@ internal class AuthorBinding: NSObject, ObjectBox.EntityBinding {
 
     internal func postPut(fromEntity entity: EntityType, id: ObjectBox.Id, store: ObjectBox.Store) {
         if entityId(of: entity) == 0 { // Written for first time? Attach ToMany relations:
-            let notesStandalone = ToMany<Note, Author>.relation(
-                sourceBox: store.box(for: ToMany<Note, Author>.OwningType.self),
-                sourceId: EntityId<ToMany<Note, Author>.OwningType>(id.value),
-                targetBox: store.box(for: ToMany<Note, Author>.ReferencedType.self),
+            let notesStandalone = ToMany<Note>.relation(
+                sourceId: EntityId<Author>(id.value),
+                targetBox: store.box(for: ToMany<Note>.ReferencedType.self),
                 relationId: 1)
             if !entity.notesStandalone.isEmpty {
                 notesStandalone.replace(entity.notesStandalone)
             }
             entity.notesStandalone = notesStandalone
-            let notes = ToMany<Note, Author>.backlink(
-                sourceBox: store.box(for: ToMany<Note, Author>.ReferencedType.self),
-                sourceProperty: ToMany<Note, Author>.ReferencedType.author,
-                targetId: EntityId<ToMany<Note, Author>.OwningType>(id.value))
+            let notes = ToMany<Note>.backlink(
+                sourceBox: store.box(for: ToMany<Note>.ReferencedType.self),
+                sourceProperty: ToMany<Note>.ReferencedType.author,
+                targetId: EntityId<Author>(id.value))
             if !entity.notes.isEmpty {
                 notes.replace(entity.notes)
             }
@@ -151,15 +150,14 @@ internal class AuthorBinding: NSObject, ObjectBox.EntityBinding {
         entity.id = entityReader.read(at: 2 + 2 * 1)
         entity.name = entityReader.read(at: 2 + 2 * 2)
 
-        entity.notesStandalone = ToMany<Note, Author>.relation(
-            sourceBox: store.box(for: ToMany<Note, Author>.OwningType.self),
-            sourceId: EntityId<ToMany<Note, Author>.OwningType>(entity.id.value),
-            targetBox: store.box(for: ToMany<Note, Author>.ReferencedType.self),
+        entity.notesStandalone = ToMany<Note>.relation(
+            sourceId: EntityId<Author>(entity.id.value),
+            targetBox: store.box(for: ToMany<Note>.ReferencedType.self),
             relationId: 1)
-        entity.notes = ToMany<Note, Author>.backlink(
-            sourceBox: store.box(for: ToMany<Note, Author>.ReferencedType.self),
-            sourceProperty: ToMany<Note, Author>.ReferencedType.author,
-            targetId: EntityId<ToMany<Note, Author>.OwningType>(entity.id.value))
+        entity.notes = ToMany<Note>.backlink(
+            sourceBox: store.box(for: ToMany<Note>.ReferencedType.self),
+            sourceProperty: ToMany<Note>.ReferencedType.author,
+            targetId: EntityId<Author>(entity.id.value))
         return entity
     }
 }
@@ -209,7 +207,7 @@ extension AuthorStruct {
     /// Use `AuthorStruct.notes` to refer to this ToMany relation property in queries,
     /// like when using `QueryBuilder.and(property:, conditions:)`.
 
-    internal static var notes: ToManyProperty<AuthorStruct, NoteStruct> { return ToManyProperty(.relationId(2)) }
+    internal static var notes: ToManyProperty<NoteStruct> { return ToManyProperty(.relationId(2)) }
 
 }
 
@@ -233,7 +231,7 @@ extension ObjectBox.Property where E == AuthorStruct {
     /// Use `.notes` to refer to this ToMany relation property in queries, like when using
     /// `QueryBuilder.and(property:, conditions:)`.
 
-    internal static var notes: ToManyProperty<AuthorStruct, NoteStruct> { return ToManyProperty(.relationId(2)) }
+    internal static var notes: ToManyProperty<NoteStruct> { return ToManyProperty(.relationId(2)) }
 
 }
 
@@ -271,10 +269,9 @@ internal class AuthorStructBinding: NSObject, ObjectBox.EntityBinding {
         let entity = AuthorStruct(
             id: entityId, 
             name: entityReader.read(at: 2 + 2 * 2), 
-            notes: ToMany<NoteStruct, AuthorStruct>.relation(
-                            sourceBox: store.box(for: ToMany<NoteStruct, AuthorStruct>.OwningType.self),
-                            sourceId: EntityId<ToMany<NoteStruct, AuthorStruct>.OwningType>(entityId.value),
-                            targetBox: store.box(for: ToMany<NoteStruct, AuthorStruct>.ReferencedType.self),
+            notes: ToMany<NoteStruct>.relation(
+                            sourceId: EntityId<AuthorStruct>(entityId.value),
+                            targetBox: store.box(for: ToMany<NoteStruct>.ReferencedType.self),
                             relationId: 2)
         )
         return entity

@@ -14,10 +14,10 @@ class Author {
     var id: EntityId<Author> = 0
     var name: String
     
-    var notesStandalone: ToMany<Note, Author>
+    var notesStandalone: ToMany<Note>
     
     // objectbox: backlink = "author"
-    var notes: ToMany<Note, Author>
+    var notes: ToMany<Note>
     
     // An initializer with no parameters is required by ObjectBox
     required init() {
