@@ -40,7 +40,7 @@ end" >> Podfile
 
 pod repo update
 pod install
-Pods/ObjectBox501/setup.rb
+Pods/ObjectBox501/setup.rb --replace-modified
 
 xcodebuild clean build "${options[@]}"
 
