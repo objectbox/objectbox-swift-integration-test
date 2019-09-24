@@ -18,14 +18,14 @@ echo "
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
-source 'https://github.com/objectbox/objectbox-swift-spec-staging.git'
+#source 'https://github.com/objectbox/objectbox-swift-spec-staging.git'
 
 target '${project}' do
   use_frameworks!
 
   # Pods for ${project}
   # pod 'ObjectBox'
-  pod 'ObjectBox501', '1.0.0-rc.10'
+  pod 'ObjectBox501'
 " > Podfile
 
 if [ -d "${project}Tests" ]; then 
