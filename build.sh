@@ -1,6 +1,18 @@
 #!/usr/bin/env bash
 set -eu
 
+#script_dir=$(dirname "$(readlink -f "$0")")
+#macOS's readlink does not have -f option, do this instead:
+script_dir=$( cd "$(dirname "$0")" ; pwd -P )
+
+cd "$script_dir" # allow to call from any dir
+
+if [ -z "${1-}" ]; then # No params, so loop over dirs and call this script with those
+  for project in "$script_dir"/*/ ; do (./build.sh "$(basename "${project}")"); done
+  echo "ALL DONE"
+  exit
+fi
+
 project="$1"
 
 echo "========================================================================="
