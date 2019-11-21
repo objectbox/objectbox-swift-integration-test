@@ -6,3 +6,9 @@ build:
   tags: [mac, x64, xcode]
   script:
     - ./build.sh
+
+build-V1.0.1:
+  stage: build
+  tags: [mac, x64, xcode]
+  script:
+    - ./build.sh -v 1.0.1
