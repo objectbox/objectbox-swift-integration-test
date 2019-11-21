@@ -1,0 +1,10 @@
+version: 2 # use version 2.0 of CircleCI
+jobs: # a basic unit of work in a run
+  build: # runs not using `Workflows` must have a `build` job as entry point
+    macos: # indicate that we are using the macOS executor
+      xcode: "11.2.1" # https://circleci.com/docs/2.0/testing-ios/#supported-xcode-versions
+    steps: # a series of commands to run
+      - checkout # pull down code from your version control system.
+      - run:
+          name: Build all the tests
+          command: ./build.sh
