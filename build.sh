@@ -24,8 +24,7 @@ target '${project}' do
   use_frameworks!
 
   # Pods for ${project}
-  # pod 'ObjectBox'
-  pod 'ObjectBox501'
+  pod 'ObjectBox'
 " > Podfile
 
 if [ -d "${project}Tests" ]; then 
@@ -40,7 +39,7 @@ end" >> Podfile
 
 pod repo update
 pod install
-Pods/ObjectBox501/setup.rb --replace-modified
+Pods/ObjectBox/setup.rb --replace-modified
 
 xcodebuild clean build "${options[@]}"
 
