@@ -65,6 +65,12 @@ options+=(-workspace "${project}.xcworkspace" -scheme "${project}")
 
 cd "${project}"
 
+podInstall="pod install"
+if test -f "Podfile.lock"; then
+    echo "Podfile.lock exist, will use 'pod update'"
+    podInstall="pod update"
+fi
+
 # https://swift.objectbox.io/install
 echo "
 # Uncomment the next line to define a global platform for your project
@@ -103,8 +109,11 @@ if [ -n "${podfile_only}" ]; then
   exit
 fi
 
-pod repo update
-pod update
+# CocoaPods 1.8.x[<3] requires `pod install` or `pod repo update` fails https://github.com/CocoaPods/CocoaPods/issues/9226
+#pod repo update
+pod install --repo-update
+
+$podInstall
 Pods/ObjectBox/setup.rb --replace-modified
 
 xcodebuild clean build "${options[@]}"
