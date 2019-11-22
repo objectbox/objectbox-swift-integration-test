@@ -10,4 +10,4 @@ jobs: # a basic unit of work in a run
           command: brew install coreutils
       - run:
           name: Build all the tests
-          command: ./build.sh
+          command: bash -x build.sh

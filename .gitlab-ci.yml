@@ -5,10 +5,10 @@ build:
   stage: build
   tags: [mac, x64, xcode]
   script:
-    - ./build.sh
+    - bash -x build.sh
 
 build-V1.0.1:
   stage: build
   tags: [mac, x64, xcode]
   script:
-    - ./build.sh -v 1.0.1
+    - bash -x build.sh -v 1.0.1
