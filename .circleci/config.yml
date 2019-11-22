@@ -1,13 +1,27 @@
-version: 2 # use version 2.0 of CircleCI
-jobs: # a basic unit of work in a run
-  build: # runs not using `Workflows` must have a `build` job as entry point
-    macos: # indicate that we are using the macOS executor
-      xcode: "11.2.1" # https://circleci.com/docs/2.0/testing-ios/#supported-xcode-versions
-    steps: # a series of commands to run
-      - checkout # pull down code from your version control system.
-      - run:
-          name: Install realpath & co.
-          command: brew install coreutils
-      - run:
-          name: Build all the tests
-          command: bash -x build.sh
+# https://circleci.com/docs/2.0/configuration-reference/
+# https://circleci.com/docs/2.0/testing-ios/#supported-xcode-versions
+version: 2.1
+
+build_tpl: &build
+  steps:
+    - checkout
+    - run:
+        name: Install realpath & co.
+        command: brew install coreutils
+    - run:
+        name: Build all the tests
+        command: bash -x build.sh
+
+jobs:
+  xcode-11.2.1-macos-10.15:
+    macos:
+      xcode: "11.2.1"
+    <<: *build
+  xcode-11.1.0-macos-10.14:
+    macos:
+      xcode: "11.1.0"
+    <<: *build
+  xcode-10.3.0-macos-10.14:
+    macos:
+      xcode: "10.3.0"
+    <<: *build
