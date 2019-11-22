@@ -110,5 +110,5 @@ Pods/ObjectBox/setup.rb --replace-modified
 xcodebuild clean build "${options[@]}"
 
 if [ -d "${project}Tests" ]; then 
-  xcodebuild test "${options[@]}" -destination 'platform=iOS Simulator,name=iPhone Xs'
+  xcodebuild test "${options[@]}" -destination 'platform=iOS Simulator,name=iPhone 11'
 fi
