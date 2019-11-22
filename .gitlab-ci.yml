@@ -1,14 +1,17 @@
+# tests use the simulator so they can't run in parallel
+# see https://gitlab.com/gitlab-org/gitlab/issues/15536 for future support of locks
 stages:
-  - build
+  - build1
+  - build2
 
 build:
-  stage: build
+  stage: build1
   tags: [mac, x64, xcode]
   script:
     - bash -x build.sh
 
 build-V1.0.1:
-  stage: build
+  stage: build2
   tags: [mac, x64, xcode]
   script:
     - bash -x build.sh -v 1.0.1
