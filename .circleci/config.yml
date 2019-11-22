@@ -6,5 +6,8 @@ jobs: # a basic unit of work in a run
     steps: # a series of commands to run
       - checkout # pull down code from your version control system.
       - run:
+          name: Install realpath & co.
+          command: brew install coreutils
+      - run:
           name: Build all the tests
           command: ./build.sh
