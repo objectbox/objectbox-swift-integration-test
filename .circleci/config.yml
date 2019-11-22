@@ -11,6 +11,13 @@ version: 2.1
     - run:
         name: Build all the tests
         command: bash -x build.sh
+    - run:
+        command: |
+          mkdir -p /tmp/test-results
+          find . -name *.xcresult -exec cp -r {} /tmp/test-results \;
+        when: on_fail
+    - store_artifacts:
+        path: /tmp/test-results
 
 jobs:
   xcode-11_2_1-macos-10_15:
