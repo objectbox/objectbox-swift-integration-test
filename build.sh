@@ -13,7 +13,7 @@ podfile_only=""
 while [ $# -ge 1 ]; do
     case $1 in
     -h|help|--help|usage)
-        echo "Usage: build.sh [options] {project-directory}"
+        echo "Usage: $0 [options] {project-directory}"
         echo
         echo "  -v, --version: specify version for the Podfile"
         echo "  -s, --source: specify source repository for the Podfile"
@@ -48,7 +48,7 @@ cd "$script_dir" # allow to call from any dir
 
 if [ -z "${1-}" ]; then # No params, so loop over dirs and call this script with those
   echo "Invoking projects using original args: $original_args"
-  for project in "$script_dir"/*/ ; do (./build.sh $original_args "$(basename "${project}")"); done
+  for project in "$script_dir"/*/ ; do (bash -x $0 $original_args "$(basename "${project}")"); done
   echo "ALL DONE"
   exit
 fi
@@ -104,7 +104,7 @@ if [ -n "${podfile_only}" ]; then
 fi
 
 pod repo update
-pod install
+pod update
 Pods/ObjectBox/setup.rb --replace-modified
 
 xcodebuild clean build "${options[@]}"
