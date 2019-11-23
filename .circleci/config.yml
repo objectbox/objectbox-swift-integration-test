@@ -10,7 +10,7 @@ version: 2.1
         command: brew install coreutils
     - run:
         name: Build all the tests
-        command: bash -x build.sh
+        command: bash build.sh
     - run:
         command: |
           mkdir -p /tmp/test-results
