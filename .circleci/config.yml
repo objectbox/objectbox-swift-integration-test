@@ -6,9 +6,6 @@ version: 2.1
   steps:
     - checkout
     - run:
-        name: Install realpath & co.
-        command: brew install coreutils
-    - run:
         name: Build all the tests
         command: bash build.sh
     - run:
