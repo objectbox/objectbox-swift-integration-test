@@ -7,7 +7,7 @@ version: 2.1
     - checkout
     - run:
         name: Build all the tests
-        command: ./build.sh --staging -v "~> 1.1.1-rc2"
+        command: ./build.sh #--staging -v "~> 1.1.1-rc2"
     - run:
         command: |
           mkdir -p /tmp/test-results
@@ -17,20 +17,24 @@ version: 2.1
         path: /tmp/test-results
 
 jobs:
+  xcode-11_3_0-macos-10_15:
+    macos: {xcode: "11.3.0"}
+    <<: *build
   xcode-11_2_1-macos-10_15:
     macos: {xcode: "11.2.1"}
     <<: *build
   xcode-11_1_0-macos-10_14:
     macos: {xcode: "11.1.0"}
     <<: *build
-  # module compiled with Swift 5.1.2 cannot be imported by the Swift 5.0.1 compiler
-  # xcode-10_3_0-macos-10_14:
-  #   macos: {xcode: "10.3.0"}
-  #   <<: *build
+  xcode-11_0_0-macos-10_14:
+    macos: {xcode: "11.0.0"}
+    <<: *build
+  # xcode "10.3.0" and older do not support Swift 5.1
 
 workflows:
   build:
     jobs:
+      - xcode-11_3_0-macos-10_15
       - xcode-11_2_1-macos-10_15
       - xcode-11_1_0-macos-10_14
-      # - xcode-10_3_0-macos-10_14
+      - xcode-11_0_0-macos-10_14
