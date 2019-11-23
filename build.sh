@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 set -eu
 
-# build.sh: create
-
-original_args="$*"
-
 version="" # Podfile option
 source="" # Podfile source
 
@@ -13,7 +9,7 @@ podfile_only=""
 while [ $# -ge 1 ]; do
     case $1 in
     -h|help|--help|usage)
-        echo "Usage: $0 [options] {project-directory}"
+        echo "Usage: $(basename "$0") [options] {project-directory}"
         echo
         echo "  -v, --version: specify version for the Podfile"
         echo "  -s, --source: specify source repository for the Podfile"
@@ -46,9 +42,21 @@ script_dir=$( cd "$(dirname "$0")" ; pwd -P )
 
 cd "$script_dir" # allow to call from any dir
 
-if [ -z "${1-}" ]; then # No params, so loop over dirs and call this script with those
-  echo "Invoking projects using original args: $original_args"
-  for project in "$script_dir"/*/ ; do (bash -x $0 $original_args "$(basename "${project}")"); done
+cocoapods_version=$(pod --version 2>/dev/null || true)
+
+if [ -z "${1-}" ]; then # No tailing "project" param, so loop over dirs and call this script with those
+  echo "Detected CocoaPods Version: ${cocoapods_version:-N/A}"
+
+  # Original args ($@) are gone as we called shift during parsing.
+  # Also, cannot capture original args as string as we need to preserve spaces, i.e. in version values.
+  additional_args=""
+  if [ -n "${podfile_only}" ]; then
+      additional_args="-p"
+  fi
+  echo "Invoking projects using args: -v \"$version\" -s \"$source\" $additional_args"
+  for project in "$script_dir"/*/ ; do
+      bash "$(basename "$0")" -v "$version" -s "$source" $additional_args "$(basename "${project}")"
+  done
   echo "ALL DONE"
   exit
 fi
@@ -64,12 +72,6 @@ options+=(-derivedDataPath ./DerivedData)
 options+=(-workspace "${project}.xcworkspace" -scheme "${project}")
 
 cd "${project}"
-
-podInstall="pod install"
-if test -f "Podfile.lock"; then
-    echo "Podfile.lock exist, will use 'pod update'"
-    podInstall="pod update"
-fi
 
 # https://swift.objectbox.io/install
 echo "
@@ -109,11 +111,22 @@ if [ -n "${podfile_only}" ]; then
   exit
 fi
 
-# CocoaPods 1.8.x[<3] requires `pod install` or `pod repo update` fails https://github.com/CocoaPods/CocoaPods/issues/9226
-#pod repo update
-pod install --repo-update
+# On fresh CocoaPods installations (never did 'pod install' before; CI!), CocoaPods 1.8.[0-3] `pod repo update` fails.
+# https://github.com/CocoaPods/CocoaPods/issues/9226
+# To workaround this, use 'pod install --repo-update' instead
+if [[ "$cocoapods_version" > "1.8.3" ]]; then
+  pod repo update
+else
+  pod install --repo-update
+fi
 
-$podInstall
+if test -f "Podfile.lock"; then
+  echo "Podfile.lock exist, will use 'pod update' instead of 'pod install'"
+  pod update
+else
+  pod install
+fi
+
 Pods/ObjectBox/setup.rb --replace-modified
 
 xcodebuild clean build "${options[@]}"
