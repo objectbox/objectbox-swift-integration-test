@@ -11,6 +11,7 @@ build-latest:
   script:
     - ./build.sh
     #- ./build.sh --staging -v "~> 1.1.1-rc1"
+    - ./build.sh --clean --carthage
   retry: 2 # Does it help with "Failed to initiate service connection to simulator"?
 
 build-V1.1.1:
