@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2876456B238C57BA0050D45C /* ObjectBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2876456A238C57BA0050D45C /* ObjectBox.framework */; };
+		28764589238D6E8B0050D45C /* ObjectBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28764588238D6E8B0050D45C /* ObjectBox.framework */; };
+		2876458A238D6E8B0050D45C /* ObjectBox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 28764588238D6E8B0050D45C /* ObjectBox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		295A7BE7232A314000F74FE2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295A7BE6232A314000F74FE2 /* AppDelegate.swift */; };
 		295A7BE9232A314000F74FE2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295A7BE8232A314000F74FE2 /* ViewController.swift */; };
 		295A7BEC232A314000F74FE2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 295A7BEA232A314000F74FE2 /* Main.storyboard */; };
@@ -30,8 +31,22 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		2876458B238D6E8B0050D45C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2876458A238D6E8B0050D45C /* ObjectBox.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		2876456A238C57BA0050D45C /* ObjectBox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectBox.framework; path = Carthage/Build/iOS/ObjectBox.framework; sourceTree = "<group>"; };
+		28764588238D6E8B0050D45C /* ObjectBox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectBox.framework; path = Carthage/Build/iOS/ObjectBox.framework; sourceTree = "<group>"; };
 		295A7BE3232A314000F74FE2 /* IntTestiOSRegular.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntTestiOSRegular.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		295A7BE6232A314000F74FE2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		295A7BE8232A314000F74FE2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -53,7 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2876456B238C57BA0050D45C /* ObjectBox.framework in Frameworks */,
+				28764589238D6E8B0050D45C /* ObjectBox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,6 +82,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		28764587238D6E8B0050D45C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				28764588238D6E8B0050D45C /* ObjectBox.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		295A7BDA232A314000F74FE2 = {
 			isa = PBXGroup;
 			children = (
@@ -74,7 +97,7 @@
 				295A7BFA232A314200F74FE2 /* IntTestiOSRegularTests */,
 				6DC387CB8E980ABB788F94EB /* generated */,
 				295A7BE4232A314000F74FE2 /* Products */,
-				2876456A238C57BA0050D45C /* ObjectBox.framework */,
+				28764587238D6E8B0050D45C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -130,6 +153,7 @@
 				295A7BDF232A314000F74FE2 /* Sources */,
 				295A7BE0232A314000F74FE2 /* Frameworks */,
 				295A7BE1232A314000F74FE2 /* Resources */,
+				2876458B238D6E8B0050D45C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -432,6 +456,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = IntTestiOSRegularTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -452,6 +480,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = IntTestiOSRegularTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
