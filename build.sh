@@ -104,7 +104,8 @@ if [ -n "$use_carthage" ]; then # --------------------- Carthage ---------------
     exit 0
   fi
 
-  echo "github \"objectbox/objectbox-swift\"" > Cartfile
+  #echo "github \"objectbox/objectbox-swift\"" > Cartfile
+  echo "binary \"https://raw.githubusercontent.com/objectbox/objectbox-swift/master/cartspec/ObjectBox.json\"" > Cartfile
   carthage update
 
   xcodeproj_dir=$(find -- *.xcodeproj -maxdepth 0)
