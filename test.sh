@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 set -eu
 
-version="" # Podfile option
-source="" # Podfile source
+##### Used in Podfile/Cartfile #####
+version=""
+source=""
 
-podfile_only=""
+##### Behavioral flags #####
+file_only=""
 do_clean=""
 use_carthage=""
 
@@ -16,7 +18,7 @@ while [ $# -ge 1 ]; do
         echo "  -v, --version:  specify version for the Podfile"
         echo "  -s, --source:   specify source repository for the Podfile"
         echo "  -S, --staging:  use the staging source repository for the Podfile"
-        echo "  -p, --podfile:  only create Podfile"
+        echo "  -f, --file:     only create Podfile/Cartfile"
         echo "  -c, --carthage: use Carthage instead of CocoaPods"
         echo "  --clean:        cleans all added/modified files to reset the state to a fresh"
         echo "                  git checkout. Warning: Data may be LOST!!"
@@ -34,8 +36,8 @@ while [ $# -ge 1 ]; do
     -S|--staging)
         source="https://github.com/objectbox/objectbox-swift-spec-staging.git"
         ;;
-    -p|--podfile)
-        podfile_only="true"
+    -f|--file)
+        file_only="true"
         ;;
     -c|--carthage)
         use_carthage="true"
@@ -60,17 +62,12 @@ if [ -n "$do_clean" ]; then
   git reset --hard
 fi
 
-cocoapods_version=$(pod --version 2>/dev/null || true)
-carthage_version=$(carthage version 2>/dev/null || true)
-
 if [ -z "${1-}" ]; then # No tailing "project" param, so loop over dirs and call this script with those
-  echo "Detected versions: CocoaPods ${cocoapods_version:-N/A}, Carthage ${carthage_version:-N/A}"
-
   # Original args ($@) are gone as we called shift during parsing.
   # Also, cannot capture original args as string as we need to preserve spaces, i.e. in version values.
   additional_args=""
-  if [ -n "${podfile_only}" ]; then
-      additional_args+=" --podfile"
+  if [ -n "${file_only}" ]; then
+      additional_args+=" --file"
   fi
   if [ -n "${use_carthage}" ]; then
       additional_args+=" --carthage"
@@ -106,6 +103,14 @@ if [ -n "$use_carthage" ]; then # --------------------- Carthage ---------------
 
   #echo "github \"objectbox/objectbox-swift\"" > Cartfile
   echo "binary \"https://raw.githubusercontent.com/objectbox/objectbox-swift/master/cartspec/ObjectBox.json\"" > Cartfile
+
+  if [ -n "${file_only}" ]; then
+    exit
+  fi
+
+  carthage_version=$(carthage version 2>/dev/null || true)
+  echo "Detected Carthage version ${carthage_version:-N/A}"
+
   carthage update
 
   xcodeproj_dir=$(find -- *.xcodeproj -maxdepth 0)
@@ -150,9 +155,12 @@ else # --------------------- CocoaPods ---------------------
   echo "
   end" >> Podfile
 
-  if [ -n "${podfile_only}" ]; then
+  if [ -n "${file_only}" ]; then
     exit
   fi
+
+  cocoapods_version=$(pod --version 2>/dev/null || true)
+  echo "Detected CocoaPods version ${cocoapods_version:-N/A}"
 
   # On fresh CocoaPods installations (never did 'pod install' before; CI!), CocoaPods 1.8.[0-3] `pod repo update` fails.
   # https://github.com/CocoaPods/CocoaPods/issues/9226
