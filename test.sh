@@ -102,7 +102,15 @@ if [ -n "$use_carthage" ]; then # --------------------- Carthage ---------------
   fi
 
   #echo "github \"objectbox/objectbox-swift\"" > Cartfile
-  echo "binary \"https://raw.githubusercontent.com/objectbox/objectbox-swift/master/cartspec/ObjectBox.json\"" > Cartfile
+  printf "binary \"https://raw.githubusercontent.com/objectbox/objectbox-swift/master/cartspec/ObjectBox.json\"" > Cartfile
+
+  if [ -n "${version}" ]; then
+    if [[ $version =~ ^[[:digit:]] ]]; then
+      version="== $version" # Cartfile syntax for exact version
+    fi
+    echo "Using version: ${version}"
+    echo " ${version}" >> Cartfile
+  fi
 
   if [ -n "${file_only}" ]; then
     exit

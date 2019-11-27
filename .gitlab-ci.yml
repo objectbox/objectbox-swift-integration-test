@@ -19,6 +19,7 @@ build-V1.1.1:
   tags: [mac, x64, xcode]
   script:
     - ./test.sh -v "1.1.1"
+    - ./test.sh --clean --carthage -v "1.1.1"
   retry: 2 # Does it help with "Failed to initiate service connection to simulator"?
 
 build-V1.0.1:
