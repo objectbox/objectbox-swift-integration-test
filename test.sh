@@ -11,6 +11,8 @@ do_clean=""
 use_carthage=""
 use_staging=""
 
+skip_project=""
+
 while [ $# -ge 1 ]; do
     case $1 in
     -h|help|--help|usage)
@@ -24,6 +26,7 @@ while [ $# -ge 1 ]; do
         echo "  --clean:        cleans all added/modified files to reset the state to a fresh"
         echo "                  git checkout. Warning: Data may be LOST!!"
         echo "                  Does something like 'git clean -fdx && git reset --hard'"
+        echo "  --skip:         specify a project to skip"
         exit 0
         ;;
     -v|--version)
@@ -45,6 +48,10 @@ while [ $# -ge 1 ]; do
         ;;
     --clean)
         do_clean="true"
+        ;;
+    --skip)
+        shift
+        skip_project="$1"
         ;;
     *) break     # Assuming project comes next, stop parsing here
         ;;
@@ -81,12 +88,22 @@ if [ -z "${1-}" ]; then # No tailing "project" param, so loop over dirs and call
   if [ -n "${use_carthage}" ]; then
       additional_args+=" --carthage"
   fi
+  if [ -n "$use_staging" ]; then
+    additional_args+=" --staging"
+  fi
   # Note: we do not need to propagate --clean flag
   echo "Invoking projects using args: -v \"$version\" -s \"$source\" $additional_args"
   for project in "$script_dir"/*/ ; do
-      bash "$(basename "$0")" -v "$version" -s "$source" $additional_args "$(basename "${project}")"
+    project_name="$(basename "${project}")"
+    if [ "$project_name" != "$skip_project" ]; then
+      bash "$(basename "$0")" -v "$version" -s "$source" $additional_args "$project_name"
+    else
+      echo "Skipped $project"
+    fi
   done
-  echo "ALL DONE"
+  echo "    _"
+  echo " _ //  ALL DONE"
+  echo " \X/"
   exit
 fi
 
@@ -104,6 +121,7 @@ cd "${project}"
 if [ -n "$use_carthage" ]; then # --------------------- Carthage ---------------------
   if [ -n "$use_staging" ]; then
     source="https://raw.githubusercontent.com/objectbox/objectbox-swift-spec-staging/master/cartspec/ObjectBox.json"
+    echo "Using staging repo at $source"
   fi
 
   if [ -z "$source" ]; then
