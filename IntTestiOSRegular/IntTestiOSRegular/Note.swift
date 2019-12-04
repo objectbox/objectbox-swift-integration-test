@@ -1,8 +1,4 @@
 //
-//  Note.swift
-//  IntTestiOSRegular
-//
-//  Created by objectbox on 12.09.19.
 //  Copyright © 2019 objectbox. All rights reserved.
 //
 
@@ -24,6 +20,7 @@ class Note: Entity {
     var creationDate: Date? = Date()
     var modificationDate: Date?
     var author: ToOne<Author> = nil
+    var done: Bool = false
     
     // An initializer with no parameters is required by ObjectBox
     required init() {
