@@ -9,6 +9,7 @@ source=""
 file_only=""
 do_clean=""
 use_carthage=""
+use_staging=""
 
 while [ $# -ge 1 ]; do
     case $1 in
@@ -34,7 +35,7 @@ while [ $# -ge 1 ]; do
         source="$1"
         ;;
     -S|--staging)
-        source="https://github.com/objectbox/objectbox-swift-spec-staging.git"
+        use_staging="true"
         ;;
     -f|--file)
         file_only="true"
@@ -45,11 +46,19 @@ while [ $# -ge 1 ]; do
     --clean)
         do_clean="true"
         ;;
-    *) break     # Unknown option for this stage, stop parsing here
+    *) break     # Assuming project comes next, stop parsing here
         ;;
     esac
     shift
 done
+
+#Validation
+if [ -n "$use_staging" ]; then
+    if [ -n "${source}" ]; then
+      echo "Cannot specify source AND staging; use -h for help"
+      exit 1
+    fi
+fi
 
 #macOS's readlink does not have -f option, do this instead:
 script_dir=$( cd "$(dirname "$0")" ; pwd -P )
@@ -93,6 +102,14 @@ options+=(-derivedDataPath ./DerivedData -scheme "${project}")
 cd "${project}"
 
 if [ -n "$use_carthage" ]; then # --------------------- Carthage ---------------------
+  if [ -n "$use_staging" ]; then
+    source="https://raw.githubusercontent.com/objectbox/objectbox-swift-spec-staging/master/cartspec/ObjectBox.json"
+  fi
+
+  if [ -z "$source" ]; then
+    source="https://raw.githubusercontent.com/objectbox/objectbox-swift/master/cartspec/ObjectBox.json"
+  fi
+
   xcodefile="project.pbxproj" # XCode project file
   xcodefile_carthage="project.pbxproj.4carthage" # XCode project file with changes "done by user" after "carthage update"
 
@@ -102,7 +119,7 @@ if [ -n "$use_carthage" ]; then # --------------------- Carthage ---------------
   fi
 
   #echo "github \"objectbox/objectbox-swift\"" > Cartfile
-  printf "binary \"https://raw.githubusercontent.com/objectbox/objectbox-swift/master/cartspec/ObjectBox.json\"" > Cartfile
+  printf "binary \"%s\"" "$source" > Cartfile
 
   if [ -n "${version}" ]; then
     if [[ $version =~ ^[[:digit:]] ]]; then
@@ -130,6 +147,10 @@ if [ -n "$use_carthage" ]; then # --------------------- Carthage ---------------
   options+=(-project "$xcodeproj_dir")
 
 else # --------------------- CocoaPods ---------------------
+  if [ -n "$use_staging" ]; then
+    source="https://github.com/objectbox/objectbox-swift-spec-staging.git"
+  fi
+
   echo "
   # Uncomment the next line to define a global platform for your project
   # platform :ios, '9.0'
