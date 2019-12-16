@@ -20,13 +20,15 @@ version: 2.1
         path: /tmp/test-results
 
 jobs:
-# Despite xcode 11.3.0 should be available, we got "failed to create host: Image xcode:11.3.0 is not supported"
-#  xcode-11_3_0-macos-10_15:
-#    macos: {xcode: "11.3.0"}
-#    <<: *build
+  # https://discuss.circleci.com/t/xcode-11-3-image-released/33757
+  xcode-11_3_0-macos-10_15:
+    macos: {xcode: "11.3.0"}
+    <<: *build
+
   xcode-11_2_1-macos-10_15:
     macos: {xcode: "11.2.1"}
     <<: *build
+
   xcode-11_1_0-macos-10_14:
     macos: {xcode: "11.1.0"}
     <<: *build
@@ -39,7 +41,7 @@ jobs:
 workflows:
   build:
     jobs:
-#      - xcode-11_3_0-macos-10_15
+      - xcode-11_3_0-macos-10_15
       - xcode-11_2_1-macos-10_15
       - xcode-11_1_0-macos-10_14
 #      - xcode-11_0_0-macos-10_14
