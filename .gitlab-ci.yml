@@ -9,16 +9,16 @@ test-latest:
   stage: step1
   tags: [mac, x64, xcode]
   script:
-    - ./test.sh --skip IntTestiOSRegular # Requires 1.2
-    #- ./test.sh --staging -v "~> 1.1.1-rc1"
-    - ./test.sh --clean --carthage --skip IntTestiOSRegular # Requires 1.2
+    - ./test.sh
+    - ./test.sh --clean --carthage
   retry: 2 # Does it help with "Failed to initiate service connection to simulator"?
 
-test-V1.2.x:
+test-V1.2.0:
   stage: step2
   tags: [mac, x64, xcode]
   script:
-    - ./test.sh -v 1.2.0-rc2 --carthage -S
+    - ./test.sh -v 1.2.0
+    - ./test.sh --clean -v 1.2.0 --carthage
   retry: 2 # Does it help with "Failed to initiate service connection to simulator"?
 
 test-V1.1.1:
