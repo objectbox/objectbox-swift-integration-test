@@ -130,15 +130,15 @@ class IntTestiOSRegularTests: XCTestCase {
         XCTAssertEqual(try noteBox!.count(), 2)
         
         let query = try noteBox!.query{Note.done == true && "2nd bool" .= Note.done.isEqual(to: true)}.build()
-        XCTAssertEqual(try query.findUnique().text, "fertig")
-        try query.setParameter(Note.done, to: true)
-        try query.setParameter("2nd bool", to: true)
-        XCTAssertEqual(try query.findUnique().text, "fertig")
+        XCTAssertEqual(try query.findUnique()!.text, "fertig")
+        query.setParameter(Note.done, to: true)
+        query.setParameter("2nd bool", to: true)
+        XCTAssertEqual(try query.findUnique()!.text, "fertig")
 
-        try query.setParameter(Note.done, to: false)
-        try query.setParameter("2nd bool", to: false)
+        query.setParameter(Note.done, to: false)
+        query.setParameter("2nd bool", to: false)
         XCTAssertEqual(try query.count(), 1)
-        XCTAssertEqual(try query.findUnique().text, "todo")
+        XCTAssertEqual(try query.findUnique()!.text, "todo")
     }
     
     func testQueryUnsigned() throws { // Since 1.2
@@ -154,15 +154,15 @@ class IntTestiOSRegularTests: XCTestCase {
         XCTAssertEqual(try noteBox!.count(), 2)
         
         let query = try noteBox!.query{Note.upvotes > 10 && "2nd" .= Note.upvotes.isEqual(to: 13)}.build()
-        XCTAssertEqual(try query.findUnique().text, "first")
-        try query.setParameter(Note.upvotes, to: 10)
-        try query.setParameter("2nd", to: 13)
-        XCTAssertEqual(try query.findUnique().text, "first")
+        XCTAssertEqual(try query.findUnique()!.text, "first")
+        query.setParameter(Note.upvotes, to: 10)
+        query.setParameter("2nd", to: 13)
+        XCTAssertEqual(try query.findUnique()!.text, "first")
 
-        try query.setParameter(Note.upvotes, to: 20)
-        try query.setParameter("2nd", to: 42)
+        query.setParameter(Note.upvotes, to: 20)
+        query.setParameter("2nd", to: 42)
         XCTAssertEqual(try query.count(), 1)
-        XCTAssertEqual(try query.findUnique().text, "second")
+        XCTAssertEqual(try query.findUnique()!.text, "second")
     }
     
 }
