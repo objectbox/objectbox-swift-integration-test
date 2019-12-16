@@ -5,6 +5,8 @@ import XCTest
 import ObjectBox
 
 class IntTestiOSRegularTests: XCTestCase {
+    static var printedVersion = false
+
     var store : Store?
     var noteBox : Box<Note>?
     var noteStructBox : Box<NoteStruct>?
@@ -25,6 +27,12 @@ class IntTestiOSRegularTests: XCTestCase {
         authorBox = store?.box(for: Author.self)
         noteStructBox = store?.box(for: NoteStruct.self)
         authorStructBox = store?.box(for: AuthorStruct.self)
+
+        if(!IntTestiOSRegularTests.printedVersion) {
+            print(Store.versionFullInfo)
+            IntTestiOSRegularTests.printedVersion=true
+        }
+
     }
     
     override func tearDown() {
@@ -131,6 +139,30 @@ class IntTestiOSRegularTests: XCTestCase {
         try query.setParameter("2nd bool", to: false)
         XCTAssertEqual(try query.count(), 1)
         XCTAssertEqual(try query.findUnique().text, "todo")
+    }
+    
+    func testQueryUnsigned() throws { // Since 1.2
+        let note = Note()
+        note.text = "first"
+        note.upvotes = 13
+        
+        let note2 = Note()
+        note2.text = "second"
+        note2.upvotes = 42
+        
+        try! noteBox!.put([note, note2])
+        XCTAssertEqual(try noteBox!.count(), 2)
+        
+        let query = try noteBox!.query{Note.upvotes > 10 && "2nd" .= Note.upvotes.isEqual(to: 13)}.build()
+        XCTAssertEqual(try query.findUnique().text, "first")
+        try query.setParameter(Note.upvotes, to: 10)
+        try query.setParameter("2nd", to: 13)
+        XCTAssertEqual(try query.findUnique().text, "first")
+
+        try query.setParameter(Note.upvotes, to: 20)
+        try query.setParameter("2nd", to: 42)
+        XCTAssertEqual(try query.count(), 1)
+        XCTAssertEqual(try query.findUnique().text, "second")
     }
     
 }

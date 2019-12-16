@@ -21,6 +21,7 @@ class Note: Entity {
     var modificationDate: Date?
     var author: ToOne<Author> = nil
     var done: Bool = false
+    var upvotes: UInt32 = 0
     
     // An initializer with no parameters is required by ObjectBox
     required init() {

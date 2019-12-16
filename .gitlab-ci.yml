@@ -18,7 +18,7 @@ test-V1.2.x:
   stage: step2
   tags: [mac, x64, xcode]
   script:
-    - ./test.sh -v 1.2.0-beta1 --carthage -S
+    - ./test.sh -v 1.2.0-rc2 --carthage -S
   retry: 2 # Does it help with "Failed to initiate service connection to simulator"?
 
 test-V1.1.1:

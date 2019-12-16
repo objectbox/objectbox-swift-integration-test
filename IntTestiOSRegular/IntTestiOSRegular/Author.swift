@@ -1,8 +1,4 @@
 //
-//  Author.swift
-//  IntTestiOSRegular
-//
-//  Created by objectbox on 12.09.19.
 //  Copyright © 2019 objectbox. All rights reserved.
 //
 
@@ -18,6 +14,8 @@ class Author {
     
     // objectbox: backlink = "author"
     var notes: ToMany<Note>
+    var yearOfBirth : UInt16? = nil
+    
     
     // An initializer with no parameters is required by ObjectBox
     required init() {
