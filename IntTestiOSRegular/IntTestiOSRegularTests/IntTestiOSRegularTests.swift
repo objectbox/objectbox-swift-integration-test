@@ -165,4 +165,34 @@ class IntTestiOSRegularTests: XCTestCase {
         XCTAssertEqual(try query.findUnique()!.text, "second")
     }
     
+    func testQueryUnsignedOptional() throws { // Since 1.2
+        let author = Author()
+        author.name = "Alice"
+        author.yearOfBirth = 1903
+
+        let author2 = Author()
+        author2.name = "Bob"
+        author2.yearOfBirth = 2001
+        
+        let author3 = Author()
+        author3.name = "Cesar"
+        author3.yearOfBirth = nil
+
+        try! authorBox!.put([author, author2, author3])
+        XCTAssertEqual(try authorBox!.count(), 3)
+
+        let query = try authorBox!.query{Author.yearOfBirth > 1900 && "2nd" .= Author.yearOfBirth < 2020 }.build()
+        XCTAssertEqual(try query.count(), 2)
+        
+        query.setParameter(Author.yearOfBirth, to: 2000)
+        XCTAssertEqual(try query.count(), 1)
+        XCTAssertEqual(try query.findUnique()!.name, "Bob")
+        
+        query.setParameter("2nd", to: 1950)
+        XCTAssertEqual(try query.count(), 0)
+        
+        let queryNil = try authorBox!.query{ Author.yearOfBirth.isNil() }.build()
+        XCTAssertEqual(try queryNil.findUnique()!.name, "Cesar")
+    }
+
 }
