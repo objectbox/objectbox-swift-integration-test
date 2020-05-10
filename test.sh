@@ -111,8 +111,9 @@ if [ -z "${1-}" ]; then # No tailing "project" param, so loop over dirs and call
     fi
   done
   echo "    _"
-  echo " _ //  ALL DONE"
+  echo " _ //  ALL DONE ($(date))"
   echo " \X/"
+  echo
   exit
 fi
 
