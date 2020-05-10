@@ -12,6 +12,7 @@ use_carthage=""
 use_staging=""
 
 skip_project=""
+carthage_bin="carthage"
 
 while [ $# -ge 1 ]; do
     case $1 in
@@ -23,6 +24,7 @@ while [ $# -ge 1 ]; do
         echo "  -S, --staging:  use the staging source repository for the Podfile"
         echo "  -f, --file:     only create Podfile/Cartfile"
         echo "  -c, --carthage: use Carthage instead of CocoaPods"
+        echo "  --carthage-bin: use packaged Carthage from our bin dir instead of CocoaPods"
         echo "  --clean:        cleans all added/modified files to reset the state to a fresh"
         echo "                  git checkout. Warning: Data may be LOST!!"
         echo "                  Does something like 'git clean -fdx && git reset --hard'"
@@ -45,6 +47,10 @@ while [ $# -ge 1 ]; do
         ;;
     -c|--carthage)
         use_carthage="true"
+        ;;
+    --carthage-bin)
+        use_carthage="true"
+        carthage_bin="bin/carthage"
         ;;
     --clean)
         do_clean="true"
@@ -95,6 +101,9 @@ if [ -z "${1-}" ]; then # No tailing "project" param, so loop over dirs and call
   echo "Invoking projects using args: -v \"$version\" -s \"$source\" $additional_args"
   for project in "$script_dir"/*/ ; do
     project_name="$(basename "${project}")"
+    if [ "$project_name" == "bin" ]; then
+      continue # Skip our bin/ dir
+    fi
     if [ "$project_name" != "$skip_project" ]; then
       bash "$(basename "$0")" -v "$version" -s "$source" $additional_args "$project_name"
     else
@@ -110,7 +119,7 @@ fi
 project="$1"
 
 echo "========================================================================="
-echo "Building ${project}"
+echo "Building integration test project '${project}'"
 echo "========================================================================="
 
 options=(CODE_SIGN_IDENTITY= CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS= CODE_SIGNING_ALLOWED=NO ENABLE_BITCODE=NO)
@@ -151,10 +160,10 @@ if [ -n "$use_carthage" ]; then # --------------------- Carthage ---------------
     exit
   fi
 
-  carthage_version=$(carthage version 2>/dev/null || true)
+  carthage_version=$($carthage_bin version 2>/dev/null || true)
   echo "Detected Carthage version ${carthage_version:-N/A}"
 
-  carthage update
+  $carthage_bin update
 
   xcodeproj_dir=$(find -- *.xcodeproj -maxdepth 0)
   mv "$xcodeproj_dir/$xcodefile" "$xcodeproj_dir/$xcodefile.bak"

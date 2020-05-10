@@ -10,7 +10,7 @@ test-latest:
   tags: [mac, x64, xcode]
   script:
     - ./test.sh
-    - ./test.sh --clean --carthage -v 1.3.0-rc --staging
+    - ./test.sh --clean --carthage-bin -v 1.3.0-rc --staging
   retry: 2 # Does it help with "Failed to initiate service connection to simulator"?
 
 test-V1.2.0:
@@ -18,7 +18,7 @@ test-V1.2.0:
   tags: [mac, x64, xcode]
   script:
     - ./test.sh -v 1.2.0
-    - ./test.sh --clean -v 1.2.0 --carthage
+    - ./test.sh --clean -v 1.2.0 --carthage-bin
   retry: 2 # Does it help with "Failed to initiate service connection to simulator"?
 
 test-V1.1.1:
@@ -26,5 +26,5 @@ test-V1.1.1:
   tags: [mac, x64, xcode]
   script:
     - ./test.sh -v "1.1.1" --skip IntTestiOSRegular # Requires 1.2
-    - ./test.sh --clean --carthage -v "1.1.1" --skip IntTestiOSRegular # Requires 1.2
+    - ./test.sh --clean --carthage-bin -v "1.1.1" --skip IntTestiOSRegular # Requires 1.2
   retry: 2 # Does it help with "Failed to initiate service connection to simulator"?
