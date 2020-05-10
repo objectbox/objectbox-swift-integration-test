@@ -8,3 +8,6 @@ xcuserdata/
 **/model-*.json*
 **/*.xcworkspace
 **/Carthage/Build/
+**/Cartfile
+**/Cartfile.resolved
+**/project.pbxproj.bak
