@@ -13,13 +13,13 @@ version: 2.1
         command: ./test.sh
     - run:
         name: Test CocoaPods latest explicit version
-        command: ./test.sh --clean -v "1.3.0"
+        command: ./test.sh --clean -v "1.3.1"
     - run:
         name: Test Carthage latest
         command: ./test.sh --clean --carthage-bin
     - run:
         name: Test Carthage latest explicit version
-        command: ./test.sh --clean --carthage-bin -v 1.3.0
+        command: ./test.sh --clean --carthage-bin -v 1.3.1
     - run:
         command: |
           mkdir -p /tmp/test-results
@@ -46,6 +46,10 @@ version: 2.1
         path: /tmp/test-results
 
 jobs:
+  xcode-11_5_0-macos-10_15:
+    macos: {xcode: "11.5.0"}
+    <<: *swift5_2
+
   xcode-11_4_1-macos-10_15:
     macos: {xcode: "11.4.1"}
     <<: *swift5_2
@@ -54,22 +58,22 @@ jobs:
     macos: {xcode: "11.4.0"}
     <<: *swift5_2
 
-  xcode-11_3_1-macos-10_15:
-    macos: {xcode: "11.3.1"}
-    <<: *swift5_1
-
-  # https://discuss.circleci.com/t/xcode-11-3-image-released/33757
-  xcode-11_3_0-macos-10_15:
-    macos: {xcode: "11.3.0"}
-    <<: *swift5_1
-
-  xcode-11_2_1-macos-10_15:
-    macos: {xcode: "11.2.1"}
-    <<: *swift5_1
-
-  xcode-11_1_0-macos-10_14:
-    macos: {xcode: "11.1.0"}
-    <<: *swift5_1
+#  xcode-11_3_1-macos-10_15:
+#    macos: {xcode: "11.3.1"}
+#    <<: *swift5_1
+#
+#  # https://discuss.circleci.com/t/xcode-11-3-image-released/33757
+#  xcode-11_3_0-macos-10_15:
+#    macos: {xcode: "11.3.0"}
+#    <<: *swift5_1
+#
+#  xcode-11_2_1-macos-10_15:
+#    macos: {xcode: "11.2.1"}
+#    <<: *swift5_1
+#
+#  xcode-11_1_0-macos-10_14:
+#    macos: {xcode: "11.1.0"}
+#    <<: *swift5_1
 # Not so important: save some CI credits...
 #  xcode-11_0_0-macos-10_14:
 #    macos: {xcode: "11.0.0"}
@@ -79,10 +83,11 @@ jobs:
 workflows:
   build:
     jobs:
+      - xcode-11_5_0-macos-10_15
       - xcode-11_4_1-macos-10_15
       - xcode-11_4_0-macos-10_15
-      - xcode-11_3_1-macos-10_15
-      - xcode-11_3_0-macos-10_15
-      - xcode-11_2_1-macos-10_15
-      - xcode-11_1_0-macos-10_14
+#      - xcode-11_3_1-macos-10_15
+#      - xcode-11_3_0-macos-10_15
+#      - xcode-11_2_1-macos-10_15
+#      - xcode-11_1_0-macos-10_14
 #      - xcode-11_0_0-macos-10_14
