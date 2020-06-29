@@ -164,7 +164,7 @@ class IntTestiOSRegularTests: XCTestCase {
         XCTAssertEqual(try query.count(), 1)
         XCTAssertEqual(try query.findUnique()!.text, "second")
     }
-    
+
     func testQueryUnsignedOptional() throws { // Since 1.2
         let author = Author()
         author.name = "Alice"
@@ -173,7 +173,7 @@ class IntTestiOSRegularTests: XCTestCase {
         let author2 = Author()
         author2.name = "Bob"
         author2.yearOfBirth = 2001
-        
+
         let author3 = Author()
         author3.name = "Cesar"
         author3.yearOfBirth = nil
@@ -183,16 +183,44 @@ class IntTestiOSRegularTests: XCTestCase {
 
         let query = try authorBox!.query{Author.yearOfBirth > 1900 && "2nd" .= Author.yearOfBirth < 2020 }.build()
         XCTAssertEqual(try query.count(), 2)
-        
+
         query.setParameter(Author.yearOfBirth, to: 2000)
         XCTAssertEqual(try query.count(), 1)
         XCTAssertEqual(try query.findUnique()!.name, "Bob")
-        
+
         query.setParameter("2nd", to: 1950)
         XCTAssertEqual(try query.count(), 0)
-        
+
         let queryNil = try authorBox!.query{ Author.yearOfBirth.isNil() }.build()
         XCTAssertEqual(try queryNil.findUnique()!.name, "Cesar")
+    }
+
+    func testManyToMany() throws {
+        let teacher1 = Teacher(name: "Yoda")
+        let teacher2 = Teacher(name: "Dumbledore")
+        
+        let student1 = Student(name: "Alice")
+        let student2 = Student(name: "Bob")
+        let student3 = Student(name: "Claire")
+
+        let teacherBox = store!.box(for: Teacher.self)
+        try teacherBox.put([teacher1, teacher2])
+        
+        let studentBox = store!.box(for: Student.self)
+        try studentBox.put([student1, student2, student3])
+        
+        teacher1.students.append(student1)
+        teacher1.students.append(student3)
+        try teacher1.students.applyToDb()
+        
+        let claire = try studentBox.get(student3.id)!
+        XCTAssertEqual(claire.teachers[0].id, teacher1.id)
+        //claire.teachers.replace([])
+        claire.teachers.remove(at: 0)
+        try claire.teachers.applyToDb()
+        
+        teacher1.students.reset()
+        XCTAssertEqual(teacher1.students.count, 1)
     }
 
 }

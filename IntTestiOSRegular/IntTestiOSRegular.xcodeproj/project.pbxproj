@@ -17,6 +17,7 @@
 		295A7C09232A427800F74FE2 /* Author.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295A7C08232A427800F74FE2 /* Author.swift */; };
 		295A7C972330DAC800F74FE2 /* NoteStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295A7C962330DAC800F74FE2 /* NoteStruct.swift */; };
 		295A7C992330DAD300F74FE2 /* AuthorStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295A7C982330DAD300F74FE2 /* AuthorStruct.swift */; };
+		BF8C9DA9FFB84F4E9D8761C0 /* TeacherStudent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C94BB0CD98175906AEBFE /* TeacherStudent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		295A7C08232A427800F74FE2 /* Author.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Author.swift; sourceTree = "<group>"; };
 		295A7C962330DAC800F74FE2 /* NoteStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteStruct.swift; sourceTree = "<group>"; };
 		295A7C982330DAD300F74FE2 /* AuthorStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorStruct.swift; sourceTree = "<group>"; };
+		BF8C94BB0CD98175906AEBFE /* TeacherStudent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeacherStudent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 				295A7C962330DAC800F74FE2 /* NoteStruct.swift */,
 				295A7C08232A427800F74FE2 /* Author.swift */,
 				295A7C982330DAD300F74FE2 /* AuthorStruct.swift */,
+				BF8C94BB0CD98175906AEBFE /* TeacherStudent.swift */,
 			);
 			path = IntTestiOSRegular;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 				295A7BE7232A314000F74FE2 /* AppDelegate.swift in Sources */,
 				295A7C07232A421700F74FE2 /* Note.swift in Sources */,
 				295A7C09232A427800F74FE2 /* Author.swift in Sources */,
+				BF8C9DA9FFB84F4E9D8761C0 /* TeacherStudent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
