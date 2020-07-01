@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		28764589238D6E8B0050D45C /* ObjectBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28764588238D6E8B0050D45C /* ObjectBox.framework */; };
 		2876458A238D6E8B0050D45C /* ObjectBox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 28764588238D6E8B0050D45C /* ObjectBox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		288FC98524AC93C9009DB6D1 /* TeacherStudent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288FC98424AC93C9009DB6D1 /* TeacherStudent.swift */; };
 		295A7BE7232A314000F74FE2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295A7BE6232A314000F74FE2 /* AppDelegate.swift */; };
 		295A7BE9232A314000F74FE2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295A7BE8232A314000F74FE2 /* ViewController.swift */; };
 		295A7BEC232A314000F74FE2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 295A7BEA232A314000F74FE2 /* Main.storyboard */; };
@@ -47,6 +48,7 @@
 
 /* Begin PBXFileReference section */
 		28764588238D6E8B0050D45C /* ObjectBox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectBox.framework; path = Carthage/Build/iOS/ObjectBox.framework; sourceTree = "<group>"; };
+		288FC98424AC93C9009DB6D1 /* TeacherStudent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeacherStudent.swift; sourceTree = "<group>"; };
 		295A7BE3232A314000F74FE2 /* IntTestiOSRegular.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntTestiOSRegular.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		295A7BE6232A314000F74FE2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		295A7BE8232A314000F74FE2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				295A7C962330DAC800F74FE2 /* NoteStruct.swift */,
 				295A7C08232A427800F74FE2 /* Author.swift */,
 				295A7C982330DAD300F74FE2 /* AuthorStruct.swift */,
+				288FC98424AC93C9009DB6D1 /* TeacherStudent.swift */,
 			);
 			path = IntTestiOSRegular;
 			sourceTree = "<group>";
@@ -245,6 +248,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				288FC98524AC93C9009DB6D1 /* TeacherStudent.swift in Sources */,
 				295A7C992330DAD300F74FE2 /* AuthorStruct.swift in Sources */,
 				295A7C972330DAC800F74FE2 /* NoteStruct.swift in Sources */,
 				295A7BE9232A314000F74FE2 /* ViewController.swift in Sources */,

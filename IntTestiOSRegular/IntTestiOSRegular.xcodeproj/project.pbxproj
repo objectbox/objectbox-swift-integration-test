@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		288FC98524AC93C9009DB6D1 /* TeacherStudent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288FC98424AC93C9009DB6D1 /* TeacherStudent.swift */; };
 		295A7BE7232A314000F74FE2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295A7BE6232A314000F74FE2 /* AppDelegate.swift */; };
 		295A7BE9232A314000F74FE2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295A7BE8232A314000F74FE2 /* ViewController.swift */; };
 		295A7BEC232A314000F74FE2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 295A7BEA232A314000F74FE2 /* Main.storyboard */; };
@@ -17,7 +18,6 @@
 		295A7C09232A427800F74FE2 /* Author.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295A7C08232A427800F74FE2 /* Author.swift */; };
 		295A7C972330DAC800F74FE2 /* NoteStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295A7C962330DAC800F74FE2 /* NoteStruct.swift */; };
 		295A7C992330DAD300F74FE2 /* AuthorStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295A7C982330DAD300F74FE2 /* AuthorStruct.swift */; };
-		BF8C9DA9FFB84F4E9D8761C0 /* TeacherStudent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C94BB0CD98175906AEBFE /* TeacherStudent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +31,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		288FC98424AC93C9009DB6D1 /* TeacherStudent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeacherStudent.swift; sourceTree = "<group>"; };
 		295A7BE3232A314000F74FE2 /* IntTestiOSRegular.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntTestiOSRegular.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		295A7BE6232A314000F74FE2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		295A7BE8232A314000F74FE2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -45,7 +46,6 @@
 		295A7C08232A427800F74FE2 /* Author.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Author.swift; sourceTree = "<group>"; };
 		295A7C962330DAC800F74FE2 /* NoteStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteStruct.swift; sourceTree = "<group>"; };
 		295A7C982330DAD300F74FE2 /* AuthorStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorStruct.swift; sourceTree = "<group>"; };
-		BF8C94BB0CD98175906AEBFE /* TeacherStudent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeacherStudent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +98,7 @@
 				295A7C962330DAC800F74FE2 /* NoteStruct.swift */,
 				295A7C08232A427800F74FE2 /* Author.swift */,
 				295A7C982330DAD300F74FE2 /* AuthorStruct.swift */,
-				BF8C94BB0CD98175906AEBFE /* TeacherStudent.swift */,
+				288FC98424AC93C9009DB6D1 /* TeacherStudent.swift */,
 			);
 			path = IntTestiOSRegular;
 			sourceTree = "<group>";
@@ -220,13 +220,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				288FC98524AC93C9009DB6D1 /* TeacherStudent.swift in Sources */,
 				295A7C992330DAD300F74FE2 /* AuthorStruct.swift in Sources */,
 				295A7C972330DAC800F74FE2 /* NoteStruct.swift in Sources */,
 				295A7BE9232A314000F74FE2 /* ViewController.swift in Sources */,
 				295A7BE7232A314000F74FE2 /* AppDelegate.swift in Sources */,
 				295A7C07232A421700F74FE2 /* Note.swift in Sources */,
 				295A7C09232A427800F74FE2 /* Author.swift in Sources */,
-				BF8C9DA9FFB84F4E9D8761C0 /* TeacherStudent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
