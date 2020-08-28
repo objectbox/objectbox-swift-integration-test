@@ -223,4 +223,20 @@ class IntTestiOSRegularTests: XCTestCase {
         XCTAssertEqual(teacher1.students.count, 1)
     }
 
+    // TODO enable once we have SyncClient protocol in dev
+//    func testDrySync() throws {
+//        print("Sync available: ", Sync.isAvailable())
+//        if Sync.isAvailable() {
+//            let client = try Sync.makeClient(store: store!, urlString: "ws://127.0.0.1:9999")
+//            try client.setCredentials(SyncCredentials.makeUnchecked())
+//            XCTAssertEqual(client.getState(), SyncState.created)
+//            try client.start()
+//            XCTAssertEqual(client.getState(), SyncState.started)
+//            try client.stop()
+//            XCTAssertEqual(client.getState(), SyncState.stopped)
+//            client.close()
+//            XCTAssertEqual(client.getState(), SyncState.dead)
+//        }
+//    }
+
 }
