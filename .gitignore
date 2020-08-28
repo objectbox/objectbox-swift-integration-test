@@ -11,3 +11,6 @@ xcuserdata/
 **/Cartfile
 **/Cartfile.resolved
 **/project.pbxproj.bak
+
+# generated on the fly by test.sh
+objectbox-framework-spec.json

@@ -10,6 +10,7 @@ file_only=""
 do_clean=""
 use_carthage=""
 use_staging=""
+framework=""
 
 skip_project=""
 carthage_bin="carthage"
@@ -19,21 +20,28 @@ while [ $# -ge 1 ]; do
     -h|help|--help|usage)
         echo "Usage: $(basename "$0") [options] {project-directory}"
         echo
-        echo "  -v, --version:  specify version for the Podfile"
-        echo "  -s, --source:   specify source repository for the Podfile"
-        echo "  -S, --staging:  use the staging source repository for the Podfile"
+        echo "  -v, --version:  specify version for the Podfile/Cartfile"
+        echo "  -s, --source:   specify source repository for the Podfile/Cartfile"
+        echo "  -S, --staging:  use the staging source repository for the Podfile/Cartfile"
         echo "  -f, --file:     only create Podfile/Cartfile"
         echo "  -c, --carthage: use Carthage instead of CocoaPods"
-        echo "  --carthage-bin: use packaged Carthage from our bin dir instead of CocoaPods"
+        echo "  --carthage-bin: use the packaged Carthage executable from our bin dir"
         echo "  --clean:        cleans all added/modified files to reset the state to a fresh"
         echo "                  git checkout. Warning: Data may be LOST!!"
         echo "                  Does something like 'git clean -fdx && git reset --hard'"
         echo "  --skip:         specify a project to skip"
+        echo "  --framework:    specify a HTTPS URL to an uploaded framework to be tested"
+        echo "                  (this creates a local Cartfile pointing to the URL)"
         exit 0
         ;;
     -v|--version)
         shift
         version="$1"
+        ;;
+    --framework)
+        shift
+        framework="$1"
+        use_carthage="true"
         ;;
     -s|--source)
         shift
@@ -66,9 +74,13 @@ while [ $# -ge 1 ]; do
 done
 
 #Validation
-if [ -n "$use_staging" ]; then
-    if [ -n "${source}" ]; then
+if [ -n "${source}" ]; then
+    if [ -n "$use_staging" ]; then
       echo "Cannot specify source AND staging; use -h for help"
+      exit 1
+    fi
+    if [ -n "$framework" ]; then
+      echo "Cannot specify source AND framework; use -h for help"
       exit 1
     fi
 fi
@@ -82,6 +94,15 @@ if [ -n "$do_clean" ]; then
   echo "Cleaning..."
   git clean -fdx
   git reset --hard
+fi
+
+if [ -n "$framework" ]; then
+  source="$script_dir/objectbox-framework-spec.json"
+  if [ -z "$version" ]; then  # didn't work without a version
+    date=$(date '+%Y%m%d')
+    version="0.0.0-dummy$date"
+  fi
+  echo "{ \"${version}\": \"${framework}\" }" > "$source"
 fi
 
 if [ -z "${1-}" ]; then # No tailing "project" param, so loop over dirs and call this script with those
