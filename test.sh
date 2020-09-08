@@ -156,7 +156,7 @@ if [ -n "$use_carthage" ]; then # --------------------- Carthage ---------------
   fi
 
   if [ -z "$source" ]; then
-    source="https://raw.githubusercontent.com/objectbox/objectbox-swift/master/cartspec/ObjectBox.json"
+    source="https://raw.githubusercontent.com/objectbox/objectbox-swift/main/cartspec/ObjectBox.json"
   fi
 
   xcodefile="project.pbxproj" # XCode project file
