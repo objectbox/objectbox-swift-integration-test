@@ -5,7 +5,11 @@ version: 2.1
 # Framework compiled with Swift 5.2 seems incompatible to Swift 5.1 compiler:
 # results in "error: unknown attribute '_hasMissingDesignatedInitializers'"; see also:
 # https://forums.swift.org/t/cant-use-framework-compiled-with-swift-5-2-in-swift-5-1-3-project/35248
-.build52: &swift5_2
+
+# Swift versions used in ObjectBox releases:
+# 1.4.0: 5.2.4
+
+.cocoapods: &steps_cocoapods
   steps:
     - checkout
     - run:
@@ -14,6 +18,17 @@ version: 2.1
     - run:
         name: Test CocoaPods latest explicit version
         command: ./test.sh --clean -v "1.4.0"
+    - run:
+        command: |
+          mkdir -p /tmp/test-results
+          find . -name *.xcresult -exec cp -r {} /tmp/test-results \;
+        when: on_fail
+    - store_artifacts:
+        path: /tmp/test-results
+
+.carthage: &steps_carthage
+  steps:
+    - checkout
     - run:
         name: Update Carthage
         command: brew update && brew upgrade carthage
@@ -35,35 +50,50 @@ version: 2.1
 
 jobs:
   xcode-12_0_0-macos-10_15:
-    macos: {xcode: "12.0.0"} # beta 6 as of 2020/09
-    <<: *swift5_2
+    macos: {xcode: "12.0.0"} # beta 6 as of 2020/09; Swift 5.3
+    <<: *steps_cocoapods
 
   xcode-11_7_0-macos-10_15:
-    macos: {xcode: "11.7.0"}
-    <<: *swift5_2
+    macos: {xcode: "11.7.0"} # Swift 5.2.4
+    <<: *steps_cocoapods
+
+  xcode-11_7_0-macos-10_15_cart:
+    macos: {xcode: "11.7.0"} # Swift 5.2.4
+    <<: *steps_carthage
 
   xcode-11_6_0-macos-10_15:
-    macos: {xcode: "11.6.0"}
-    <<: *swift5_2
+    macos: {xcode: "11.6.0"} # Swift 5.2.4
+    <<: *steps_cocoapods
+
+  xcode-11_6_0-macos-10_15_cart:
+    macos: {xcode: "11.6.0"} # Swift 5.2.4
+    <<: *steps_carthage
 
   xcode-11_5_0-macos-10_15:
-    macos: {xcode: "11.5.0"}
-    <<: *swift5_2
+    macos: {xcode: "11.5.0"} # Swift 5.2.4
+    <<: *steps_cocoapods
+
+  xcode-11_5_0-macos-10_15_cart:
+    macos: {xcode: "11.5.0"} # Swift 5.2.4
+    <<: *steps_carthage
 
   xcode-11_4_1-macos-10_15:
-    macos: {xcode: "11.4.1"}
-    <<: *swift5_2
+    macos: {xcode: "11.4.1"} # Swift 5.2.2
+    <<: *steps_cocoapods
 
   xcode-11_4_0-macos-10_15:
-    macos: {xcode: "11.4.0"}
-    <<: *swift5_2
+    macos: {xcode: "11.4.0"} # Swift 5.2.2
+    <<: *steps_cocoapods
 
 workflows:
   build:
     jobs:
       - xcode-12_0_0-macos-10_15
       - xcode-11_7_0-macos-10_15
+      - xcode-11_7_0-macos-10_15_cart
       - xcode-11_6_0-macos-10_15
+      - xcode-11_6_0-macos-10_15_cart
       - xcode-11_5_0-macos-10_15
+      - xcode-11_5_0-macos-10_15_cart
       - xcode-11_4_1-macos-10_15
       - xcode-11_4_0-macos-10_15
