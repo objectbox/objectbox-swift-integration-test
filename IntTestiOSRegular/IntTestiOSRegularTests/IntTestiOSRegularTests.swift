@@ -223,7 +223,7 @@ class IntTestiOSRegularTests: XCTestCase {
         XCTAssertEqual(teacher1.students.count, 1)
     }
 
-    // TODO enable once we have SyncClient protocol in dev
+    // TODO enable once we have SyncClient protocol in all tested versions (available since 1.4.0) 
 //    func testDrySync() throws {
 //        print("Sync available: ", Sync.isAvailable())
 //        if Sync.isAvailable() {

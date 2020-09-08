@@ -15,6 +15,9 @@ version: 2.1
         name: Test CocoaPods latest explicit version
         command: ./test.sh --clean -v "1.3.1"
     - run:
+        name: Test CocoaPods rc
+        command: ./test.sh --clean --staging -v "1.4.0-RC"
+    - run:
         name: Update Carthage
         command: brew update && brew upgrade carthage
     - run:
@@ -23,6 +26,9 @@ version: 2.1
     - run:
         name: Test Carthage latest explicit version
         command: ./test.sh --clean --carthage-bin -v 1.3.1
+    - run:
+        name: Test Carthage rc
+        command: ./test.sh --clean --staging --carthage-bin -v 1.4.0-rc
     - run:
         command: |
           mkdir -p /tmp/test-results
