@@ -13,7 +13,7 @@ test-latest:
   tags: [mac, x64, xcode]
   script:
     - ./test.sh
-    - ./test.sh --clean --staging -v 1.4.0-RC
+    - ./test.sh --clean -v 1.4.0
   retry: 2 # Does it help with "Failed to initiate service connection to simulator"?
 
 test-latest-carthage:
@@ -21,7 +21,7 @@ test-latest-carthage:
   tags: [mac, x64, xcode]
   script:
     - ./test.sh --carthage-bin
-    - ./test.sh --clean --carthage-bin --staging -v 1.4.0-rc
+    - ./test.sh --clean --carthage-bin -v 1.4.0
   retry: 2 # Does it help with "Failed to initiate service connection to simulator"?
 
 test-2nd-latest:
