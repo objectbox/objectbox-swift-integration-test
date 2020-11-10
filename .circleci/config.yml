@@ -92,10 +92,6 @@ jobs:
     macos: {xcode: "11.7.0"} # Swift 5.2.4
     <<: *steps_carthage
 
-  xcode-11_7_0-macos-10_15_cart_staging:
-    macos: {xcode: "11.7.0"} # Swift 5.2.4
-    <<: *steps_carthage_staging
-
   xcode-11_6_0-macos-10_15:
     macos: {xcode: "11.6.0"} # Swift 5.2.4
     <<: *steps_cocoapods
@@ -124,12 +120,11 @@ workflows:
   build:
     jobs:
       - xcode-12_1_0-macos-10_15
-      - xcode-12_1_0-macos-10_15_cart_staging
+      - xcode-12_1_0-macos-10_15_cart
       - xcode-12_0_1-macos-10_15
-      - xcode-12_0_1-macos-10_15_cart_staging
+      - xcode-12_0_1-macos-10_15_cart
       - xcode-11_7_0-macos-10_15
       - xcode-11_7_0-macos-10_15_cart
-      - xcode-11_7_0-macos-10_15_cart_staging
       - xcode-11_6_0-macos-10_15
       - xcode-11_6_0-macos-10_15_cart
       - xcode-11_5_0-macos-10_15
