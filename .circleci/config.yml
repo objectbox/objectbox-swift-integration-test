@@ -15,10 +15,10 @@ version: 2.1
     - checkout
     - run:
         name: Test CocoaPods latest
-        command: ./test.sh --clean --staging
+        command: ./test.sh --clean
     - run:
         name: Test CocoaPods latest explicit version
-        command: ./test.sh --clean --staging -v "1.4.1"
+        command: ./test.sh --clean -v "1.4.1"
     - run:
         command: |
           mkdir -p /tmp/test-results
@@ -47,6 +47,8 @@ version: 2.1
     - store_artifacts:
         path: /tmp/test-results
 
+# To test release candidates via staging repo:
+# https://github.com/objectbox/objectbox-swift-spec-staging/blob/master/cartspec/ObjectBox.json
 .carthage_staging: &steps_carthage_staging
   steps:
     - checkout
@@ -88,25 +90,13 @@ jobs:
     macos: {xcode: "11.7.0"} # Swift 5.2.4
     <<: *steps_cocoapods
 
-  xcode-11_7_0-macos-10_15_cart:
-    macos: {xcode: "11.7.0"} # Swift 5.2.4
-    <<: *steps_carthage
-
   xcode-11_6_0-macos-10_15:
     macos: {xcode: "11.6.0"} # Swift 5.2.4
     <<: *steps_cocoapods
 
-  xcode-11_6_0-macos-10_15_cart:
-    macos: {xcode: "11.6.0"} # Swift 5.2.4
-    <<: *steps_carthage
-
   xcode-11_5_0-macos-10_15:
     macos: {xcode: "11.5.0"} # Swift 5.2.4
     <<: *steps_cocoapods
-
-  xcode-11_5_0-macos-10_15_cart:
-    macos: {xcode: "11.5.0"} # Swift 5.2.4
-    <<: *steps_carthage
 
   xcode-11_4_1-macos-10_15:
     macos: {xcode: "11.4.1"} # Swift 5.2.2
@@ -124,10 +114,7 @@ workflows:
       - xcode-12_0_1-macos-10_15
       - xcode-12_0_1-macos-10_15_cart
       - xcode-11_7_0-macos-10_15
-      - xcode-11_7_0-macos-10_15_cart
       - xcode-11_6_0-macos-10_15
-      - xcode-11_6_0-macos-10_15_cart
       - xcode-11_5_0-macos-10_15
-      - xcode-11_5_0-macos-10_15_cart
       - xcode-11_4_1-macos-10_15
       - xcode-11_4_0-macos-10_15
