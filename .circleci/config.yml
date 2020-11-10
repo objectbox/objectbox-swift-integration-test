@@ -15,10 +15,10 @@ version: 2.1
     - checkout
     - run:
         name: Test CocoaPods latest
-        command: ./test.sh --clean
+        command: ./test.sh --clean --staging
     - run:
         name: Test CocoaPods latest explicit version
-        command: ./test.sh --clean -v "1.4.0"
+        command: ./test.sh --clean --staging -v "1.4.1"
     - run:
         command: |
           mkdir -p /tmp/test-results
@@ -38,7 +38,7 @@ version: 2.1
         command: ./test.sh --clean --carthage
     - run:
         name: Test Carthage latest explicit version
-        command: ./test.sh --clean --carthage -v 1.4.0
+        command: ./test.sh --clean --carthage -v 1.4.1
     - run:
         command: |
           mkdir -p /tmp/test-results
@@ -72,17 +72,17 @@ jobs:
     macos: {xcode: "12.1.0"} # Swift 5.3
     <<: *steps_cocoapods
 
-  xcode-12_1_0-macos-10_15_cart_staging:
+  xcode-12_1_0-macos-10_15_cart:
     macos: {xcode: "12.1.0"} # Swift 5.3
-    <<: *steps_carthage_staging
+    <<: *steps_carthage
 
   xcode-12_0_1-macos-10_15:
     macos: {xcode: "12.0.1"} # Swift 5.3
     <<: *steps_cocoapods
 
-  xcode-12_0_1-macos-10_15_cart_staging:
+  xcode-12_0_1-macos-10_15_cart:
     macos: {xcode: "12.0.1"} # Swift 5.3
-    <<: *steps_carthage_staging
+    <<: *steps_carthage
 
   xcode-11_7_0-macos-10_15:
     macos: {xcode: "11.7.0"} # Swift 5.2.4
