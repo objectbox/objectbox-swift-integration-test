@@ -7,6 +7,7 @@ version: 2.1
 # https://forums.swift.org/t/cant-use-framework-compiled-with-swift-5-2-in-swift-5-1-3-project/35248
 
 # Swift versions used in ObjectBox releases:
+# 1.4.1: 5.3 (swiftlang-1200.0.29.2 clang-1200.0.30.1)
 # 1.4.0: 5.2.4
 
 .cocoapods: &steps_cocoapods
@@ -46,12 +47,42 @@ version: 2.1
     - store_artifacts:
         path: /tmp/test-results
 
+.carthage_staging: &steps_carthage_staging
+  steps:
+    - checkout
+    - run:
+        name: Update Carthage
+        command: brew update && brew upgrade carthage
+    - run:
+        name: Test Carthage staging version
+        command: ./test.sh --staging --carthage -v 1.4.1
+    - run:
+        command: |
+          mkdir -p /tmp/test-results
+          find . -name *.xcresult -exec cp -r {} /tmp/test-results \;
+        when: on_fail
+    - store_artifacts:
+        path: /tmp/test-results
+
+# Swift 5.3 was introduced in Xcode 12.0
 # Swift 5.2 was introduced in Xcode 11.4
 
 jobs:
-  xcode-12_0_0-macos-10_15:
-    macos: {xcode: "12.0.0"} # beta 6 as of 2020/09; Swift 5.3
+  xcode-12_1_0-macos-10_15:
+    macos: {xcode: "12.1.0"} # Swift 5.3
     <<: *steps_cocoapods
+
+  xcode-12_1_0-macos-10_15_cart_staging:
+    macos: {xcode: "12.1.0"} # Swift 5.3
+    <<: *steps_carthage_staging
+
+  xcode-12_0_1-macos-10_15:
+    macos: {xcode: "12.0.1"} # Swift 5.3
+    <<: *steps_cocoapods
+
+  xcode-12_0_1-macos-10_15_cart_staging:
+    macos: {xcode: "12.0.1"} # Swift 5.3
+    <<: *steps_carthage_staging
 
   xcode-11_7_0-macos-10_15:
     macos: {xcode: "11.7.0"} # Swift 5.2.4
@@ -60,6 +91,10 @@ jobs:
   xcode-11_7_0-macos-10_15_cart:
     macos: {xcode: "11.7.0"} # Swift 5.2.4
     <<: *steps_carthage
+
+  xcode-11_7_0-macos-10_15_cart_staging:
+    macos: {xcode: "11.7.0"} # Swift 5.2.4
+    <<: *steps_carthage_staging
 
   xcode-11_6_0-macos-10_15:
     macos: {xcode: "11.6.0"} # Swift 5.2.4
@@ -88,9 +123,13 @@ jobs:
 workflows:
   build:
     jobs:
-      - xcode-12_0_0-macos-10_15
+      - xcode-12_1_0-macos-10_15
+      - xcode-12_1_0-macos-10_15_cart_staging
+      - xcode-12_0_1-macos-10_15
+      - xcode-12_0_1-macos-10_15_cart_staging
       - xcode-11_7_0-macos-10_15
       - xcode-11_7_0-macos-10_15_cart
+      - xcode-11_7_0-macos-10_15_cart_staging
       - xcode-11_6_0-macos-10_15
       - xcode-11_6_0-macos-10_15_cart
       - xcode-11_5_0-macos-10_15
