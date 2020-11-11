@@ -13,7 +13,7 @@ test-latest:
   tags: [mac, x64, xcode]
   script:
     - ./test.sh
-    - ./test.sh --clean -v 1.4.0
+    - ./test.sh --clean -v 1.4.1
   retry: 2 # Does it help with "Failed to initiate service connection to simulator"?
 
 test-latest-carthage:
@@ -21,34 +21,34 @@ test-latest-carthage:
   tags: [mac, x64, xcode]
   script:
     - ./test.sh --carthage-bin
-    - ./test.sh --clean --carthage-bin -v 1.4.0
+    - ./test.sh --clean --carthage-bin -v 1.4.1
   retry: 2 # Does it help with "Failed to initiate service connection to simulator"?
 
 test-2nd-latest:
   stage: step3
   tags: [mac, x64, xcode]
   script:
-    - ./test.sh -v 1.3.1
+    - ./test.sh -v 1.4.0
   retry: 2 # Does it help with "Failed to initiate service connection to simulator"?
 
-test-2nd-latest-carthage:
-  stage: step4
-  tags: [mac, x64, xcode]
-  script:
-    - ./test.sh -v 1.3.1
-  retry: 2 # Does it help with "Failed to initiate service connection to simulator"?
+#test-2nd-latest-carthage:
+#  stage: step4
+#  tags: [mac, x64, xcode]
+#  script:
+#    - ./test.sh --carthage-bin  -v 1.4.0
+#  retry: 2 # Does it help with "Failed to initiate service connection to simulator"?
 
 test-3rd-latest:
   stage: step5
   tags: [mac, x64, xcode]
   script:
-    - ./test.sh -v 1.3.0 --skip IntTestiOSRegular # Requires 1.3.1
+    - ./test.sh -v 1.3.1
   retry: 2 # Does it help with "Failed to initiate service connection to simulator"?
 
-test-3rd-latest-carthage:
-  stage: step6
-  tags: [mac, x64, xcode]
-  script:
-    - echo "Skipped due to 'framework was built with 5.2.2 (...) and the local version is 5.2.4'"
-    #- ./test.sh -v 1.3.0 --carthage-bin --skip IntTestiOSRegular # Requires 1.3.1
-  retry: 2 # Does it help with "Failed to initiate service connection to simulator"?
+#test-3rd-latest-carthage:
+#  stage: step6
+#  tags: [mac, x64, xcode]
+#  script:
+#    - echo "Skipped due to 'framework was built with 5.2.2 (...) and the local version is 5.2.4'"
+#    #- ./test.sh -v 1.3.0 --carthage-bin --skip IntTestiOSRegular # Requires 1.3.1
+#  retry: 2 # Does it help with "Failed to initiate service connection to simulator"?
