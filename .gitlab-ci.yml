@@ -14,8 +14,8 @@ test-latest:
   script:
     - ./test.sh
     - ./test.sh --clean -v 1.4.1
-    - ./test.sh --clean -staging -v 1.5.0-sync-rc1
-  retry: 2 # Does it help with "Failed to initiate service connection to simulator"?
+    - ./test.sh --clean --staging -v 1.5.0-sync-rc1
+  #retry: 2 # Does it help with "Failed to initiate service connection to simulator"?
 
 test-latest-carthage:
   stage: step2
