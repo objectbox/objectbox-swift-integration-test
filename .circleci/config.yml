@@ -20,6 +20,12 @@ version: 2.1
         name: Test CocoaPods latest explicit version
         command: ./test.sh --clean -v "1.4.1"
     - run:
+        name: Test CocoaPods latest beta version
+        command: ./test.sh --clean -v "1.5.0-beta1"
+    - run:
+        name: Test CocoaPods latest sync version
+        command: ./test.sh --clean -v "1.5.0-sync-rc5"
+    - run:
         command: |
           mkdir -p /tmp/test-results
           find . -name *.xcresult -exec cp -r {} /tmp/test-results \;
@@ -70,12 +76,24 @@ version: 2.1
 # Swift 5.2 was introduced in Xcode 11.4
 
 jobs:
-  xcode-12_1_0-macos-10_15:
-    macos: {xcode: "12.1.0"} # Swift 5.3
+  xcode-12_4_0-macos-10_15:
+    macos: {xcode: "12.4.0"} # Swift 5.3
     <<: *steps_cocoapods
 
-  xcode-12_1_0-macos-10_15_cart:
-    macos: {xcode: "12.1.0"} # Swift 5.3
+  xcode-12_3_0-macos-10_15:
+    macos: {xcode: "12.3.0"} # Swift 5.3
+    <<: *steps_cocoapods
+
+  xcode-12_2_0-macos-10_15:
+    macos: {xcode: "12.2.0"} # Swift 5.3
+    <<: *steps_cocoapods
+
+  xcode-12_1_1-macos-10_15:
+    macos: {xcode: "12.1.1"} # Swift 5.3
+    <<: *steps_cocoapods
+
+  xcode-12_1_1-macos-10_15_cart:
+    macos: {xcode: "12.1.1"} # Swift 5.3
     <<: *steps_carthage
 
   xcode-12_0_1-macos-10_15:
@@ -109,8 +127,11 @@ jobs:
 workflows:
   build:
     jobs:
-      - xcode-12_1_0-macos-10_15
-      - xcode-12_1_0-macos-10_15_cart
+      - xcode-12_4_0-macos-10_15
+      - xcode-12_3_0-macos-10_15
+      - xcode-12_2_0-macos-10_15
+      - xcode-12_1_1-macos-10_15
+      - xcode-12_1_1-macos-10_15_cart
       - xcode-12_0_1-macos-10_15
       - xcode-12_0_1-macos-10_15_cart
       - xcode-11_7_0-macos-10_15
