@@ -15,7 +15,7 @@ version: 2.1
     - checkout
     - run:
         name: Update CocoaPods
-      - command: sudo gem install cocoapods
+        command: sudo gem install cocoapods
     - run:
         name: Test CocoaPods latest
         command: ./test.sh --clean
