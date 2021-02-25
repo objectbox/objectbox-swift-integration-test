@@ -1,6 +1,46 @@
 ObjectBox Swift Integration Test
 ================================
 
+How to run the tests
+--------------------
+With `test.sh` you can run several integration tests for a particular ObjectBox version. A typical command would be:
+
+```
+./test.sh --clean -v 1.5.0-rc
+```
+
+If all works out you should see something like this in your Terminal:
+
+```
+** TEST SUCCEEDED **
+
+    _
+_  //  ALL DONE (Thu Feb 25 11:43:58 CET 2021)
+\X/
+```
+
+To learn more about the test script, use the `--help` parameter, which prints something like this:
+
+```
+$ ./test.sh --help
+Usage: test.sh [options] {project-directory}
+
+-v, --version:  specify version for the Podfile/Cartfile
+-s, --source:   specify source repository for the Podfile/Cartfile
+-S, --staging:  use the staging source repository for the Podfile/Cartfile
+-f, --file:     only create Podfile/Cartfile
+-c, --carthage: use Carthage instead of CocoaPods
+--carthage-bin: use the packaged Carthage executable from our bin dir
+--clean:        cleans all added/modified files to reset the state to a fresh
+git checkout. Warning: Data may be LOST!!
+Does something like 'git clean -fdx && git reset --hard'
+--skip:         specify a project to skip
+--framework:    specify a HTTPS URL to an uploaded framework to be tested
+(this creates a local Cartfile pointing to the URL)
+```
+
+What is this doing?
+-------------------
 The process for each project is like this:
 
 1. Plain Xcode project and sources checked in without pods; ensure this "fresh" state when running on the CI machine
