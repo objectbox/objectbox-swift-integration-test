@@ -24,10 +24,10 @@ version: 2.1
         command: ./test.sh --clean -v "1.4.1"
     - run:
         name: Test CocoaPods latest beta version
-        command: ./test.sh --clean -v "1.5.0-beta1" --staging
+        command: ./test.sh --clean -v "1.5.0-rc2"
     - run:
         name: Test CocoaPods latest sync version
-        command: ./test.sh --clean -v "1.5.0-sync-rc5" --staging
+        command: ./test.sh --clean -v "1.5.0-sync-rc6"
     - run:
         command: |
           mkdir -p /tmp/test-results
