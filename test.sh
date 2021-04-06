@@ -237,24 +237,39 @@ else # --------------------- CocoaPods ---------------------
     exit
   fi
 
-  cocoapods_version=$(pod --version 2>/dev/null || true)
+  pod_bin="$(which pod)"
+
+  # Apply M1 workaround if needed
+  set +e
+  $pod_bin install &> /dev/null
+  if [ $? -ne 0 ]; then
+   if [[ $(uname -p) == 'arm' ]]; then
+      echo "Apply CocoaPods M1 workaround (see https://github.com/CocoaPods/CocoaPods/issues/10220#issuecomment-730963835)"
+      echo "Ensure you have a working ffi setup for your Ruby installation, e.g. by running:"
+      echo " sudo arch -x86_64 gem install ffi"
+      pod_bin="arch -x86_64 $pod_bin"
+   fi
+  fi
+  set -e
+
+  cocoapods_version=$($pod_bin --version 2>/dev/null || true)
   echo "Detected CocoaPods version ${cocoapods_version:-N/A}"
 
   # On fresh CocoaPods installations (never did 'pod install' before; CI!), CocoaPods 1.8.[0-3] `pod repo update` fails.
   # https://github.com/CocoaPods/CocoaPods/issues/9226
   # To workaround this, use 'pod install --repo-update' instead
   if [[ "$cocoapods_version" > "1.8.3" ]]; then
-    pod repo update
+    $pod_bin repo update
   else
-    pod install --repo-update
+    $pod_bin install --repo-update
   fi
 
   if test -f "Podfile.lock"; then
     echo "Podfile.lock exist, will use 'pod update' instead of 'pod install'"
-    pod update
+    $pod_bin update
     Pods/ObjectBox/setup.rb --replace-modified
   else
-    pod install
+    $pod_bin install
     Pods/ObjectBox/setup.rb
   fi
 
