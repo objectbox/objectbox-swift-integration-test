@@ -244,9 +244,15 @@ else # --------------------- CocoaPods ---------------------
   $pod_bin install &> /dev/null
   if [ $? -ne 0 ]; then
    if [[ $(uname -p) == 'arm' ]]; then
-      echo "Apply CocoaPods M1 workaround (see https://github.com/CocoaPods/CocoaPods/issues/10220#issuecomment-730963835)"
-      echo "Ensure you have a working ffi setup for your Ruby installation, e.g. by running:"
-      echo " sudo arch -x86_64 gem install ffi"
+      echo "Make sure you have CocoaPods installed and dependencies up to date (see https://github.com/CocoaPods/CocoaPods/issues/9907#issuecomment-817394413)"
+      echo "Ensure you have a working CocoaPods setup for your Ruby installation, e.g. by running:"
+      echo "gem update ffi ethon"
+      echo ""
+      echo "Alternatively install CocoaPods using homebrew by running:"
+      echo "brew install cocoapods"
+      echo ""
+
+      # try x86_64 version as last resort
       pod_bin="arch -x86_64 $pod_bin"
    fi
   fi
