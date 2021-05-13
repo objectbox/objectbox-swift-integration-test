@@ -12,7 +12,8 @@ test-latest:
   stage: step1
   tags: [mac, x64, xcode]
   script:
-    - ./test.sh # still at 1.4.1 at this time
+    - ./test.sh
+    - ./test.sh --clean --staging -v 1.6.0
     - ./test.sh --clean -v 1.5.0
     - ./test.sh --clean -v 1.5.0-sync
   #retry: 2 # Does it help with "Failed to initiate service connection to simulator"?
