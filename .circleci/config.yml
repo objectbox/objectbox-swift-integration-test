@@ -84,8 +84,12 @@ version: 2.1
 jobs:
   # https://github.com/CircleCI-Public/macos-big-sur-preview-docs
   xcode-12_4_0-macos-11_0:
-    macos: {xcode: "110.12.4"} # Swift 5.3
+    macos:
+      xcode: 110.12.4
     resource_class: m2.medium
+    environment:
+      FL_OUTPUT_DIR: output
+      FASTLANE_LANE: test
     <<: *steps_cocoapods
 
   xcode-12_4_0-macos-10_15:
