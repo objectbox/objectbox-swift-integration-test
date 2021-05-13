@@ -22,13 +22,16 @@ version: 2.1
         name: Test CocoaPods latest
         command: ./test.sh --clean
     - run:
-        name: Test CocoaPods RC version
+        name: Test CocoaPods latest explicit
         command: ./test.sh --clean -v "1.6.0"
     - run:
-        name: Test CocoaPods latest explicit
+        name: Test CocoaPods latest sync
+        command: ./test.sh --clean -v "1.6.0-sync"
+    - run:
+        name: Test CocoaPods 2nd latest
         command: ./test.sh --clean -v "1.5.0"
     - run:
-        name: Test CocoaPods latest sync version
+        name: Test CocoaPods 2nd latest sync version
         command: ./test.sh --clean -v "1.5.0-sync"
     - run:
         command: |

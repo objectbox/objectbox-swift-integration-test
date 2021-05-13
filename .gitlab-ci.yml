@@ -14,6 +14,7 @@ test-latest:
   script:
     - ./test.sh
     - ./test.sh --clean -v 1.6.0
+    - ./test.sh --clean -v 1.6.0-sync
   #retry: 2 # Does it help with "Failed to initiate service connection to simulator"?
 
 #Carthage is complete unsupported at the moment: with xcf if fails with "Invalid archive - Found multiple frameworks..."
