@@ -81,15 +81,15 @@ version: 2.1
 # Swift 5.3 was introduced in Xcode 12.0
 # Swift 5.2 was introduced in Xcode 11.4
 
-jobs:
+jobs:  # Don't forget to add new jobs to the build workflow below
   # https://github.com/CircleCI-Public/macos-big-sur-preview-docs
   xcode-12_4_0-macos-11_0:
     macos:
       xcode: 110.12.4
     resource_class: m2.medium
-    environment:
-      FL_OUTPUT_DIR: output
-      FASTLANE_LANE: test
+#    environment:
+#      FL_OUTPUT_DIR: output
+#      FASTLANE_LANE: test
     <<: *steps_cocoapods
 
   xcode-12_4_0-macos-10_15:
@@ -123,6 +123,7 @@ jobs:
 workflows:
   build:
     jobs:
+      - xcode-12_4_0-macos-11_0
       - xcode-12_4_0-macos-10_15
       - xcode-12_3_0-macos-10_15
       - xcode-12_2_0-macos-10_15
