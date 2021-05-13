@@ -23,7 +23,7 @@ version: 2.1
         command: ./test.sh --clean
     - run:
         name: Test CocoaPods RC version
-        command: ./test.sh --clean --staging -v "1.6.0"
+        command: ./test.sh --clean -v "1.6.0"
     - run:
         name: Test CocoaPods latest explicit
         command: ./test.sh --clean -v "1.5.0"
@@ -84,12 +84,8 @@ version: 2.1
 jobs:  # Don't forget to add new jobs to the build workflow below
   # https://github.com/CircleCI-Public/macos-big-sur-preview-docs
   xcode-12_4_0-macos-11_0:
-    macos:
-      xcode: 110.12.4
+    macos: {xcode: 110.12.4} # Swift 5.3
     resource_class: m2.medium
-#    environment:
-#      FL_OUTPUT_DIR: output
-#      FASTLANE_LANE: test
     <<: *steps_cocoapods
 
   xcode-12_4_0-macos-10_15:
