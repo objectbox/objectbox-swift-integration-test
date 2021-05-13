@@ -3,10 +3,17 @@ ObjectBox Swift Integration Test
 
 How to run the tests
 --------------------
-With `test.sh` you can run several integration tests for a particular ObjectBox version. A typical command would be:
+With `test.sh` you can run several integration tests for ObjectBox Swift.
+To test the latest version available from Cocoapods, simply run the script without any parameters:
 
 ```
-./test.sh --clean -v 1.5.0-rc
+./test.sh
+```
+
+Another typical example to reset all files (the script calls something like `git clean -fdx` and `git reset --hard`) and specify a particular ObjectBox version to test:
+
+```
+./test.sh --clean -v 1.6.0
 ```
 
 If all works out you should see something like this in your Terminal:
@@ -53,14 +60,14 @@ This is an example Podfile for a project called "obxtest2":
 source 'https://github.com/objectbox/objectbox-swift-spec-staging.git'
 
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+# platform :ios, '11.0'
 
 target 'obxtest2' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
   # Pods for obxtest2
-  pod 'ObjectBox', '~> 1.0.0-rc.3'
+  pod 'ObjectBox', '~> 1.5.0'
 
 end
 ```
