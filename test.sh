@@ -185,7 +185,7 @@ if [ -n "$use_carthage" ]; then # --------------------- Carthage ---------------
   carthage_version=$($carthage_bin version 2>/dev/null || true)
   echo "Detected Carthage version ${carthage_version:-N/A}"
 
-  $carthage_bin update
+  $carthage_bin update --use-xcframeworks
 
   xcodeproj_dir=$(find -- *.xcodeproj -maxdepth 0)
   mv "$xcodeproj_dir/$xcodefile" "$xcodeproj_dir/$xcodefile.bak"

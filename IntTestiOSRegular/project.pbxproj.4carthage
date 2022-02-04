@@ -3,12 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		28764589238D6E8B0050D45C /* ObjectBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28764588238D6E8B0050D45C /* ObjectBox.framework */; };
-		2876458A238D6E8B0050D45C /* ObjectBox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 28764588238D6E8B0050D45C /* ObjectBox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		28764589238D6E8B0050D45C /* ObjectBox.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28764588238D6E8B0050D45C /* ObjectBox.xcframework */; };
+		2876458A238D6E8B0050D45C /* ObjectBox.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 28764588238D6E8B0050D45C /* ObjectBox.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		288FC98524AC93C9009DB6D1 /* TeacherStudent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288FC98424AC93C9009DB6D1 /* TeacherStudent.swift */; };
 		295A7BE7232A314000F74FE2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295A7BE6232A314000F74FE2 /* AppDelegate.swift */; };
 		295A7BE9232A314000F74FE2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295A7BE8232A314000F74FE2 /* ViewController.swift */; };
@@ -39,7 +39,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				2876458A238D6E8B0050D45C /* ObjectBox.framework in Embed Frameworks */,
+				2876458A238D6E8B0050D45C /* ObjectBox.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -47,7 +47,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		28764588238D6E8B0050D45C /* ObjectBox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectBox.framework; path = Carthage/Build/iOS/ObjectBox.framework; sourceTree = "<group>"; };
+		28764588238D6E8B0050D45C /* ObjectBox.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = ObjectBox.xcframework; path = Carthage/Build/ObjectBox.xcframework; sourceTree = "<group>"; };
 		288FC98424AC93C9009DB6D1 /* TeacherStudent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeacherStudent.swift; sourceTree = "<group>"; };
 		295A7BE3232A314000F74FE2 /* IntTestiOSRegular.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntTestiOSRegular.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		295A7BE6232A314000F74FE2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -70,7 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28764589238D6E8B0050D45C /* ObjectBox.framework in Frameworks */,
+				28764589238D6E8B0050D45C /* ObjectBox.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,7 +87,7 @@
 		28764587238D6E8B0050D45C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				28764588238D6E8B0050D45C /* ObjectBox.framework */,
+				28764588238D6E8B0050D45C /* ObjectBox.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
