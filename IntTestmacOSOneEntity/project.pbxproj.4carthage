@@ -3,12 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		28764565238C321E0050D45C /* ObjectBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28764563238C2A3C0050D45C /* ObjectBox.framework */; };
-		28764566238C321E0050D45C /* ObjectBox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 28764563238C2A3C0050D45C /* ObjectBox.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		28764565238C321E0050D45C /* ObjectBox.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28764563238C2A3C0050D45C /* ObjectBox.xcframework */; };
+		28764566238C321E0050D45C /* ObjectBox.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 28764563238C2A3C0050D45C /* ObjectBox.xcframework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		28DB146A2328336700B429EB /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DB14692328336700B429EB /* main.swift */; };
 		28DB14712328338000B429EB /* Foo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DB14702328338000B429EB /* Foo.swift */; };
 /* End PBXBuildFile section */
@@ -20,7 +20,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				28764566238C321E0050D45C /* ObjectBox.framework in Embed Frameworks */,
+				28764566238C321E0050D45C /* ObjectBox.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -37,7 +37,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		28764563238C2A3C0050D45C /* ObjectBox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectBox.framework; path = Carthage/Build/Mac/ObjectBox.framework; sourceTree = "<group>"; };
+		28764563238C2A3C0050D45C /* ObjectBox.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectBox.xcframework; path = Carthage/Build/Mac/ObjectBox.xcframework; sourceTree = "<group>"; };
 		28DB14662328336700B429EB /* IntTestmacOSOneEntity */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = IntTestmacOSOneEntity; sourceTree = BUILT_PRODUCTS_DIR; };
 		28DB14692328336700B429EB /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		28DB14702328338000B429EB /* Foo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Foo.swift; sourceTree = "<group>"; };
@@ -48,7 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28764565238C321E0050D45C /* ObjectBox.framework in Frameworks */,
+				28764565238C321E0050D45C /* ObjectBox.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,7 +60,7 @@
 			children = (
 				28DB14682328336700B429EB /* IntTestmacOSOneEntity */,
 				28DB14672328336700B429EB /* Products */,
-				28764563238C2A3C0050D45C /* ObjectBox.framework */,
+				28764563238C2A3C0050D45C /* ObjectBox.xcframework */,
 			);
 			sourceTree = "<group>";
 		};
