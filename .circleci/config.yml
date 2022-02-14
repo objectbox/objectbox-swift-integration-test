@@ -7,126 +7,111 @@ version: 2.1
 # https://forums.swift.org/t/cant-use-framework-compiled-with-swift-5-2-in-swift-5-1-3-project/35248
 
 # Swift versions used in ObjectBox releases:
-# 1.6.0: 5.4 (swiftlang-1205.0.26.9 clang-1205.0.19.55)
+# 1.7.0: 5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30), Xcode 13.2.1
+# 1.6.0: 5.4 (swiftlang-1205.0.26.9 clang-1205.0.19.55), Xcode 12.5
 # 1.5.0: 5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)
-# 1.4.1: 5.3 (swiftlang-1200.0.29.2 clang-1200.0.30.1)
-# 1.4.0: 5.2.4
+# 1.4.1: 5.3 (swiftlang-1200.0.29.2 clang-1200.0.30.1), Xcode 12.0
+# 1.4.0: 5.2.4, Xcode 11.4(?)
 
-.cocoapods: &steps_cocoapods
-  steps:
-    - checkout
-    - run:
-        name: Update CocoaPods
-        command: sudo gem install cocoapods
-    - run:
-        name: Test CocoaPods latest
-        command: ./test.sh --clean
-    - run:
-        name: Test CocoaPods latest explicit
-        command: ./test.sh --clean -v "1.6.0"
-    - run:
-        name: Test CocoaPods latest sync
-        command: ./test.sh --clean -v "1.6.0-sync"
-    - run:
-        name: Test CocoaPods 2nd latest
-        command: ./test.sh --clean -v "1.5.0"
-    - run:
-        name: Test CocoaPods 2nd latest sync version
-        command: ./test.sh --clean -v "1.5.0-sync"
-    - run:
-        command: |
-          mkdir -p /tmp/test-results
-          find . -name *.xcresult -exec cp -r {} /tmp/test-results \;
-        when: on_fail
-    - store_artifacts:
-        path: /tmp/test-results
+jobs:
+  test-cocoapods:
+    parameters:
+      xcode-version:
+        type: string
+    macos: {xcode: << parameters.xcode-version >> }
+    resource_class: macos.x86.medium.gen2 # https://circleci.com/docs/2.0/executor-types/#using-macos
+    steps:
+      - checkout
+      - run:
+          name: Update CocoaPods
+          command: sudo gem install cocoapods
+      - run:
+          name: Test CocoaPods latest
+          command: ./test.sh --clean
+#      - run:
+#          name: Test CocoaPods latest explicit
+#          command: ./test.sh --clean -v "1.6.0"
+#      - run:
+#          name: Test CocoaPods latest sync
+#          command: ./test.sh --clean -v "1.6.0-sync"
+#      - run:
+#          name: Test CocoaPods 2nd latest
+#          command: ./test.sh --clean -v "1.5.0"
+#      - run:
+#          name: Test CocoaPods 2nd latest sync version
+#          command: ./test.sh --clean -v "1.5.0-sync"
+      - run:
+          command: |
+            mkdir -p /tmp/test-results
+            find . -name *.xcresult -exec cp -r {} /tmp/test-results \;
+          when: on_fail
+      - store_artifacts:
+          path: /tmp/test-results
 
-.carthage: &steps_carthage
-  steps:
-    - checkout
-    - run:
-        name: Update Carthage
-        command: brew update && brew upgrade carthage
-    - run:
-        name: Test Carthage latest
-        command: ./test.sh --clean --carthage
-    - run:
-        name: Test Carthage latest explicit version
-        command: ./test.sh --clean --carthage -v 1.4.1
-    - run:
-        command: |
-          mkdir -p /tmp/test-results
-          find . -name *.xcresult -exec cp -r {} /tmp/test-results \;
-        when: on_fail
-    - store_artifacts:
-        path: /tmp/test-results
+  test-carthage:
+    parameters:
+      xcode-version:
+        type: string
+    macos: {xcode: << parameters.xcode-version >> }
+    resource_class: macos.x86.medium.gen2 # https://circleci.com/docs/2.0/executor-types/#using-macos
+    steps:
+      - checkout
+      - run:
+          name: Update Carthage
+          command: brew update && brew upgrade carthage
+      - run:
+          name: Test Carthage latest
+          command: ./test.sh --clean --carthage
+#      - run:
+#          name: Test Carthage latest explicit version
+#          command: ./test.sh --clean --carthage -v 1.4.1
+      - run:
+          command: |
+            mkdir -p /tmp/test-results
+            find . -name *.xcresult -exec cp -r {} /tmp/test-results \;
+          when: on_fail
+      - store_artifacts:
+          path: /tmp/test-results
 
 # To test release candidates via staging repo:
 # https://github.com/objectbox/objectbox-swift-spec-staging/blob/master/cartspec/ObjectBox.json
-.carthage_staging: &steps_carthage_staging
-  steps:
-    - checkout
-    - run:
-        name: Update Carthage
-        command: brew update && brew upgrade carthage
-    - run:
-        name: Test Carthage staging version
-        command: ./test.sh --staging --carthage -v 1.4.1
-    - run:
-        command: |
-          mkdir -p /tmp/test-results
-          find . -name *.xcresult -exec cp -r {} /tmp/test-results \;
-        when: on_fail
-    - store_artifacts:
-        path: /tmp/test-results
-
-# Swift 5.4 was introduced in Xcode 12.5
-# Swift 5.3 was introduced in Xcode 12.0
-# Swift 5.2 was introduced in Xcode 11.4
-
-jobs:  # Don't forget to add new jobs to the build workflow below
-  # https://github.com/CircleCI-Public/macos-big-sur-preview-docs
-  xcode-12_4_0-macos-11_0:
-    macos: {xcode: 110.12.4} # Swift 5.3
+  test-carthage-staging:
+    parameters:
+      xcode-version:
+        type: string
+    macos: {xcode: << parameters.xcode-version >> }
     resource_class: macos.x86.medium.gen2 # https://circleci.com/docs/2.0/executor-types/#using-macos
-    <<: *steps_cocoapods
-
-  xcode-12_4_0-macos-10_15:
-    macos: {xcode: "12.4.0"} # Swift 5.3
-    <<: *steps_cocoapods
-
-  xcode-12_3_0-macos-10_15:
-    macos: {xcode: "12.3.0"} # Swift 5.3
-    <<: *steps_cocoapods
-
-  xcode-12_2_0-macos-10_15:
-    macos: {xcode: "12.2.0"} # Swift 5.3
-    <<: *steps_cocoapods
-
-  xcode-12_1_1-macos-10_15:
-    macos: {xcode: "12.1.1"} # Swift 5.3
-    <<: *steps_cocoapods
-
-  xcode-12_1_1-macos-10_15_cart:
-    macos: {xcode: "12.1.1"} # Swift 5.3
-    <<: *steps_carthage
-
-  xcode-12_0_1-macos-10_15:
-    macos: {xcode: "12.0.1"} # Swift 5.3
-    <<: *steps_cocoapods
-
-  xcode-12_0_1-macos-10_15_cart:
-    macos: {xcode: "12.0.1"} # Swift 5.3
-    <<: *steps_carthage
+    steps:
+      - checkout
+      - run:
+          name: Update Carthage
+          command: brew update && brew upgrade carthage
+      - run:
+          name: Test Carthage staging version
+#          command: ./test.sh --staging --carthage -v 1.4.1
+          command: ./test.sh --clean --framework https://github.com/objectbox/objectbox-swift-spec-staging/releases/download/v1.x/ObjectBox-xcframework-1.7.0-rc.zip
+      - run:
+          command: |
+            mkdir -p /tmp/test-results
+            find . -name *.xcresult -exec cp -r {} /tmp/test-results \;
+          when: on_fail
+      - store_artifacts:
+          path: /tmp/test-results
 
 workflows:
-  build:
+  cocoapods-worflow:
     jobs:
-      - xcode-12_4_0-macos-11_0
-      - xcode-12_4_0-macos-10_15
-      - xcode-12_3_0-macos-10_15
-      - xcode-12_2_0-macos-10_15
-      - xcode-12_1_1-macos-10_15
-      - xcode-12_1_1-macos-10_15_cart
-      - xcode-12_0_1-macos-10_15
-      - xcode-12_0_1-macos-10_15_cart
+      - test-cocoapods:
+          matrix:
+            parameters:
+              xcode-version: ["12.0.1", "12.1.1","12.2.0", "12.3.0", "12.4.0","12.5.1","13.0.0","13.1.0","13.2.1","13.3.0"]
+
+      - test-carthage:
+          matrix:
+            parameters:
+              xcode-version: ["12.0.1"] # ObjectBox (V1.4.1) framework Swift version must (still) match Xcode's exactly
+
+      - test-carthage-staging:
+          matrix:
+            parameters:
+              xcode-version: ["13.2.1"] # ObjectBox framework Swift version must (still) match Xcode's exactly
