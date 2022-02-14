@@ -88,7 +88,7 @@ jobs:  # Don't forget to add new jobs to the build workflow below
   # https://github.com/CircleCI-Public/macos-big-sur-preview-docs
   xcode-12_4_0-macos-11_0:
     macos: {xcode: 110.12.4} # Swift 5.3
-    resource_class: m2.medium
+    resource_class: macos.x86.medium.gen2 # https://circleci.com/docs/2.0/executor-types/#using-macos
     <<: *steps_cocoapods
 
   xcode-12_4_0-macos-10_15:
