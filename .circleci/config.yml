@@ -26,8 +26,11 @@ jobs:
           name: Update CocoaPods
           command: sudo gem install cocoapods
       - run:
-          name: Test CocoaPods latest
-          command: ./test.sh --clean
+          name: Test CocoaPods staging (rc)
+          command: ./test.sh --clean --staging -v "1.7.0-rc2"
+#      - run:
+#          name: Test CocoaPods latest
+#          command: ./test.sh --clean
 #      - run:
 #          name: Test CocoaPods latest explicit
 #          command: ./test.sh --clean -v "1.6.0"
@@ -89,7 +92,7 @@ jobs:
       - run:
           name: Test Carthage staging version
 #          command: ./test.sh --staging --carthage -v 1.4.1
-          command: ./test.sh --clean --framework https://github.com/objectbox/objectbox-swift-spec-staging/releases/download/v1.x/ObjectBox-xcframework-1.7.0-rc.zip
+          command: ./test.sh --clean --framework https://github.com/objectbox/objectbox-swift-spec-staging/releases/download/v1.x/ObjectBox-xcframework-1.7.0-rc2.zip
       - run:
           command: |
             mkdir -p /tmp/test-results
@@ -106,10 +109,10 @@ workflows:
             parameters:
               xcode-version: ["12.0.1", "12.1.1","12.2.0", "12.3.0", "12.4.0","12.5.1","13.0.0","13.1.0","13.2.1","13.3.0"]
 
-      - test-carthage:
-          matrix:
-            parameters:
-              xcode-version: ["12.0.1"] # ObjectBox (V1.4.1) framework Swift version must (still) match Xcode's exactly
+#      - test-carthage:
+#          matrix:
+#            parameters:
+#              xcode-version: ["12.0.1"] # ObjectBox (V1.4.1) framework Swift version must (still) match Xcode's exactly
 
       - test-carthage-staging:
           matrix:
