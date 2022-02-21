@@ -25,18 +25,18 @@ jobs:
       - run:
           name: Update CocoaPods
           command: sudo gem install cocoapods
+#      - run:
+#          name: Test CocoaPods staging (rc)
+#          command: ./test.sh --clean --staging -v "1.7.0-rc2"
       - run:
-          name: Test CocoaPods staging (rc)
-          command: ./test.sh --clean --staging -v "1.7.0-rc2"
-#      - run:
-#          name: Test CocoaPods latest
-#          command: ./test.sh --clean
-#      - run:
-#          name: Test CocoaPods latest explicit
-#          command: ./test.sh --clean -v "1.6.0"
+          name: Test CocoaPods latest
+          command: ./test.sh --clean
+      - run:
+          name: Test CocoaPods latest explicit
+          command: ./test.sh --clean -v "1.7.0"
       - run:
           name: Test CocoaPods latest sync
-          command: ./test.sh --clean --staging -v "1.7.0-sync-rc2"
+          command: ./test.sh --clean -v "1.7.0-sync"
 #      - run:
 #          name: Test CocoaPods 2nd latest
 #          command: ./test.sh --clean -v "1.5.0"
