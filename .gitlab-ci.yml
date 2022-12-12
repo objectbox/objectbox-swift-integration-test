@@ -1,58 +1,35 @@
 # tests use the simulator so they can't run in parallel
 # see https://gitlab.com/gitlab-org/gitlab/issues/15536 for future support of locks
 stages:
-  - step1
-  - step2
-  - step3
-  - step4
-  - step5
-  - step6
+  - int-test
 
-test-latest:
-  stage: step1
+.common:
+  stage: int-test
+  resource_group: "ios-simulator"
   tags: [mac, x64, xcode]
+
+latest:
+  extends: .common
   script:
     - ./test.sh
-    - ./test.sh --clean -v 1.6.0
-    - ./test.sh --clean -v 1.6.0-sync
-  #retry: 2 # Does it help with "Failed to initiate service connection to simulator"?
+    - ./test.sh --clean -v 1.7.0
+    - ./test.sh --clean -v 1.7.0-sync
+
+2nd-latest:
+  extends: .common
+  script:
+    - ./test.sh
+    - ./test.sh --clean -v 1.7.0
+    - ./test.sh --clean -v 1.7.0-sync
 
 #Carthage is complete unsupported at the moment: with xcf if fails with "Invalid archive - Found multiple frameworks..."
-.test-latest-carthage:
-  stage: step2
-  tags: [mac, x64, xcode]
+.latest-carthage:
+  extends: .common
   script:
     - ./test.sh --carthage-bin
-    - ./test.sh --clean --carthage-bin -v 1.4.1
-  retry: 2 # Does it help with "Failed to initiate service connection to simulator"?
+    - ./test.sh --clean --carthage-bin -v 1.8.0
 
-test-2nd-latest:
-  stage: step3
-  tags: [mac, x64, xcode]
+carthage-staging:
+  extends: .common
   script:
-    - ./test.sh -v 1.5.0
-    - ./test.sh --clean -v 1.5.0-sync
-  retry: 2 # Does it help with "Failed to initiate service connection to simulator"?
-
-#test-2nd-latest-carthage:
-#  stage: step4
-#  tags: [mac, x64, xcode]
-#  script:
-#    - ./test.sh --carthage-bin  -v 1.4.0
-#  retry: 2 # Does it help with "Failed to initiate service connection to simulator"?
-
-# 1.3.1 still worked, but not very interesting anymore
-.test-3rd-latest:
-  stage: step5
-  tags: [mac, x64, xcode]
-  script:
-    - ./test.sh -v 1.3.1
-  retry: 2 # Does it help with "Failed to initiate service connection to simulator"?
-
-#test-3rd-latest-carthage:
-#  stage: step6
-#  tags: [mac, x64, xcode]
-#  script:
-#    - echo "Skipped due to 'framework was built with 5.2.2 (...) and the local version is 5.2.4'"
-#    #- ./test.sh -v 1.3.0 --carthage-bin --skip IntTestiOSRegular # Requires 1.3.1
-#  retry: 2 # Does it help with "Failed to initiate service connection to simulator"?
+    - ./test.sh --staging --carthage -v 1.8.0-rc
