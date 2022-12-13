@@ -30,15 +30,15 @@ jobs:
           name: Setup "iPhone 11" simulator
           command: xcrun simctl create "iPhone 11" "iPhone 11"
       - checkout
-#      - run:
-#          name: Test CocoaPods staging (rc)
-#          command: ./test.sh --clean --staging -v "1.7.0-rc2"
       - run:
           name: Test CocoaPods latest
           command: ./test.sh --clean
       - run:
           name: Test CocoaPods latest explicit
           command: ./test.sh --clean -v "1.8.0"
+      - run:
+          name: Test CocoaPods latest rc
+          command: ./test.sh --clean -v "1.8.1-rc"
       - run:
           name: Test CocoaPods latest sync
           command: ./test.sh --clean -v "1.8.0-sync"
@@ -71,9 +71,9 @@ jobs:
           name: Setup "iPhone 11" simulator
           command: xcrun simctl create "iPhone 11" "iPhone 11"
       - checkout
-      - run:
-          name: Test Carthage latest
-          command: ./test.sh --clean --carthage
+#      - run:
+#          name: Test Carthage latest
+#          command: ./test.sh --clean --carthage
       - run:
           name: Test Carthage latest explicit version
           command: ./test.sh --clean --carthage -v 1.8.0
@@ -120,10 +120,12 @@ workflows:
       - test-cocoapods:
           matrix:
             parameters:
-              # Pre-13.1 fails with xcf build from ObjectBox 1.7+
-              # TODO: 13.x already has "iPhone 11"; fix: do not add as it fails because it finds multiple ones
-              #xcode-version: ["13.1.0", "13.2.1", "13.3.1", "14.0.1", "14.1.0", "14.2.0"]
-              xcode-version: ["14.0.1", "14.1.0", "14.2.0"]
+              # 1.8.0 seems not to work with Xcode 14.0.1 / Swift 5.7.0:
+              # .../ObjectBox.framework/Modules/ObjectBox.swiftmodule/x86_64-apple-macos.private.swiftinterface:10:8: error: no such module '_StringProcessing'
+              #/Users/distiller/project/IntTestmacOSOneEntity/IntTestmacOSOneEntity/Foo.swift:1:8: error: failed to build module 'ObjectBox';
+              #this SDK is not supported by the compiler (the SDK is built with 'Apple Swift version 5.7.1 (swiftlang-5.7.1.135.3 clang-1400.0.29.51)',
+              #while this compiler is 'Apple Swift version 5.7 (swiftlang-5.7.0.127.4 clang-1400.0.29.50)'). Please select a toolchain which matches the SDK.
+              xcode-version: ["14.1.0", "14.2.0"]
 
       - test-carthage:
           matrix:
