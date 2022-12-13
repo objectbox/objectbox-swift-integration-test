@@ -12,8 +12,8 @@ latest:
   extends: .common
   script:
     - ./test.sh
-    - ./test.sh --clean -v 1.7.0
-    - ./test.sh --clean -v 1.7.0-sync
+    - ./test.sh --clean -v 1.8.0
+    - ./test.sh --clean -v 1.8.0-sync
 
 2nd-latest:
   extends: .common
