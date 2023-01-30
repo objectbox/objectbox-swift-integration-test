@@ -22,14 +22,14 @@ latest:
     - ./test.sh --clean -v 1.8.0
     - ./test.sh --clean -v 1.8.0-sync
 
-#Carthage is complete unsupported at the moment: with xcf if fails with "Invalid archive - Found multiple frameworks..."
-.latest-carthage:
+latest-carthage:
   extends: .common
   script:
     - ./test.sh --carthage-bin
     - ./test.sh --clean --carthage-bin -v 1.8.1
 
-carthage-staging:
+# If there's a staging release... (otherwise, disabled via leading '.')
+.carthage-staging:
   extends: .common
   script:
     - ./test.sh --staging --carthage -v 1.8.0-rc
