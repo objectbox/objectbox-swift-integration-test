@@ -22,14 +22,15 @@ latest:
     - ./test.sh --clean -v 1.8.0
     - ./test.sh --clean -v 1.8.0-sync
 
-latest-carthage:
+# Disable until current Swift version is supported again
+.latest-carthage:
   extends: .common
   script:
     - ./test.sh --carthage-bin
     - ./test.sh --clean --carthage-bin -v 1.8.1
 
 # If there's a staging release... (otherwise, disabled via leading '.')
-.carthage-staging:
+carthage-staging:
   extends: .common
   script:
-    - ./test.sh --staging --carthage -v 1.8.0-rc
+    - ./test.sh --staging --carthage -v 1.9.0-rc
