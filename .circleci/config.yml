@@ -21,7 +21,7 @@ jobs:
       xcode-version:
         type: string
     macos: {xcode: << parameters.xcode-version >> }
-    resource_class: macos.x86.medium.gen2 # https://circleci.com/docs/2.0/executor-types/#using-macos
+    resource_class: macos.m1.medium.gen1 # https://circleci.com/docs/2.0/executor-types/#using-macos
     steps:
       - run:
           name: Update CocoaPods
@@ -62,7 +62,7 @@ jobs:
       xcode-version:
         type: string
     macos: {xcode: << parameters.xcode-version >> }
-    resource_class: macos.x86.medium.gen2 # https://circleci.com/docs/2.0/executor-types/#using-macos
+    resource_class: macos.m1.medium.gen1 # https://circleci.com/docs/2.0/executor-types/#using-macos
     steps:
       - run:
           name: Update Carthage
@@ -93,7 +93,7 @@ jobs:
       xcode-version:
         type: string
     macos: {xcode: << parameters.xcode-version >> }
-    resource_class: macos.x86.medium.gen2 # https://circleci.com/docs/using-macos/#available-resource-classes
+    resource_class: macos.m1.medium.gen1 # https://circleci.com/docs/using-macos/#available-resource-classes
     steps:
       - run:
           name: Update Carthage
