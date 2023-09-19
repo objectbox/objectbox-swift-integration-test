@@ -1,5 +1,5 @@
-# https://circleci.com/docs/2.0/configuration-reference/
-# https://circleci.com/docs/2.0/testing-ios/#supported-xcode-versions
+# https://circleci.com/docs/configuration-reference/
+# https://circleci.com/docs/testing-ios/#supported-xcode-versions
 version: 2.1
 
 # Framework compiled with Swift 5.2 seems incompatible to Swift 5.1 compiler:
@@ -37,16 +37,16 @@ jobs:
           command: ./test.sh --clean
       - run:
           name: Test CocoaPods latest explicit
-          command: ./test.sh --clean -v "1.8.1"
-      - run:
-          name: Test CocoaPods latest rc
-          command: ./test.sh --clean -v "1.8.1-rc"
+          command: ./test.sh --clean -v "1.9.0"
+      # - run:
+      #     name: Test CocoaPods latest rc
+      #     command: ./test.sh --clean -v "1.8.1-rc"
       - run:
           name: Test CocoaPods latest sync
-          command: ./test.sh --clean -v "1.8.1-sync"
+          command: ./test.sh --clean -v "1.9.0-sync"
       - run:
           name: Test CocoaPods 2nd latest
-          command: ./test.sh --clean -v "1.8.0"
+          command: ./test.sh --clean -v "1.8.1"
 #      - run:
 #          name: Test CocoaPods 2nd latest sync version
 #          command: ./test.sh --clean -v "1.5.0-sync"
@@ -78,7 +78,7 @@ jobs:
 #          command: ./test.sh --clean --carthage
       - run:
           name: Test Carthage latest explicit version
-          command: ./test.sh --clean --carthage -v 1.8.1
+          command: ./test.sh --clean --carthage -v 1.9.0
       - run:
           command: |
             mkdir -p /tmp/test-results
@@ -127,13 +127,16 @@ workflows:
               #/Users/distiller/project/IntTestmacOSOneEntity/IntTestmacOSOneEntity/Foo.swift:1:8: error: failed to build module 'ObjectBox';
               #this SDK is not supported by the compiler (the SDK is built with 'Apple Swift version 5.7.1 (swiftlang-5.7.1.135.3 clang-1400.0.29.51)',
               #while this compiler is 'Apple Swift version 5.7 (swiftlang-5.7.0.127.4 clang-1400.0.29.50)'). Please select a toolchain which matches the SDK.
-              xcode-version: ["14.1.0", "14.2.0"]
+              # 14.1.0 to test with Swift 5.7
+              # 14.3.1 to test with Swift 5.8
+              # 15.0.0 to test with Swift 5.9 (still beta, so might break in the future)
+              xcode-version: ["14.1.0", "14.3.1", "15.0.0"]
 
       - test-carthage:
           matrix:
             parameters:
               # ObjectBox framework Swift version must (still) match Xcode's exactly
-              xcode-version: ["14.2.0"]
+              xcode-version: ["14.3.1"]
 
       - test-carthage-staging:
           matrix:
