@@ -10,22 +10,7 @@
 		28DB146A2328336700B429EB /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DB14692328336700B429EB /* main.swift */; };
 		28DB14712328338000B429EB /* Foo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DB14702328338000B429EB /* Foo.swift */; };
 		75D5450827B34071003E1654 /* ObjectBox.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75D5450627B34063003E1654 /* ObjectBox.xcframework */; };
-		75D5450927B34071003E1654 /* ObjectBox.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 75D5450627B34063003E1654 /* ObjectBox.xcframework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		75D5450527B34049003E1654 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				75D5450927B34071003E1654 /* ObjectBox.xcframework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		28DB14662328336700B429EB /* IntTestmacOSOneEntity */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = IntTestmacOSOneEntity; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,8 +74,6 @@
 			buildPhases = (
 				28DB14622328336700B429EB /* Sources */,
 				28DB14632328336700B429EB /* Frameworks */,
-				28DB14642328336700B429EB /* CopyFiles */,
-				75D5450527B34049003E1654 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
