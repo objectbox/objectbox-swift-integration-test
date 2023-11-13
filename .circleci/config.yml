@@ -25,12 +25,14 @@ jobs:
     resource_class: macos.m1.medium.gen1 # https://circleci.com/docs/2.0/executor-types/#using-macos
     steps:
       - run:
+          # TODO we should likely also have a matrix to test a couple of different iOS versions
+          name: Prepare iOS simulator # Boot as early as possible to avoid test timeout.
+          command: |
+            OBX_DEVICE_ID=$(xcrun simctl create "iPhone 11" "iPhone 11")
+            xcrun simctl boot $OBX_DEVICE_ID
+      - run:
           name: Update CocoaPods
           command: sudo gem install cocoapods
-      - run:
-          # TODO we should likely also have a matrix to test a couple of different iOS versions
-          name: Setup "iPhone 11" simulator
-          command: xcrun simctl create "iPhone 11" "iPhone 11"
       - checkout
       - run:
           name: Test CocoaPods latest
@@ -57,6 +59,9 @@ jobs:
           when: on_fail
       - store_artifacts:
           path: /tmp/test-results
+      - store_artifacts:
+          path: ~/Library/Logs/DiagnosticReports
+          destination: simulator-crash-reports
 
   test-carthage:
     parameters:
