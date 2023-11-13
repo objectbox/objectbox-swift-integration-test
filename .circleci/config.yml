@@ -59,6 +59,9 @@ jobs:
           when: on_fail
       - store_artifacts:
           path: /tmp/test-results
+      - store_artifacts:
+          path: ~/Library/Logs/DiagnosticReports
+          destination: simulator-crash-reports
 
   test-carthage:
     parameters:
