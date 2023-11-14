@@ -134,8 +134,8 @@ workflows:
               #while this compiler is 'Apple Swift version 5.7 (swiftlang-5.7.0.127.4 clang-1400.0.29.50)'). Please select a toolchain which matches the SDK.
               # 14.1.0 to test with Swift 5.7
               # 14.3.1 to test with Swift 5.8
-              # 15.0.0 to test with Swift 5.9 (currently failing due to timeout when starting simulator tests, need to verify locally once updated to Xcode 15)
-              xcode-version: ["14.1.0", "14.3.1"]
+              # 15.1 to test with Swift 5.9 (note: the 15.0.0 image fails due to severe simulator performance regressions)
+              xcode-version: ["14.1.0", "14.3.1", "15.1"]
 
       - test-carthage:
           matrix:
