@@ -239,19 +239,6 @@ else # --------------------- CocoaPods ---------------------
 
   pod_bin="$(which pod)"
 
-  # Apply M1 workaround if needed
-  set +e
-  $pod_bin install &> /dev/null
-  if [ $? -ne 0 ]; then
-   if [[ $(uname -p) == 'arm' ]]; then
-      echo "Apply CocoaPods M1 workaround (see https://github.com/CocoaPods/CocoaPods/issues/10220#issuecomment-730963835)"
-      echo "Ensure you have a working ffi setup for your Ruby installation, e.g. by running:"
-      echo " sudo arch -x86_64 gem install ffi"
-      pod_bin="arch -x86_64 $pod_bin"
-   fi
-  fi
-  set -e
-
   cocoapods_version=$($pod_bin --version 2>/dev/null || true)
   echo "Detected CocoaPods version ${cocoapods_version:-N/A}"
 
