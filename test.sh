@@ -200,10 +200,15 @@ else # --------------------- CocoaPods ---------------------
     source="https://github.com/objectbox/objectbox-swift-spec-staging.git"
   fi
 
-  echo "
-  # Uncomment the next line to define a global platform for your project
-  # platform :ios, '9.0'
-  " > Podfile
+  # Set version to mimimum deployment target required by ObjectBox pod.
+  # Note: all other projects are iOS and might not contain iOS in name.
+  if [[ $project =~ "macOS" ]]; then
+  echo "platform :osx, '10.15'
+" > Podfile
+  else
+  echo "platform :ios, '12.0'
+" > Podfile
+  fi
 
   if [ -n "${source}" ]; then
     echo "Using source repository: ${source}"
@@ -212,9 +217,9 @@ else # --------------------- CocoaPods ---------------------
   fi
 
   echo "target '${project}' do
-    use_frameworks!
+  use_frameworks!
 
-    # Pods for ${project}" >> Podfile
+  # Pods for ${project}" >> Podfile
 
   if [ -n "${version}" ]; then
     echo "Using version: ${version}"
@@ -231,7 +236,7 @@ else # --------------------- CocoaPods ---------------------
   fi
 
   echo "
-  end" >> Podfile
+end" >> Podfile
 
   if [ -n "${file_only}" ]; then
     exit
