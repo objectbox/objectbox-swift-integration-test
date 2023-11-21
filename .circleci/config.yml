@@ -40,16 +40,16 @@ jobs:
           command: ./test.sh --clean
       - run:
           name: Test CocoaPods latest explicit
-          command: ./test.sh --clean -v "1.9.0"
+          command: ./test.sh --clean -v "1.9.1"
       # - run:
       #     name: Test CocoaPods latest rc
       #     command: ./test.sh --clean -v "1.8.1-rc"
       - run:
           name: Test CocoaPods latest sync
-          command: ./test.sh --clean -v "1.9.0-sync"
+          command: ./test.sh --clean -v "1.9.1-sync"
       - run:
           name: Test CocoaPods 2nd latest
-          command: ./test.sh --clean -v "1.8.1"
+          command: ./test.sh --clean -v "1.9.0"
 #      - run:
 #          name: Test CocoaPods 2nd latest sync version
 #          command: ./test.sh --clean -v "1.5.0-sync"
@@ -84,6 +84,7 @@ jobs:
 #          command: ./test.sh --clean --carthage
       - run:
           name: Test Carthage latest explicit version
+          # Can not test 1.9.1 as no working Xcode image to test is available (15.0 has simulator timeout issues).
           command: ./test.sh --clean --carthage -v 1.9.0
       - run:
           command: |
