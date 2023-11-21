@@ -7,7 +7,7 @@ version: 2.1
 # https://forums.swift.org/t/cant-use-framework-compiled-with-swift-5-2-in-swift-5-1-3-project/35248
 
 # Swift versions used in ObjectBox releases:
-# 1.9.1: 
+# 1.9.1: 5.9 (swiftlang-5.9.0.128.108 clang-1500.0.40.1), Xcode 15.0.1
 # 1.9.0: 5.8.1 (swiftlang-5.8.0.124.5 clang-1403.0.22.11.100), Xcode 14.3.1
 # 1.8.1: 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51), Xcode 14.2
 # 1.8.0: 5.7.1 (swiftlang-5.7.1.135.3 clang-1400.0.29.51), Xcode 14.1
@@ -112,7 +112,8 @@ jobs:
       - checkout
       - run:
           name: Test Carthage staging version
-          command: ./test.sh --staging --carthage -v 1.9.1-rc1
+          # Can not test 1.9.1-rc1 as no working Xcode image to test is available (15.0 has simulator timeout issues).
+          command: ./test.sh --staging --carthage -v 1.9.0-rc
 #          command: ./test.sh --clean --framework https://github.com/objectbox/objectbox-swift-spec-staging/releases/download/v1.x/ObjectBox-xcframework-1.8.0.zip
       - run:
           command: |
@@ -148,4 +149,5 @@ workflows:
           matrix:
             parameters:
               # ObjectBox framework Swift version must (still) match Xcode's exactly
-              xcode-version: ["15.1"]
+              # Can not test 1.9.1-rc1 as no working Xcode image to test is available (15.0 has simulator timeout issues).
+              xcode-version: ["14.3.1"]
