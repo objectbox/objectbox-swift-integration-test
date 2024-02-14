@@ -6,7 +6,8 @@ version: 2.1
 # results in "error: unknown attribute '_hasMissingDesignatedInitializers'"; see also:
 # https://forums.swift.org/t/cant-use-framework-compiled-with-swift-5-2-in-swift-5-1-3-project/35248
 
-# Swift versions used in ObjectBox releases:
+# Swift versions used in ObjectBox releases (get with 'xcrun swift -version'):
+# 1.9.2: 5.9 (swiftlang-5.9.0.128.108 clang-1500.0.40.1), Xcode 15.0.1
 # 1.9.1: 5.9 (swiftlang-5.9.0.128.108 clang-1500.0.40.1), Xcode 15.0.1
 # 1.9.0: 5.8.1 (swiftlang-5.8.0.124.5 clang-1403.0.22.11.100), Xcode 14.3.1
 # 1.8.1: 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51), Xcode 14.2
@@ -40,16 +41,16 @@ jobs:
           command: ./test.sh --clean
       - run:
           name: Test CocoaPods latest explicit
-          command: ./test.sh --clean -v "1.9.1"
+          command: ./test.sh --clean -v "1.9.2"
       # - run:
       #     name: Test CocoaPods latest rc
       #     command: ./test.sh --clean -v "1.8.1-rc"
       - run:
           name: Test CocoaPods latest sync
-          command: ./test.sh --clean -v "1.9.1-sync"
+          command: ./test.sh --clean -v "1.9.2-sync"
       - run:
           name: Test CocoaPods 2nd latest
-          command: ./test.sh --clean -v "1.9.0"
+          command: ./test.sh --clean -v "1.9.1"
 #      - run:
 #          name: Test CocoaPods 2nd latest sync version
 #          command: ./test.sh --clean -v "1.5.0-sync"
@@ -84,7 +85,7 @@ jobs:
 #          command: ./test.sh --clean --carthage
       - run:
           name: Test Carthage latest explicit version
-          # Can not test 1.9.1 as no working Xcode image to test is available (15.0 has simulator timeout issues).
+          # Can not test 1.9.1/1.9.2 as required Xcode 15.0 image has simulator timeout issues. Can test once using Xcode 15.1+.
           command: ./test.sh --clean --carthage -v 1.9.0
       - run:
           command: |
@@ -113,7 +114,7 @@ jobs:
       - checkout
       - run:
           name: Test Carthage staging version
-          # Can not test 1.9.1-rc1 as no working Xcode image to test is available (15.0 has simulator timeout issues).
+          # Can not test 1.9.1/1.9.2 as required Xcode 15.0 image has simulator timeout issues. Can test once using Xcode 15.1+.
           command: ./test.sh --staging --carthage -v 1.9.0-rc
 #          command: ./test.sh --clean --framework https://github.com/objectbox/objectbox-swift-spec-staging/releases/download/v1.x/ObjectBox-xcframework-1.8.0.zip
       - run:
