@@ -12,22 +12,22 @@ latest:
   extends: .common
   script:
     - ./test.sh
-    - ./test.sh --clean -v 2.0.0
-    - ./test.sh --clean -v 2.0.0-sync
+    - ./test.sh --clean -v 4.0.0
+    - ./test.sh --clean -v 4.0.0-sync
 
 2nd-latest:
   extends: .common
   script:
     - ./test.sh
-    - ./test.sh --clean -v 1.9.2
-    - ./test.sh --clean -v 1.9.2-sync
+    - ./test.sh --clean -v 2.0.0
+    - ./test.sh --clean -v 2.0.0-sync
 
 # Only works if runner has matching Swift version
 latest-carthage:
   extends: .common
   script:
     - ./test.sh --carthage-bin
-    - ./test.sh --clean --carthage-bin -v 2.0.0
+    - ./test.sh --clean --carthage-bin -v 4.0.0
 
 # If there's a staging release... (otherwise, disabled via leading '.')
 .carthage-staging:
