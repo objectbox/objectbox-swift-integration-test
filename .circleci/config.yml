@@ -133,15 +133,10 @@ workflows:
       - test-cocoapods:
           matrix:
             parameters:
-              # 1.8.0 seems not to work with Xcode 14.0.1 / Swift 5.7.0:
-              # .../ObjectBox.framework/Modules/ObjectBox.swiftmodule/x86_64-apple-macos.private.swiftinterface:10:8: error: no such module '_StringProcessing'
-              #/Users/distiller/project/IntTestmacOSOneEntity/IntTestmacOSOneEntity/Foo.swift:1:8: error: failed to build module 'ObjectBox';
-              #this SDK is not supported by the compiler (the SDK is built with 'Apple Swift version 5.7.1 (swiftlang-5.7.1.135.3 clang-1400.0.29.51)',
-              #while this compiler is 'Apple Swift version 5.7 (swiftlang-5.7.0.127.4 clang-1400.0.29.50)'). Please select a toolchain which matches the SDK.
-              # 14.1.0 to test with Swift 5.7
               # 14.3.1 to test with Swift 5.8
-              # 15.1 to test with Swift 5.9 (note: the 15.0.0 image fails due to severe simulator performance regressions)
-              xcode-version: ["14.1.0", "14.3.1", "15.1"]
+              # 15.1.0 to test with Swift 5.9 (note: the 15.0.0 image fails due to severe simulator performance regressions)
+              # 15.4.0 to test with Swift 5.10 and to test latest Xcode (15.4) and macOS (14.3.1)
+              xcode-version: ["14.3.1", "15.1.0", "15.4.0"]
 
       - test-carthage:
           matrix:
