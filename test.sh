@@ -11,6 +11,7 @@ do_clean=""
 use_carthage=""
 use_staging=""
 framework=""
+swift_spm=""
 
 skip_project=""
 carthage_bin="carthage"
@@ -32,6 +33,7 @@ while [ $# -ge 1 ]; do
         echo "  --skip:         specify a project to skip"
         echo "  --framework:    specify a HTTPS URL to an uploaded framework to be tested"
         echo "                  (this creates a local Cartfile pointing to the URL)"
+        echo "  --spm           Run Swift Package tests"
         exit 0
         ;;
     -v|--version)
@@ -67,6 +69,9 @@ while [ $# -ge 1 ]; do
         shift
         skip_project="$1"
         ;;
+    --spm)
+        swift_spm="true"
+        ;;
     *) break     # Assuming project comes next, stop parsing here
         ;;
     esac
@@ -94,6 +99,20 @@ if [ -n "$do_clean" ]; then
   echo "Cleaning..."
   git clean -fdx
   git reset --hard
+fi
+
+if [ -n "${swift_spm}" ]; then
+  echo "Running Swift Package tests only"
+  (
+    cd IntTestiOSRegular
+    swift package reset
+    swift package purge-cache
+    swift package update
+    swift package plugin --allow-writing-to-package-directory objectbox-generator --target IntTestiOSRegular
+    swift build
+    swift test
+  )
+  exit 0
 fi
 
 if [ -n "$framework" ]; then
@@ -271,6 +290,6 @@ fi # End CocoaPods
 
 xcodebuild clean build "${options[@]}"
 
-if [ -d "${project}Tests" ]; then 
+if [ -d "${project}Tests" ]; then
   xcodebuild test "${options[@]}" -destination 'platform=iOS Simulator,name=iPhone 11'
 fi

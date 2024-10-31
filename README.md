@@ -46,6 +46,20 @@ Does something like 'git clean -fdx && git reset --hard'
 (this creates a local Cartfile pointing to the URL)
 ```
 
+#### SPM test
+
+This is also the project which has a Package.swift file, which makes it eligible for the spm test.
+
+To run the swift test, run `test.sh --clean --spm`
+
+There are 2 environment variables for the configuration
+
+- OBX_SPM_PACKAGE_REPO
+- OBX_SPM_PACKAGE_BRANCH
+
+Per default, these point to the public github repository and the main branch.
+To re-point the to a custom developer repository / branch, set them accordantly.
+
 What is this doing?
 -------------------
 The process for each project is like this:

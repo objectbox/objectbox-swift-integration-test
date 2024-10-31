@@ -8,6 +8,11 @@ stages:
   resource_group: "ios-simulator"
   tags: [mac, x64, xcode]
 
+spm:
+  extends: .common
+  script:
+    - ./test.sh --clean --spm
+
 latest:
   extends: .common
   script:
