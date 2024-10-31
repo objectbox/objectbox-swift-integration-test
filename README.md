@@ -6,6 +6,11 @@
   - Tests generator works for an iOS project if there is a single entity class.
 - IntTestiOSRegular
   - Tests generator works for various entity classes, including relations, tests the database library works on iOS using unit tests.
+- IntTestiOSRegularSPM
+  - Like IntTestiOSRegular, but only to test the database library included in the Swift Package
+    works on iOS using unit tests. Note: for Xcode projects, the ObjectBox Swift command plugin
+    can only be run through the Xcode UI. So if there are changes to model JSON file or generated
+    code, this needs to be done manually and committed.
 - IntTestiOSUpdate
   - Tests generator works if an entity class is changed (with existing model JSON file and generated code file).
 - IntTestiOSXcode16
@@ -17,29 +22,48 @@
 
 ## How to run the tests
 
-With `test.sh` you can run several integration tests for ObjectBox Swift.
-To test the latest version available from Cocoapods, simply run the script without any parameters:
+With `test.sh` you can run several integration tests for:
+
+- the CocoaPods release (ObjectBox pod)
+- the SwiftPM release (ObjectBox Swift Package)
+- the Carthage release (deprecated, to be removed)
+
+To test the latest CocoaPods release, simply run the script without any parameters:
 
 ```
 ./test.sh
 ```
 
-To run a specific test:
+To test only a specific project:
 
 ```
 ./test.sh IntTestiOSRegular
 ```
 
-To test a particular ObjectBox version (⚠️ `--clean` **resets any changes in this repo**, the script calls something like `git clean -fdx` and `git reset --hard`):
+To test a particular CocoaPods release with a clean state (⚠️ `--clean` **resets any changes in this repo**):
 
 ```
 ./test.sh --clean --version 1.6.0
 ```
 
-Or to test a CocoaPods staging release:
+To test a CocoaPods release from the [staging repo](https://github.com/objectbox/objectbox-swift-spec-staging):
 
 ```
 ./test.sh --clean --version 4.3.1-rc1 --staging
+```
+
+To test a Swift Package release:
+
+```
+# Note: version can also be a branch
+./test.sh --clean --swiftpm --version 4.3.0-beta.2
+```
+
+To test the Swift Package from the internal repo:
+
+```
+# Note: version can also be a tag
+./test.sh --clean --swiftpm --version main --source https://<GITLAB_URL>/objectbox/objectbox-swift-spm.git
 ```
 
 If all works out you should see something like this in your Terminal:
@@ -58,23 +82,24 @@ To learn more about the test script, use the `--help` parameter, which prints so
 $ ./test.sh --help
 Usage: test.sh [options] {project-directory}
 
--v, --version:  specify version for the Podfile/Cartfile
--s, --source:   specify source repository for the Podfile/Cartfile
+-v, --version:  The ObjectBox pod or Carthage version or Swift Package repository tag or branch
+-s, --source:   The source repository for the Podfile/Cartfile or the Swift Package repository URL
 -S, --staging:  use the staging source repository for the Podfile/Cartfile
 -f, --file:     only create Podfile/Cartfile
--c, --carthage: use Carthage instead of CocoaPods
+-c, --carthage: Test the Carthage instead of the CocoaPods release
 --carthage-bin: use the packaged Carthage executable from our bin dir
+--swiftpm:      Test the SwiftPM instead of the CocoaPods release
 --clean:        cleans all added/modified files to reset the state to a fresh
-git checkout. Warning: Data may be LOST!!
-Does something like 'git clean -fdx && git reset --hard'
+                git checkout. Warning: Data may be LOST!!
+                Does something like 'git clean -fdx && git reset --hard'
 --skip:         specify a project to skip
 --framework:    specify a HTTPS URL to an uploaded framework to be tested
-(this creates a local Cartfile pointing to the URL)
+                (this creates a local Cartfile pointing to the URL)
 ```
 
 ## What is this doing?
 
-The process for each project is like this:
+When testing the CocoaPods release, the process for each project is like this:
 
 1. Plain Xcode project and sources checked in without pods; ensure this "fresh" state when running on the CI machine
 2. Add ObjectBox pods by running the usual commands as described in the docs (pod init, manual Podfile edits, pod install, setup.rb)
