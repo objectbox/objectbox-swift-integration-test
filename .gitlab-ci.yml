@@ -11,7 +11,9 @@ stages:
 spm:
   extends: .common
   script:
-    - ./test.sh --spm
+    # IntTestiOSEmpty seemed fine with Xcode 16.0, but failed on 15.4 with:
+    # > public headers ("include") directory path for 'IntTestiOSEmpty' is invalid or not contained in the target
+    - ./test.sh --spm --skip IntTestiOSEmpty
 
 latest:
   extends: .common
