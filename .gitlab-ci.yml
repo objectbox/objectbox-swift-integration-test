@@ -11,7 +11,7 @@ stages:
 spm:
   extends: .common
   script:
-    - ./test.sh --clean --spm
+    - ./test.sh --spm
 
 latest:
   extends: .common

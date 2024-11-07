@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -eu
 
+# This script triggers the integration tests, e.g. by running 'xcodebuild' or 'swift' (SPM).
+# If no project directory is given as parameter, this script calls itself for each test directory in a for loop.
+
 ##### Used in Podfile/Cartfile #####
 version=""
 source=""
@@ -27,13 +30,13 @@ while [ $# -ge 1 ]; do
         echo "  -f, --file:     only create Podfile/Cartfile"
         echo "  -c, --carthage: use Carthage instead of CocoaPods"
         echo "  --carthage-bin: use the packaged Carthage executable from our bin dir"
+        echo "  --spm           Run Swift Package Manager tests"
         echo "  --clean:        cleans all added/modified files to reset the state to a fresh"
         echo "                  git checkout. Warning: Data may be LOST!!"
         echo "                  Does something like 'git clean -fdx && git reset --hard'"
         echo "  --skip:         specify a project to skip"
         echo "  --framework:    specify a HTTPS URL to an uploaded framework to be tested"
         echo "                  (this creates a local Cartfile pointing to the URL)"
-        echo "  --spm           Run Swift Package tests"
         exit 0
         ;;
     -v|--version)
@@ -90,6 +93,11 @@ if [ -n "${source}" ]; then
     fi
 fi
 
+if [ -n "${use_carthage}" ] && [ -n "${swift_spm}" ]; then
+  echo "Cannot combine carthage AND Swift PM; use -h for help"
+  exit 1
+fi
+
 #macOS's readlink does not have -f option, do this instead:
 script_dir=$( cd "$(dirname "$0")" ; pwd -P )
 
@@ -101,20 +109,6 @@ if [ -n "$do_clean" ]; then
   git reset --hard
 fi
 
-if [ -n "${swift_spm}" ]; then
-  echo "Running Swift Package tests only"
-  (
-    cd IntTestiOSRegular
-    swift package reset
-    swift package purge-cache
-    swift package update
-    swift package plugin --allow-writing-to-package-directory objectbox-generator --target IntTestiOSRegular
-    swift build
-    swift test
-  )
-  exit 0
-fi
-
 if [ -n "$framework" ]; then
   source="$script_dir/objectbox-framework-spec.json"
   if [ -z "$version" ]; then  # didn't work without a version
@@ -124,6 +118,9 @@ if [ -n "$framework" ]; then
   echo "{ \"${version}\": \"${framework}\" }" > "$source"
 fi
 
+#########################
+#### The "main loop" ####
+#########################
 if [ -z "${1-}" ]; then # No tailing "project" param, so loop over dirs and call this script with those
   # Original args ($@) are gone as we called shift during parsing.
   # Also, cannot capture original args as string as we need to preserve spaces, i.e. in version values.
@@ -133,6 +130,9 @@ if [ -z "${1-}" ]; then # No tailing "project" param, so loop over dirs and call
   fi
   if [ -n "${use_carthage}" ]; then
       additional_args+=" --carthage"
+  fi
+  if [ -n "${swift_spm}" ]; then
+      additional_args+=" --spm"
   fi
   if [ -n "$use_staging" ]; then
     additional_args+=" --staging"
@@ -155,18 +155,21 @@ if [ -z "${1-}" ]; then # No tailing "project" param, so loop over dirs and call
   echo " \X/"
   echo
   exit
-fi
+fi  # end of "main loop" execution path
 
+######################################################################
+#### A project parameter was given (by the user or the main loop) ####
+######################################################################
 project="$1"
+cd "${project}"
+[ -d "${project}Tests" ] && project_has_tests=true || project_has_tests=false
 
 echo "========================================================================="
-echo "Building integration test project '${project}'"
+echo "Building integration test project '${project}' (tests: $project_has_tests)"
 echo "========================================================================="
 
 options=(CODE_SIGN_IDENTITY= CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS= CODE_SIGNING_ALLOWED=NO ENABLE_BITCODE=NO)
 options+=(-derivedDataPath ./DerivedData -scheme "${project}")
-
-cd "${project}"
 
 if [ -n "$use_carthage" ]; then # --------------------- Carthage ---------------------
   if [ -n "$use_staging" ]; then
@@ -214,6 +217,25 @@ if [ -n "$use_carthage" ]; then # --------------------- Carthage ---------------
 
   options+=(-project "$xcodeproj_dir")
 
+elif [ -n "${swift_spm}" ]; then # --------------------- Swift PM ---------------------
+  if [ $project_has_tests == "true" ]; then
+      template_name="PackageWithTest.swift"
+  else
+      template_name="Package.swift"
+  fi
+  cp "$script_dir/.templates/$template_name" Package.swift
+  sed -i '' "s|\${PROJECT_DIR}|$project|g" Package.swift
+
+  swift package reset
+  #swift package purge-cache
+  swift package update
+  swift package plugin --allow-writing-to-package-directory objectbox-generator --target "$project"
+  swift build
+  if [ -d "${project}Tests" ]; then
+    swift test
+  fi
+
+  exit 0 # For now, there is no Xcode + SwiftPM config; open TODO: add Xcode projects using SwiftPM
 else # --------------------- CocoaPods ---------------------
   if [ -n "$use_staging" ]; then
     source="https://github.com/objectbox/objectbox-swift-spec-staging.git"
