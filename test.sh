@@ -225,13 +225,16 @@ elif [ -n "${swift_spm}" ]; then # --------------------- Swift PM --------------
   fi
   cp "$script_dir/.templates/$template_name" Package.swift
   sed -i '' "s|\${PROJECT_DIR}|$project|g" Package.swift
+  # TODO use ${VERSION} in templates (replace with $version)
 
+  swift --version
   swift package reset
   #swift package purge-cache
   swift package update
   swift package plugin --allow-writing-to-package-directory objectbox-generator --target "$project"
   swift build
   if [ -d "${project}Tests" ]; then
+    echo "Testing SwiftPM project $project..."
     swift test
   fi
 
