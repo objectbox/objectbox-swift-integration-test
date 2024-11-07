@@ -28,7 +28,8 @@ latest:
     - ./test.sh --clean -v 4.0.0-sync
 
 # Only works if runner has matching Swift version
-latest-carthage:
+# Disabled: currently, the carthage package was build with an older Swift version...
+.latest-carthage:
   extends: .common
   script:
     - ./test.sh --carthage-bin
