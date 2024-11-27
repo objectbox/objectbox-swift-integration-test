@@ -171,6 +171,7 @@ workflows:
           matrix:
             parameters:
               # See test-cocoapods
+              # Not testing 14.3.1 with Swift 5.8 as Swift command plugin requires 5.9 APIs
               xcode-version: ["15.1.0", "15.2.0", "15.3.0", "15.4.0", "16.0.0", "16.1.0", "16.2.0"]
 
       - test-carthage:
