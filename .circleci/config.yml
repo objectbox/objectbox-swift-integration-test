@@ -51,7 +51,7 @@ jobs:
       #     command: ./test.sh --clean -v "1.8.1-rc"
       - run:
           name: Test CocoaPods latest sync
-          command: ./test.sh --clean -v "4.0.1-sync"
+          command: ./test.sh --clean -v "4.1.0-sync"
       - run:
           name: Test CocoaPods 2nd latest
           command: ./test.sh --clean -v "4.0.1"
@@ -135,13 +135,14 @@ workflows:
       - test-cocoapods:
           matrix:
             parameters:
-              # 14.3.1 to test with Swift 5.8
+              # Excluded 14.3.1 because of ruby/cocoapods trouble
+              # ("uninitialized constant ActiveSupport::LoggerThreadSafeLevel::Logger")
               # 15.1.0 to test with Swift 5.9 (note: the 15.0.0 image fails due to severe simulator performance regressions)
               # 15.4.0 to test with Swift 5.10 (macOS 14.3.1)
               # 16.0.0 to test with Swift 6.0 (macOS 14.6.1)
               # 16.1.0 to test with Swift 6.x (macOS 14.6.1)
               # 16.2.0 to test with Swift 6.x (macOS 14.6.1)
-              xcode-version: ["14.3.1", "15.1.0", "15.4.0", "16.0.0", "16.1.0", "16.2.0"]
+              xcode-version: ["15.1.0", "15.4.0", "16.0.0", "16.1.0", "16.2.0"]
 
       - test-carthage:
           matrix:

@@ -13,7 +13,7 @@ latest:
   script:
     - ./test.sh
     - ./test.sh --clean -v 4.1.0
-    # TODO - ./test.sh --clean -v 4.0.1-sync
+    - ./test.sh --clean -v 4.1.0-sync
 
 2nd-latest:
   extends: .common
@@ -23,7 +23,7 @@ latest:
     - ./test.sh --clean -v 4.0.1-sync
 
 # Only works if runner has matching Swift version
-latest-carthage:
+.latest-carthage:
   extends: .common
   script:
     - ./test.sh --carthage-bin
