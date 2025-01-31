@@ -7,6 +7,7 @@ version: 2.1
 # https://forums.swift.org/t/cant-use-framework-compiled-with-swift-5-2-in-swift-5-1-3-project/35248
 
 # Swift versions used in ObjectBox releases (get with 'xcrun swift -version'):
+# 4.1.0: 6.0 (swiftlang-6.0.0.9.10 clang-1600.0.26.2), Xcode 16.0
 # 4.0.1: 5.9 (swiftlang-5.9.0.128.108 clang-1500.0.40.1), Xcode 15.0.1
 # 4.0.0: 5.9 (swiftlang-5.9.0.128.108 clang-1500.0.40.1), Xcode 15.0.1
 # 2.0.0: 5.9 (swiftlang-5.9.0.128.108 clang-1500.0.40.1), Xcode 15.0.1
@@ -44,7 +45,7 @@ jobs:
           command: ./test.sh --clean
       - run:
           name: Test CocoaPods latest explicit
-          command: ./test.sh --clean -v "4.0.1"
+          command: ./test.sh --clean -v "4.1.0"
       # - run:
       #     name: Test CocoaPods latest rc
       #     command: ./test.sh --clean -v "1.8.1-rc"
@@ -53,7 +54,7 @@ jobs:
           command: ./test.sh --clean -v "4.0.1-sync"
       - run:
           name: Test CocoaPods 2nd latest
-          command: ./test.sh --clean -v "4.0.0"
+          command: ./test.sh --clean -v "4.0.1"
 #      - run:
 #          name: Test CocoaPods 2nd latest sync version
 #          command: ./test.sh --clean -v "1.5.0-sync"
@@ -136,8 +137,11 @@ workflows:
             parameters:
               # 14.3.1 to test with Swift 5.8
               # 15.1.0 to test with Swift 5.9 (note: the 15.0.0 image fails due to severe simulator performance regressions)
-              # 15.4.0 to test with Swift 5.10 and to test latest Xcode (15.4) and macOS (14.3.1)
-              xcode-version: ["14.3.1", "15.1.0", "15.4.0"]
+              # 15.4.0 to test with Swift 5.10 (macOS 14.3.1)
+              # 16.0.0 to test with Swift 6.0 (macOS 14.6.1)
+              # 16.1.0 to test with Swift 6.x (macOS 14.6.1)
+              # 16.2.0 to test with Swift 6.x (macOS 14.6.1)
+              xcode-version: ["14.3.1", "15.1.0", "15.4.0", "16.0.0", "16.1.0", "16.2.0"]
 
       - test-carthage:
           matrix:
