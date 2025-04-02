@@ -1,16 +1,32 @@
+# macOS
 .DS_Store
+
+# IntelliJ IDEA
 .idea/
+
+# Xcode
 xcuserdata/
 **/DerivedData/
+**/*.xcworkspace
+**/project.pbxproj.bak
+
+# CocoaPods
 **/Podfile*
 **/Pods/
-**/generated/
-**/model-*.json*
-**/*.xcworkspace
+
+# Carthage
 **/Carthage/Build/
 **/Cartfile
 **/Cartfile.resolved
-**/project.pbxproj.bak
+
+# SwiftPM
+.build/
+Package.resolved
+
+# ObjectBox
+# Exclude generated code and model JSON to test they are generated
+**/generated/
+**/model-*.json*
 
 # generated on the fly by test.sh
 objectbox-framework-spec.json
