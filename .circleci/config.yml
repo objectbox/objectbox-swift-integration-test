@@ -1,5 +1,4 @@
 # https://circleci.com/docs/configuration-reference/
-# https://circleci.com/docs/testing-ios/#supported-xcode-versions
 version: 2.1
 
 # Framework compiled with Swift 5.2 seems incompatible to Swift 5.1 compiler:
@@ -132,6 +131,7 @@ jobs:
 workflows:
   cocoapods-workflow:
     jobs:
+      # For available Xcode images see https://circleci.com/docs/testing-ios/#supported-xcode-versions
       - test-cocoapods:
           matrix:
             parameters:
