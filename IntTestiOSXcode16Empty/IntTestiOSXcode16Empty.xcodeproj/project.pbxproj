@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXContainerItemProxy section */
@@ -30,21 +30,9 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		151C92A82DA3C9DD00BA852B /* IntTestiOSXcode16Empty */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = IntTestiOSXcode16Empty;
-			sourceTree = "<group>";
-		};
-		151C92B92DA3C9DE00BA852B /* IntTestiOSXcode16EmptyTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = IntTestiOSXcode16EmptyTests;
-			sourceTree = "<group>";
-		};
-		151C92C32DA3C9DE00BA852B /* IntTestiOSXcode16EmptyUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = IntTestiOSXcode16EmptyUITests;
-			sourceTree = "<group>";
-		};
+		151C92A82DA3C9DD00BA852B /* IntTestiOSXcode16Empty */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = IntTestiOSXcode16Empty; sourceTree = "<group>"; };
+		151C92B92DA3C9DE00BA852B /* IntTestiOSXcode16EmptyTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = IntTestiOSXcode16EmptyTests; sourceTree = "<group>"; };
+		151C92C32DA3C9DE00BA852B /* IntTestiOSXcode16EmptyUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = IntTestiOSXcode16EmptyUITests; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +175,7 @@
 				};
 			};
 			buildConfigurationList = 151C92A12DA3C9DD00BA852B /* Build configuration list for PBXProject "IntTestiOSXcode16Empty" */;
+			compatibilityVersion = "Xcode 15.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -195,7 +184,6 @@
 			);
 			mainGroup = 151C929D2DA3C9DD00BA852B;
 			minimizedProjectReferenceProxies = 1;
-			preferredProjectObjectVersion = 77;
 			productRefGroup = 151C92A72DA3C9DD00BA852B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
