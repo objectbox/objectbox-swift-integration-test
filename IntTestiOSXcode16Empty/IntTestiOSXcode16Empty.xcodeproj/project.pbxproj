@@ -11,9 +11,6 @@
 		15AB11E02DA662AE00D3494D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15AB11DB2DA662AE00D3494D /* Assets.xcassets */; };
 		15AB11E12DA662AE00D3494D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AB11DC2DA662AE00D3494D /* ContentView.swift */; };
 		15AB11E22DA662AE00D3494D /* IntTestiOSXcode16EmptyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AB11DD2DA662AE00D3494D /* IntTestiOSXcode16EmptyApp.swift */; };
-		15AB11E52DA662B000D3494D /* IntTestiOSXcode16EmptyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AB11E32DA662B000D3494D /* IntTestiOSXcode16EmptyTests.swift */; };
-		15AB11E92DA662B300D3494D /* IntTestiOSXcode16EmptyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AB11E62DA662B300D3494D /* IntTestiOSXcode16EmptyUITests.swift */; };
-		15AB11EA2DA662B300D3494D /* IntTestiOSXcode16EmptyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AB11E72DA662B300D3494D /* IntTestiOSXcode16EmptyUITestsLaunchTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,9 +38,6 @@
 		15AB11DB2DA662AE00D3494D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		15AB11DC2DA662AE00D3494D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		15AB11DD2DA662AE00D3494D /* IntTestiOSXcode16EmptyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntTestiOSXcode16EmptyApp.swift; sourceTree = "<group>"; };
-		15AB11E32DA662B000D3494D /* IntTestiOSXcode16EmptyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntTestiOSXcode16EmptyTests.swift; sourceTree = "<group>"; };
-		15AB11E62DA662B300D3494D /* IntTestiOSXcode16EmptyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntTestiOSXcode16EmptyUITests.swift; sourceTree = "<group>"; };
-		15AB11E72DA662B300D3494D /* IntTestiOSXcode16EmptyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntTestiOSXcode16EmptyUITestsLaunchTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,8 +69,6 @@
 			isa = PBXGroup;
 			children = (
 				15AB11DE2DA662AE00D3494D /* IntTestiOSXcode16Empty */,
-				15AB11E42DA662B000D3494D /* IntTestiOSXcode16EmptyTests */,
-				15AB11E82DA662B300D3494D /* IntTestiOSXcode16EmptyUITests */,
 				151C92A72DA3C9DD00BA852B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -108,23 +100,6 @@
 				15AB11DD2DA662AE00D3494D /* IntTestiOSXcode16EmptyApp.swift */,
 			);
 			path = IntTestiOSXcode16Empty;
-			sourceTree = "<group>";
-		};
-		15AB11E42DA662B000D3494D /* IntTestiOSXcode16EmptyTests */ = {
-			isa = PBXGroup;
-			children = (
-				15AB11E32DA662B000D3494D /* IntTestiOSXcode16EmptyTests.swift */,
-			);
-			path = IntTestiOSXcode16EmptyTests;
-			sourceTree = "<group>";
-		};
-		15AB11E82DA662B300D3494D /* IntTestiOSXcode16EmptyUITests */ = {
-			isa = PBXGroup;
-			children = (
-				15AB11E62DA662B300D3494D /* IntTestiOSXcode16EmptyUITests.swift */,
-				15AB11E72DA662B300D3494D /* IntTestiOSXcode16EmptyUITestsLaunchTests.swift */,
-			);
-			path = IntTestiOSXcode16EmptyUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,7 +248,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				15AB11E52DA662B000D3494D /* IntTestiOSXcode16EmptyTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,8 +255,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				15AB11E92DA662B300D3494D /* IntTestiOSXcode16EmptyUITests.swift in Sources */,
-				15AB11EA2DA662B300D3494D /* IntTestiOSXcode16EmptyUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
