@@ -44,16 +44,16 @@ jobs:
           command: ./test.sh --clean
       - run:
           name: Test CocoaPods latest explicit
-          command: ./test.sh --clean -v "4.1.0"
+          command: ./test.sh --clean -v "4.2.0"
       # - run:
       #     name: Test CocoaPods latest rc
       #     command: ./test.sh --clean -v "1.8.1-rc"
       - run:
           name: Test CocoaPods latest sync
-          command: ./test.sh --clean -v "4.1.0-sync"
+          command: ./test.sh --clean -v "4.2.0-sync"
       - run:
           name: Test CocoaPods 2nd latest
-          command: ./test.sh --clean -v "4.0.1"
+          command: ./test.sh --clean -v "4.1.0"
 #      - run:
 #          name: Test CocoaPods 2nd latest sync version
 #          command: ./test.sh --clean -v "1.5.0-sync"
