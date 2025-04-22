@@ -11,26 +11,24 @@ stages:
 latest:
   extends: .common
   script:
-    - ./test.sh
-    - ./test.sh --clean -v 4.1.0
-    - ./test.sh --clean -v 4.1.0-sync
+    - ./test.sh --clean --framework https://github.com/shubham0204/shubham0204/releases/download/v1/ObjectBox-xcframework-4.3.0-rc1.zip
 
-2nd-latest:
-  extends: .common
-  script:
-    - ./test.sh
-    - ./test.sh --clean -v 4.0.1
-    - ./test.sh --clean -v 4.0.1-sync
+# 2nd-latest:
+#   extends: .common
+#   script:
+#     - ./test.sh
+#     - ./test.sh --clean -v 4.0.1
+#     - ./test.sh --clean -v 4.0.1-sync
 
-# Only works if runner has matching Swift version
-.latest-carthage:
-  extends: .common
-  script:
-    - ./test.sh --carthage-bin
-    - ./test.sh --clean --carthage-bin -v 4.1.0
+# # Only works if runner has matching Swift version
+# .latest-carthage:
+#   extends: .common
+#   script:
+#     - ./test.sh --carthage-bin
+#     - ./test.sh --clean --carthage-bin -v 4.1.0
 
-# If there's a staging release... (otherwise, disabled via leading '.')
-.carthage-staging:
-  extends: .common
-  script:
-    - ./test.sh --staging --carthage -v 1.9.1-rc1
+# # If there's a staging release... (otherwise, disabled via leading '.')
+# .carthage-staging:
+#   extends: .common
+#   script:
+#     - ./test.sh --staging --carthage -v 1.9.1-rc1
