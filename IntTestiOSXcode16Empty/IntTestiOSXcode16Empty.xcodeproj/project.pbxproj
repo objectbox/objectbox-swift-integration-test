@@ -3,15 +3,8 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 63;
+	objectVersion = 77;
 	objects = {
-
-/* Begin PBXBuildFile section */
-		15AB11DF2DA662AE00D3494D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15AB11D92DA662AE00D3494D /* Preview Assets.xcassets */; };
-		15AB11E02DA662AE00D3494D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15AB11DB2DA662AE00D3494D /* Assets.xcassets */; };
-		15AB11E12DA662AE00D3494D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AB11DC2DA662AE00D3494D /* ContentView.swift */; };
-		15AB11E22DA662AE00D3494D /* IntTestiOSXcode16EmptyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AB11DD2DA662AE00D3494D /* IntTestiOSXcode16EmptyApp.swift */; };
-/* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		151C92B72DA3C9DE00BA852B /* PBXContainerItemProxy */ = {
@@ -34,11 +27,15 @@
 		151C92A62DA3C9DD00BA852B /* IntTestiOSXcode16Empty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntTestiOSXcode16Empty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		151C92B62DA3C9DE00BA852B /* IntTestiOSXcode16EmptyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntTestiOSXcode16EmptyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		151C92C02DA3C9DE00BA852B /* IntTestiOSXcode16EmptyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntTestiOSXcode16EmptyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		15AB11D92DA662AE00D3494D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		15AB11DB2DA662AE00D3494D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		15AB11DC2DA662AE00D3494D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		15AB11DD2DA662AE00D3494D /* IntTestiOSXcode16EmptyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntTestiOSXcode16EmptyApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		15E386572DC0EBC2007B62E1 /* IntTestiOSXcode16Empty */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = IntTestiOSXcode16Empty;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		151C92A32DA3C9DD00BA852B /* Frameworks */ = {
@@ -68,7 +65,7 @@
 		151C929D2DA3C9DD00BA852B = {
 			isa = PBXGroup;
 			children = (
-				15AB11DE2DA662AE00D3494D /* IntTestiOSXcode16Empty */,
+				15E386572DC0EBC2007B62E1 /* IntTestiOSXcode16Empty */,
 				151C92A72DA3C9DD00BA852B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -81,25 +78,6 @@
 				151C92C02DA3C9DE00BA852B /* IntTestiOSXcode16EmptyUITests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		15AB11DA2DA662AE00D3494D /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				15AB11D92DA662AE00D3494D /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		15AB11DE2DA662AE00D3494D /* IntTestiOSXcode16Empty */ = {
-			isa = PBXGroup;
-			children = (
-				15AB11DA2DA662AE00D3494D /* Preview Content */,
-				15AB11DB2DA662AE00D3494D /* Assets.xcassets */,
-				15AB11DC2DA662AE00D3494D /* ContentView.swift */,
-				15AB11DD2DA662AE00D3494D /* IntTestiOSXcode16EmptyApp.swift */,
-			);
-			path = IntTestiOSXcode16Empty;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -116,6 +94,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				15E386572DC0EBC2007B62E1 /* IntTestiOSXcode16Empty */,
 			);
 			name = IntTestiOSXcode16Empty;
 			packageProductDependencies = (
@@ -188,7 +169,6 @@
 				};
 			};
 			buildConfigurationList = 151C92A12DA3C9DD00BA852B /* Build configuration list for PBXProject "IntTestiOSXcode16Empty" */;
-			compatibilityVersion = "Xcode 15.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -197,6 +177,7 @@
 			);
 			mainGroup = 151C929D2DA3C9DD00BA852B;
 			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
 			productRefGroup = 151C92A72DA3C9DD00BA852B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -213,8 +194,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				15AB11DF2DA662AE00D3494D /* Preview Assets.xcassets in Resources */,
-				15AB11E02DA662AE00D3494D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,8 +218,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				15AB11E12DA662AE00D3494D /* ContentView.swift in Sources */,
-				15AB11E22DA662AE00D3494D /* IntTestiOSXcode16EmptyApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
