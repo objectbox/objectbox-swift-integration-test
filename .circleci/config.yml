@@ -47,7 +47,7 @@ jobs:
       #     command: ./test.sh --clean -v "4.1.0"
       - run:
           name: Test CocoaPods staging release
-          command: ./test.sh --clean --version "4.3.0-rc1" --staging
+          command: ./test.sh --clean --version "4.3.0-rc2" --staging
       # - run:
       #     name: Test CocoaPods latest rc
       #     command: ./test.sh --clean -v "1.8.1-rc"
