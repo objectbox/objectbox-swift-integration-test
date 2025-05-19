@@ -1,36 +1,46 @@
-# tests use the simulator so they can't run in parallel
-# see https://gitlab.com/gitlab-org/gitlab/issues/15536 for future support of locks
 stages:
   - int-test
 
+# Use resource_group as tests use the simulator so they can't run in parallel.
+# See https://gitlab.com/gitlab-org/gitlab/issues/15536 for future support of locks.
 .common:
   stage: int-test
   resource_group: "ios-simulator"
-  tags: [mac, x64, xcode]
+  tags:
+    - xcode
+    - mac
+    - x64
 
-latest:
+# Test CocoaPods releases
+# See docs/release-checklist.md in objectbox-swift repo on how to create a staging release.
+cocoapods-staging:
   extends: .common
   script:
-    - ./test.sh
-    - ./test.sh --clean -v 4.2.0
-    - ./test.sh --clean -v 4.2.0-sync
+    - ./test.sh --clean --version "4.3.0-rc2" --staging
 
-2nd-latest:
-  extends: .common
-  script:
-    - ./test.sh
-    - ./test.sh --clean -v 4.1.0
-    - ./test.sh --clean -v 4.1.0-sync
+#cocoapods-latest:
+#  extends: .common
+#  script:
+#    - ./test.sh
+#    - ./test.sh --clean -v 4.2.0
+#    - ./test.sh --clean -v 4.2.0-sync
+#
+#cocoapods-2nd-latest:
+#  extends: .common
+#  script:
+#    - ./test.sh
+#    - ./test.sh --clean -v 4.1.0
+#    - ./test.sh --clean -v 4.1.0-sync
 
+# Test Carthage releases
 # Only works if runner has matching Swift version
-.latest-carthage:
-  extends: .common
-  script:
-    - ./test.sh --carthage-bin
-    - ./test.sh --clean --carthage-bin -v 4.2.0
-
-# If there's a staging release... (otherwise, disabled via leading '.')
-.carthage-staging:
-  extends: .common
-  script:
-    - ./test.sh --staging --carthage -v 1.9.1-rc1
+#carthage-latest:
+#  extends: .common
+#  script:
+#    - ./test.sh --carthage-bin
+#    - ./test.sh --clean --carthage-bin -v 4.2.0
+#
+#carthage-staging:
+#  extends: .common
+#  script:
+#    - ./test.sh --staging --carthage -v 1.9.1-rc1
