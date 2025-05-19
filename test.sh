@@ -126,11 +126,11 @@ if [ -z "${1-}" ]; then # No tailing "project" param, so loop over dirs and call
       continue # Skip our bin/ dir
     fi
 
-    # Skip IntTestiOSXcode16Empty when the current Xcode version is smaller than 16
+    # Skip IntTestiOSXcode16 when the current Xcode version is smaller than 16
     # Xcode 16 projects default to 'Buildable Folders' which are not backwards
-    # compatible with Xcode 15.* versions. Skipping the IntTestiOSXcode16Empty project
+    # compatible with Xcode 15.* versions. Skipping the IntTestiOSXcode16 project
     # ensures that the pipelines pass when executed on runners with Xcode version < 16
-    if [ "$project_name" == "IntTestiOSXcode16Empty" ]; then
+    if [ "$project_name" == "IntTestiOSXcode16" ]; then
       xcode_version=$(xcodebuild -version | grep "Xcode" | awk '{print $2}' | cut -d. -f1)
       if [ "$xcode_version" -lt 16 ]; then
         echo "Skipped $project_name due to Xcode version $xcode_version"
