@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  IntTestiOSXcode16Empty
-//
-//  Created by Shubham Panchal on 07/04/25.
-//
-
 import SwiftUI
 
 struct ContentView: View {
