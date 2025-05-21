@@ -16,7 +16,7 @@ stages:
 cocoapods-staging:
   extends: .common
   script:
-    - ./test.sh --clean --version "4.3.0-rc2" --staging
+    - ./test.sh --clean --version "4.3.0-rc3" --staging
 
 #cocoapods-latest:
 #  extends: .common
