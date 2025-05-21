@@ -13,24 +13,24 @@ stages:
 
 # Test CocoaPods releases
 # See docs/release-checklist.md in the objectbox-swift repo on how to create a staging release.
-cocoapods-staging:
+#cocoapods-staging:
+#  extends: .common
+#  script:
+#    - ./test.sh --clean --version "4.3.0-rc3" --staging
+
+cocoapods-latest:
   extends: .common
   script:
-    - ./test.sh --clean --version "4.3.0-rc3" --staging
+    - ./test.sh
+    - ./test.sh --clean -v 4.3.0
+    - ./test.sh --clean -v 4.3.0-sync
 
-#cocoapods-latest:
-#  extends: .common
-#  script:
-#    - ./test.sh
-#    - ./test.sh --clean -v 4.2.0
-#    - ./test.sh --clean -v 4.2.0-sync
-#
-#cocoapods-2nd-latest:
-#  extends: .common
-#  script:
-#    - ./test.sh
-#    - ./test.sh --clean -v 4.1.0
-#    - ./test.sh --clean -v 4.1.0-sync
+cocoapods-2nd-latest:
+  extends: .common
+  script:
+    - ./test.sh
+    - ./test.sh --clean -v 4.2.0
+    - ./test.sh --clean -v 4.2.0-sync
 
 # Test Carthage releases
 # Only works if runner has matching Swift version
