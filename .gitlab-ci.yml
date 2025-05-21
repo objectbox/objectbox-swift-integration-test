@@ -12,7 +12,7 @@ stages:
     - x64
 
 # Test CocoaPods releases
-# See docs/release-checklist.md in objectbox-swift repo on how to create a staging release.
+# See docs/release-checklist.md in the objectbox-swift repo on how to create a staging release.
 cocoapods-staging:
   extends: .common
   script:
