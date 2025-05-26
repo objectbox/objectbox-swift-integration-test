@@ -53,9 +53,10 @@ jobs:
       - run:
          name: Test CocoaPods latest sync
          command: ./test.sh --clean -v "4.3.0-sync"
-      - run:
-         name: Test CocoaPods 2nd latest
-         command: ./test.sh --clean -v "4.2.0"
+# The 4.2.0 release does not work with Xcode 16, so temporarily disable testing previous release
+#      - run:
+#         name: Test CocoaPods 2nd latest
+#         command: ./test.sh --clean -v "4.2.0"
 #      - run:
 #          name: Test CocoaPods 2nd latest sync version
 #          command: ./test.sh --clean -v "1.5.0-sync"

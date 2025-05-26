@@ -25,12 +25,13 @@ cocoapods-latest:
     - ./test.sh --clean -v 4.3.0
     - ./test.sh --clean -v 4.3.0-sync
 
-cocoapods-2nd-latest:
-  extends: .common
-  script:
-    - ./test.sh
-    - ./test.sh --clean -v 4.2.0
-    - ./test.sh --clean -v 4.2.0-sync
+# The 4.2.0 release does not work with Xcode 16, so temporarily disable testing previous release
+#cocoapods-2nd-latest:
+#  extends: .common
+#  script:
+#    - ./test.sh
+#    - ./test.sh --clean -v 4.2.0
+#    - ./test.sh --clean -v 4.2.0-sync
 
 # Test Carthage releases
 # Only works if runner has matching Swift version
