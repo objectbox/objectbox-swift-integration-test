@@ -13,17 +13,17 @@ stages:
 
 # Test CocoaPods releases
 # See docs/release-checklist.md in the objectbox-swift repo on how to create a staging release.
-#cocoapods-staging:
-#  extends: .common
-#  script:
-#    - ./test.sh --clean --version "4.3.0-rc3" --staging
-
-cocoapods-latest:
+cocoapods-staging:
   extends: .common
   script:
-    - ./test.sh
-    - ./test.sh --clean -v 4.3.0
-    - ./test.sh --clean -v 4.3.0-sync
+    - ./test.sh --clean --version "4.3.1-rc1" --staging
+
+# cocoapods-latest:
+#   extends: .common
+#   script:
+#     - ./test.sh
+#     - ./test.sh --clean -v 4.3.0
+#     - ./test.sh --clean -v 4.3.0-sync
 
 # The 4.2.0 release does not work with Xcode 16, so temporarily disable testing previous release
 #cocoapods-2nd-latest:
