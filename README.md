@@ -1,8 +1,22 @@
-ObjectBox Swift Integration Test
-================================
+# ObjectBox Swift SDK Integration Tests
 
-How to run the tests
---------------------
+- IntTestiOSEmpty  
+  - Tests setup and generator works on an empty iOS project.
+- IntTestiOSOneEntity
+  - Tests generator works for an iOS project if there is a single entity class.
+- IntTestiOSRegular
+  - Tests generator works for various entity classes, including relations, tests the database library works on iOS using unit tests.
+- IntTestiOSUpdate
+  - Tests generator works if an entity class is changed (with existing model JSON file and generated code file).
+- IntTestiOSXcode16
+  - Tests generator detects all source files for an Xcode 16 project that uses "buildable folders" and groups.
+- IntTestmacOSOneEntity
+  - Like IntTestiOSOneEntity, but for a macOS project.
+- Test With Spaces
+  - Tests setup and generator works for a project with spaces in the project path.
+
+## How to run the tests
+
 With `test.sh` you can run several integration tests for ObjectBox Swift.
 To test the latest version available from Cocoapods, simply run the script without any parameters:
 
@@ -10,10 +24,22 @@ To test the latest version available from Cocoapods, simply run the script witho
 ./test.sh
 ```
 
-Another typical example to reset all files (the script calls something like `git clean -fdx` and `git reset --hard`) and specify a particular ObjectBox version to test:
+To run a specific test:
 
 ```
-./test.sh --clean -v 1.6.0
+./test.sh IntTestiOSRegular
+```
+
+To test a particular ObjectBox version (⚠️ `--clean` **resets any changes in this repo**, the script calls something like `git clean -fdx` and `git reset --hard`):
+
+```
+./test.sh --clean --version 1.6.0
+```
+
+Or to test a CocoaPods staging release:
+
+```
+./test.sh --clean --version 4.3.1-rc1 --staging
 ```
 
 If all works out you should see something like this in your Terminal:
@@ -46,8 +72,8 @@ Does something like 'git clean -fdx && git reset --hard'
 (this creates a local Cartfile pointing to the URL)
 ```
 
-What is this doing?
--------------------
+## What is this doing?
+
 The process for each project is like this:
 
 1. Plain Xcode project and sources checked in without pods; ensure this "fresh" state when running on the CI machine
