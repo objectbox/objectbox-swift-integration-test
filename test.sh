@@ -207,39 +207,46 @@ if [ -n "${use_swiftpm}" ]; then # --------------------- SwiftPM ---------------
   # Note: the below assumes the Swift Package is checked out in the same directory as this script,
   # this is done once for all projects, see above.
 
-  if [ "$project" == "IntTestiOSRegularSPM" ]; then
-    # IntTestiOSRegularSPM contains an Xcode project that is configured to use the ObjectBox Swift Package. Typically, a
-    # user would run the generator by running the ObjectBox Swift command plugin from the Xcode UI.
-    # As this is not possible via script, just run the unit tests on an iOS simulator to at least make sure the database
-    # library included in the Swift Package works.
-    # TODO Swift developers suggest to run the generator (so Sourcery) binary manually like the Swift command plugin
-    #  does. (But note that the generator included in the Swift Package *is* tested below, but using Swift Package
-    #  projects.)
-    xcodebuild -scheme 'IntTestiOSRegularTests' test -destination 'platform=iOS Simulator,name=iPhone 11'
+  # Make the existing test projects into Swift Package projects by adding a Package file,
+  # then build and run tests using swift tools instead of xcodebuild.
+  # This only works because the Package file excludes iOS/macOS (UI) app specific files.
+  if [ $project_has_tests == "true" ]; then
+      template_name="PackageWithTest.swift"
   else
-    # Make the existing test projects into Swift Package projects by adding a Package file,
-    # then build and run tests using swift tools instead of xcodebuild.
-    # Note: this only works because the Package files exclude iOS/macOS (UI) app specific source files.
-    if [ $project_has_tests == "true" ]; then
-        template_name="PackageWithTest.swift"
-    else
-        template_name="Package.swift"
-    fi
-    cp "$script_dir/.templates/$template_name" Package.swift
-    sed -i '' "s|\${PROJECT_DIR}|$project|g" Package.swift
+      template_name="Package.swift"
+  fi
+  cp "$script_dir/.templates/$template_name" Package.swift
+  sed -i '' "s|\${PROJECT_DIR}|$project|g" Package.swift
 
-    swift --version
-    swift package reset
-    #swift package purge-cache
-    swift package update
-    swift package plugin --allow-writing-to-package-directory objectbox-generator --target "$project"
-    swift build
-    if [ -d "${project}Tests" ]; then
-      echo "Testing SwiftPM project $project..."
+  swift --version
+  swift package reset
+  #swift package purge-cache
+  swift package update
+  swift package plugin --allow-writing-to-package-directory objectbox-generator --target "$project"
+  swift build
+  if [ -d "${project}Tests" ]; then
+    echo "Testing SwiftPM project $project..."
 
-      # Execute unit tests on the host machine
-      swift test
-    fi
+    # Execute unit tests on the host machine
+    swift test
+  fi
+  
+  if [ "$project" == "IntTestiOSRegularSPM" ]; then
+    echo "Running tests on iOS simulator for IntTestiOSRegularSPM project..."
+    # IntTestiOSRegularSPM contains an Xcode iOS app project (as Swift Package projects can currently not run tests on
+    # an iOS simulator) with the ObjectBox Swift Package manually added as a dependency (as there currently is no way to
+    # script this).
+    # Also note that typically a user would run the generator by running the ObjectBox Swift command plugin from the
+    # Xcode UI. As this is also not possible via script, take the generated files from when treating this project as a
+    # Swift Package project above.
+
+    # Delete Package file to avoid confusing xcodebuild
+    rm Package.swift
+    # Steal files generated using swift tools above
+    mkdir generated
+    mv IntTestiOSRegularSPM/generated/EntityInfo-IntTestiOSRegularSPM.generated.swift ./generated/
+    mv IntTestiOSRegularSPM/model-IntTestiOSRegularSPM.json .
+    xcodebuild -scheme 'IntTestiOSRegularSPMTests' test -destination 'platform=iOS Simulator,name=iPhone 11'
   fi
 
 elif [ "$project" == "IntTestiOSRegularSPM" ]; then

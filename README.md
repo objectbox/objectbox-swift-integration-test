@@ -5,12 +5,12 @@
 - IntTestiOSOneEntity
   - Tests generator works for an iOS project if there is a single entity class.
 - IntTestiOSRegular
-  - Tests generator works for various entity classes, including relations, tests the database library works on iOS using unit tests.
+  - Tests generator works for various entity classes, including relations, tests the database library works on iOS using
+    unit tests.
 - IntTestiOSRegularSPM
-  - Like IntTestiOSRegular, but only to test the database library included in the Swift Package
-    works on iOS using unit tests. Note: for Xcode projects, the ObjectBox Swift command plugin
-    can only be run through the Xcode UI. So if there are changes to model JSON file or generated
-    code, this needs to be done manually and committed.
+  - Like IntTestiOSRegular, but with the ObjectBox Swift Package manually added as a dependency and generator run via a
+    workaround (as there currently is no way to script any of this).
+    Only tested when using the SwiftPM option of the test script.
 - IntTestiOSUpdate
   - Tests generator works if an entity class is changed (with existing model JSON file and generated code file).
 - IntTestiOSXcode16
@@ -98,6 +98,8 @@ Usage: test.sh [options] {project-directory}
 ```
 
 ## What is this doing?
+   
+### CocoaPods (default)
 
 When testing the CocoaPods release, the process for each project is like this:
 
@@ -134,3 +136,23 @@ To get to a Podfile like that (and use it) consider this sequence:
 4. Now that the pods are prepared for the project, build the project using the Xcode workspace
 
 TODO: add unit tests to the plain Xcode projects and execute them in CI
+
+### SwiftPM
+
+When testing the SwiftPM release there are some notable differences:
+
+- swift tools can only be used on a Swift Package project, not an Xcode project.
+- an Xcode project is required to build a iOS or macOS application and to run tests on an iOS device or simulator.
+- Adding a Swift Package dependency
+  - to a Swift Package project requires to edit the `Package.swift` file,
+  - to an Xcode project requires to use the Xcode UI.
+- Running Swift command plugins, like the ObjectBox Swift plugin, in Xcode projects requires to use the Xcode UI. 
+
+To avoid creating another set of test projects, the existing test projects that contain Xcode projects are re-used, but
+treated as Swift Package projects. swift tools ignore Xcode project files by default. But other iOS or macOS related
+files must be ignored explicitly.
+
+To test with an Xcode project, a special `IntTestiOSRegularSPM` iOS project exists. This is also used to run tests
+on an iOS simulator.
+
+See the test script for details.

@@ -1,7 +1,7 @@
 //  Copyright © 2019 objectbox. All rights reserved.
 
 import XCTest
-@testable import IntTestiOSRegular
+@testable import IntTestiOSRegularSPM
 import ObjectBox
 
 class IntTestiOSRegularTests: XCTestCase {

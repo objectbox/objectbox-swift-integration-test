@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1538D01A2E00552D003A20D7 /* EntityInfo-IntTestiOSRegular.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1538D0192E00552D003A20D7 /* EntityInfo-IntTestiOSRegular.generated.swift */; };
-		1538D01B2E00552D003A20D7 /* EntityInfo-IntTestiOSRegular.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1538D0192E00552D003A20D7 /* EntityInfo-IntTestiOSRegular.generated.swift */; };
+		1538D01A2E00552D003A20D7 /* EntityInfo-IntTestiOSRegularSPM.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1538D0192E00552D003A20D7 /* EntityInfo-IntTestiOSRegularSPM.generated.swift */; };
+		1538D01B2E00552D003A20D7 /* EntityInfo-IntTestiOSRegularSPM.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1538D0192E00552D003A20D7 /* EntityInfo-IntTestiOSRegularSPM.generated.swift */; };
 		1538D01C2E00555B003A20D7 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295A7C06232A421700F74FE2 /* Note.swift */; };
 		1538D01D2E00555B003A20D7 /* NoteStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295A7C962330DAC800F74FE2 /* NoteStruct.swift */; };
 		1538D01E2E00555B003A20D7 /* Author.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295A7C08232A427800F74FE2 /* Author.swift */; };
@@ -41,16 +41,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1538D0192E00552D003A20D7 /* EntityInfo-IntTestiOSRegular.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityInfo-IntTestiOSRegular.generated.swift"; sourceTree = "<group>"; };
+		1538D0192E00552D003A20D7 /* EntityInfo-IntTestiOSRegularSPM.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityInfo-IntTestiOSRegularSPM.generated.swift"; sourceTree = "<group>"; };
 		288FC98424AC93C9009DB6D1 /* TeacherStudent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeacherStudent.swift; sourceTree = "<group>"; };
-		295A7BE3232A314000F74FE2 /* IntTestiOSRegular.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntTestiOSRegular.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		295A7BE3232A314000F74FE2 /* IntTestiOSRegularSPM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntTestiOSRegularSPM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		295A7BE6232A314000F74FE2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		295A7BE8232A314000F74FE2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		295A7BEB232A314000F74FE2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		295A7BED232A314200F74FE2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		295A7BF0232A314200F74FE2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		295A7BF2232A314200F74FE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		295A7BF7232A314200F74FE2 /* IntTestiOSRegularTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntTestiOSRegularTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		295A7BF7232A314200F74FE2 /* IntTestiOSRegularSPMTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntTestiOSRegularSPMTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		295A7BFB232A314200F74FE2 /* IntTestiOSRegularTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntTestiOSRegularTests.swift; sourceTree = "<group>"; };
 		295A7BFD232A314200F74FE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		295A7C06232A421700F74FE2 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
@@ -90,8 +90,8 @@
 		295A7BDA232A314000F74FE2 = {
 			isa = PBXGroup;
 			children = (
-				295A7BE5232A314000F74FE2 /* IntTestiOSRegular */,
-				295A7BFA232A314200F74FE2 /* IntTestiOSRegularTests */,
+				295A7BE5232A314000F74FE2 /* IntTestiOSRegularSPM */,
+				295A7BFA232A314200F74FE2 /* IntTestiOSRegularSPMTests */,
 				6DC387CB8E980ABB788F94EB /* generated */,
 				1538D0162E0053BF003A20D7 /* Frameworks */,
 				295A7BE4232A314000F74FE2 /* Products */,
@@ -101,13 +101,13 @@
 		295A7BE4232A314000F74FE2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				295A7BE3232A314000F74FE2 /* IntTestiOSRegular.app */,
-				295A7BF7232A314200F74FE2 /* IntTestiOSRegularTests.xctest */,
+				295A7BE3232A314000F74FE2 /* IntTestiOSRegularSPM.app */,
+				295A7BF7232A314200F74FE2 /* IntTestiOSRegularSPMTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		295A7BE5232A314000F74FE2 /* IntTestiOSRegular */ = {
+		295A7BE5232A314000F74FE2 /* IntTestiOSRegularSPM */ = {
 			isa = PBXGroup;
 			children = (
 				295A7BE6232A314000F74FE2 /* AppDelegate.swift */,
@@ -122,22 +122,22 @@
 				295A7C982330DAD300F74FE2 /* AuthorStruct.swift */,
 				288FC98424AC93C9009DB6D1 /* TeacherStudent.swift */,
 			);
-			path = IntTestiOSRegular;
+			path = IntTestiOSRegularSPM;
 			sourceTree = "<group>";
 		};
-		295A7BFA232A314200F74FE2 /* IntTestiOSRegularTests */ = {
+		295A7BFA232A314200F74FE2 /* IntTestiOSRegularSPMTests */ = {
 			isa = PBXGroup;
 			children = (
 				295A7BFB232A314200F74FE2 /* IntTestiOSRegularTests.swift */,
 				295A7BFD232A314200F74FE2 /* Info.plist */,
 			);
-			path = IntTestiOSRegularTests;
+			path = IntTestiOSRegularSPMTests;
 			sourceTree = "<group>";
 		};
 		6DC387CB8E980ABB788F94EB /* generated */ = {
 			isa = PBXGroup;
 			children = (
-				1538D0192E00552D003A20D7 /* EntityInfo-IntTestiOSRegular.generated.swift */,
+				1538D0192E00552D003A20D7 /* EntityInfo-IntTestiOSRegularSPM.generated.swift */,
 			);
 			path = generated;
 			sourceTree = "<group>";
@@ -145,9 +145,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		295A7BE2232A314000F74FE2 /* IntTestiOSRegular */ = {
+		295A7BE2232A314000F74FE2 /* IntTestiOSRegularSPM */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 295A7C00232A314200F74FE2 /* Build configuration list for PBXNativeTarget "IntTestiOSRegular" */;
+			buildConfigurationList = 295A7C00232A314200F74FE2 /* Build configuration list for PBXNativeTarget "IntTestiOSRegularSPM" */;
 			buildPhases = (
 				295A7BDF232A314000F74FE2 /* Sources */,
 				295A7BE0232A314000F74FE2 /* Frameworks */,
@@ -157,14 +157,14 @@
 			);
 			dependencies = (
 			);
-			name = IntTestiOSRegular;
+			name = IntTestiOSRegularSPM;
 			productName = IntTestiOSRegular;
-			productReference = 295A7BE3232A314000F74FE2 /* IntTestiOSRegular.app */;
+			productReference = 295A7BE3232A314000F74FE2 /* IntTestiOSRegularSPM.app */;
 			productType = "com.apple.product-type.application";
 		};
-		295A7BF6232A314200F74FE2 /* IntTestiOSRegularTests */ = {
+		295A7BF6232A314200F74FE2 /* IntTestiOSRegularSPMTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 295A7C03232A314200F74FE2 /* Build configuration list for PBXNativeTarget "IntTestiOSRegularTests" */;
+			buildConfigurationList = 295A7C03232A314200F74FE2 /* Build configuration list for PBXNativeTarget "IntTestiOSRegularSPMTests" */;
 			buildPhases = (
 				295A7BF3232A314200F74FE2 /* Sources */,
 				295A7BF4232A314200F74FE2 /* Frameworks */,
@@ -175,9 +175,9 @@
 			dependencies = (
 				295A7BF9232A314200F74FE2 /* PBXTargetDependency */,
 			);
-			name = IntTestiOSRegularTests;
+			name = IntTestiOSRegularSPMTests;
 			productName = IntTestiOSRegularTests;
-			productReference = 295A7BF7232A314200F74FE2 /* IntTestiOSRegularTests.xctest */;
+			productReference = 295A7BF7232A314200F74FE2 /* IntTestiOSRegularSPMTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -199,7 +199,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 295A7BDE232A314000F74FE2 /* Build configuration list for PBXProject "IntTestiOSRegular" */;
+			buildConfigurationList = 295A7BDE232A314000F74FE2 /* Build configuration list for PBXProject "IntTestiOSRegularSPM" */;
 			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -215,8 +215,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				295A7BE2232A314000F74FE2 /* IntTestiOSRegular */,
-				295A7BF6232A314200F74FE2 /* IntTestiOSRegularTests */,
+				295A7BE2232A314000F74FE2 /* IntTestiOSRegularSPM */,
+				295A7BF6232A314200F74FE2 /* IntTestiOSRegularSPMTests */,
 			);
 		};
 /* End PBXProject section */
@@ -248,7 +248,7 @@
 			files = (
 				288FC98524AC93C9009DB6D1 /* TeacherStudent.swift in Sources */,
 				295A7C992330DAD300F74FE2 /* AuthorStruct.swift in Sources */,
-				1538D01B2E00552D003A20D7 /* EntityInfo-IntTestiOSRegular.generated.swift in Sources */,
+				1538D01B2E00552D003A20D7 /* EntityInfo-IntTestiOSRegularSPM.generated.swift in Sources */,
 				295A7C972330DAC800F74FE2 /* NoteStruct.swift in Sources */,
 				295A7BE9232A314000F74FE2 /* ViewController.swift in Sources */,
 				295A7BE7232A314000F74FE2 /* AppDelegate.swift in Sources */,
@@ -266,7 +266,7 @@
 				1538D01E2E00555B003A20D7 /* Author.swift in Sources */,
 				1538D01F2E00555B003A20D7 /* AuthorStruct.swift in Sources */,
 				1538D0202E00555B003A20D7 /* TeacherStudent.swift in Sources */,
-				1538D01A2E00552D003A20D7 /* EntityInfo-IntTestiOSRegular.generated.swift in Sources */,
+				1538D01A2E00552D003A20D7 /* EntityInfo-IntTestiOSRegularSPM.generated.swift in Sources */,
 				295A7BFC232A314200F74FE2 /* IntTestiOSRegularTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -276,7 +276,7 @@
 /* Begin PBXTargetDependency section */
 		295A7BF9232A314200F74FE2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 295A7BE2232A314000F74FE2 /* IntTestiOSRegular */;
+			target = 295A7BE2232A314000F74FE2 /* IntTestiOSRegularSPM */;
 			targetProxy = 295A7BF8232A314200F74FE2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -422,7 +422,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = IntTestiOSRegular/Info.plist;
+				INFOPLIST_FILE = IntTestiOSRegularSPM/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -439,7 +439,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = IntTestiOSRegular/Info.plist;
+				INFOPLIST_FILE = IntTestiOSRegularSPM/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -457,7 +457,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = IntTestiOSRegularTests/Info.plist;
+				INFOPLIST_FILE = IntTestiOSRegularSPMTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -467,7 +467,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IntTestiOSRegular.app/IntTestiOSRegular";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IntTestiOSRegularSPM.app/IntTestiOSRegularSPM";
 			};
 			name = Debug;
 		};
@@ -477,7 +477,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = IntTestiOSRegularTests/Info.plist;
+				INFOPLIST_FILE = IntTestiOSRegularSPMTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -487,14 +487,14 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IntTestiOSRegular.app/IntTestiOSRegular";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IntTestiOSRegularSPM.app/IntTestiOSRegularSPM";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		295A7BDE232A314000F74FE2 /* Build configuration list for PBXProject "IntTestiOSRegular" */ = {
+		295A7BDE232A314000F74FE2 /* Build configuration list for PBXProject "IntTestiOSRegularSPM" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				295A7BFE232A314200F74FE2 /* Debug */,
@@ -503,7 +503,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		295A7C00232A314200F74FE2 /* Build configuration list for PBXNativeTarget "IntTestiOSRegular" */ = {
+		295A7C00232A314200F74FE2 /* Build configuration list for PBXNativeTarget "IntTestiOSRegularSPM" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				295A7C01232A314200F74FE2 /* Debug */,
@@ -512,7 +512,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		295A7C03232A314200F74FE2 /* Build configuration list for PBXNativeTarget "IntTestiOSRegularTests" */ = {
+		295A7C03232A314200F74FE2 /* Build configuration list for PBXNativeTarget "IntTestiOSRegularSPMTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				295A7C04232A314200F74FE2 /* Debug */,
