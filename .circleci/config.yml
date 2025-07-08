@@ -80,7 +80,7 @@ jobs:
       #     command: ./test.sh --clean -v "4.3.0"
       - run:
           name: Test CocoaPods staging release
-          command: ./test.sh --clean --version "4.3.1-rc1" --staging
+          command: ./test.sh --clean --staging --version "4.4.0-rc.1"
       # - run:
       #     name: Test CocoaPods latest sync
       #     command: ./test.sh --clean -v "4.3.0-sync"

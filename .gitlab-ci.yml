@@ -23,7 +23,7 @@ swiftpm:
 cocoapods-staging:
   extends: .common
   script:
-    - ./test.sh --clean --version "4.3.1-rc1" --staging
+    - ./test.sh --clean --staging --version "4.4.0-rc.1"
 
 # cocoapods-latest:
 #   extends: .common
