@@ -5,7 +5,12 @@
 - IntTestiOSOneEntity
   - Tests generator works for an iOS project if there is a single entity class.
 - IntTestiOSRegular
-  - Tests generator works for various entity classes, including relations, tests the database library works on iOS using unit tests.
+  - Tests generator works for various entity classes, including relations, tests the database library works on iOS using
+    unit tests.
+- IntTestiOSRegularSPM
+  - Like IntTestiOSRegular, but with the ObjectBox Swift Package manually added as a dependency and generator run via a
+    workaround (as there currently is no way to script any of this).
+    Only tested when using the SwiftPM option of the test script.
 - IntTestiOSUpdate
   - Tests generator works if an entity class is changed (with existing model JSON file and generated code file).
 - IntTestiOSXcode16
@@ -17,29 +22,48 @@
 
 ## How to run the tests
 
-With `test.sh` you can run several integration tests for ObjectBox Swift.
-To test the latest version available from Cocoapods, simply run the script without any parameters:
+With `test.sh` you can run several integration tests for:
+
+- the CocoaPods release (ObjectBox pod)
+- the SwiftPM release (ObjectBox Swift Package)
+- the Carthage release (deprecated, to be removed)
+
+To test the latest CocoaPods release, simply run the script without any parameters:
 
 ```
 ./test.sh
 ```
 
-To run a specific test:
+To test only a specific project:
 
 ```
 ./test.sh IntTestiOSRegular
 ```
 
-To test a particular ObjectBox version (⚠️ `--clean` **resets any changes in this repo**, the script calls something like `git clean -fdx` and `git reset --hard`):
+To test a particular CocoaPods release with a clean state (⚠️ `--clean` **resets any changes in this repo**):
 
 ```
 ./test.sh --clean --version 1.6.0
 ```
 
-Or to test a CocoaPods staging release:
+To test a CocoaPods release from the [staging repo](https://github.com/objectbox/objectbox-swift-spec-staging):
 
 ```
 ./test.sh --clean --version 4.3.1-rc1 --staging
+```
+
+To test a Swift Package release:
+
+```
+# Note: version can also be a branch
+./test.sh --clean --swiftpm --version 4.3.0-beta.2
+```
+
+To test the Swift Package from the internal repo:
+
+```
+# Note: version can also be a tag
+./test.sh --clean --swiftpm --version main --source https://<GITLAB_URL>/objectbox/objectbox-swift-spm.git
 ```
 
 If all works out you should see something like this in your Terminal:
@@ -58,23 +82,26 @@ To learn more about the test script, use the `--help` parameter, which prints so
 $ ./test.sh --help
 Usage: test.sh [options] {project-directory}
 
--v, --version:  specify version for the Podfile/Cartfile
--s, --source:   specify source repository for the Podfile/Cartfile
+-v, --version:  The ObjectBox pod or Carthage version or Swift Package repository tag or branch
+-s, --source:   The source repository for the Podfile/Cartfile or the Swift Package repository URL
 -S, --staging:  use the staging source repository for the Podfile/Cartfile
 -f, --file:     only create Podfile/Cartfile
--c, --carthage: use Carthage instead of CocoaPods
+-c, --carthage: Test the Carthage instead of the CocoaPods release
 --carthage-bin: use the packaged Carthage executable from our bin dir
+--swiftpm:      Test the SwiftPM instead of the CocoaPods release
 --clean:        cleans all added/modified files to reset the state to a fresh
-git checkout. Warning: Data may be LOST!!
-Does something like 'git clean -fdx && git reset --hard'
+                git checkout. Warning: Data may be LOST!!
+                Does something like 'git clean -fdx && git reset --hard'
 --skip:         specify a project to skip
 --framework:    specify a HTTPS URL to an uploaded framework to be tested
-(this creates a local Cartfile pointing to the URL)
+                (this creates a local Cartfile pointing to the URL)
 ```
 
 ## What is this doing?
+   
+### CocoaPods (default)
 
-The process for each project is like this:
+When testing the CocoaPods release, the process for each project is like this:
 
 1. Plain Xcode project and sources checked in without pods; ensure this "fresh" state when running on the CI machine
 2. Add ObjectBox pods by running the usual commands as described in the docs (pod init, manual Podfile edits, pod install, setup.rb)
@@ -109,3 +136,23 @@ To get to a Podfile like that (and use it) consider this sequence:
 4. Now that the pods are prepared for the project, build the project using the Xcode workspace
 
 TODO: add unit tests to the plain Xcode projects and execute them in CI
+
+### SwiftPM
+
+When testing the SwiftPM release there are some notable differences:
+
+- swift tools can only be used on a Swift Package project, not an Xcode project.
+- an Xcode project is required to build a iOS or macOS application and to run tests on an iOS device or simulator.
+- Adding a Swift Package dependency
+  - to a Swift Package project requires to edit the `Package.swift` file,
+  - to an Xcode project requires to use the Xcode UI.
+- Running Swift command plugins, like the ObjectBox Swift plugin, in Xcode projects requires to use the Xcode UI. 
+
+To avoid creating another set of test projects, the existing test projects that contain Xcode projects are re-used, but
+treated as Swift Package projects. swift tools ignore Xcode project files by default. But other iOS or macOS related
+files must be ignored explicitly.
+
+To test with an Xcode project, a special `IntTestiOSRegularSPM` iOS project exists. This is also used to run tests
+on an iOS simulator.
+
+See the test script for details.

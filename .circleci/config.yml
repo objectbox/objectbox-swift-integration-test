@@ -1,6 +1,8 @@
 # https://circleci.com/docs/configuration-reference/
 version: 2.1
 
+# Note: this is no longer updated as it is only relevant for Carthage releases (to select a matching macOS image),
+# but it is kept for reference.
 # Swift versions used in ObjectBox releases (get with 'xcrun swift -version'):
 # 4.1.0: 6.0 (swiftlang-6.0.0.9.10 clang-1600.0.26.2), Xcode 16.0
 # 4.0.1: 5.9 (swiftlang-5.9.0.128.108 clang-1500.0.40.1), Xcode 15.0.1
@@ -19,6 +21,37 @@ version: 2.1
 
 jobs:
 
+  # Test Swift Package releases (uses Swift Package Manager)
+  # See docs/release-checklist.md in the objectbox-swift repo on how to create a release.
+  test-swiftpm:
+    parameters:
+      xcode-version:
+        type: string
+    macos: {xcode: << parameters.xcode-version >> }
+    resource_class: macos.m1.medium.gen1 # https://circleci.com/docs/2.0/executor-types/#using-macos
+    steps:
+      - run:
+          # Boot as early as possible to avoid test timeout
+          name: Prepare iOS simulator
+          # The test.sh script expects a simulator device named "iPhone 11"
+          command: |
+            OBX_DEVICE_ID=$(xcrun simctl create "iPhone 11" "iPhone 11")
+            xcrun simctl boot $OBX_DEVICE_ID
+      - checkout
+      - run:
+          name: Test SwiftPM preview release
+          command: ./test.sh --clean --swiftpm --version 4.3.0-beta.2
+      - run:
+          command: |
+            mkdir -p /tmp/test-results
+            find . -name *.xcresult -exec cp -r {} /tmp/test-results \;
+          when: on_fail
+      - store_artifacts:
+          path: /tmp/test-results
+      - store_artifacts:
+          path: ~/Library/Logs/DiagnosticReports
+          destination: simulator-crash-reports
+
   # Test CocoaPods releases
   # See docs/release-checklist.md in the objectbox-swift repo on how to create a staging release.
   test-cocoapods:
@@ -29,8 +62,9 @@ jobs:
     resource_class: macos.m1.medium.gen1 # https://circleci.com/docs/2.0/executor-types/#using-macos
     steps:
       - run:
-          # TODO we should likely also have a matrix to test a couple of different iOS versions
-          name: Prepare iOS simulator # Boot as early as possible to avoid test timeout.
+          # Boot as early as possible to avoid test timeout
+          name: Prepare iOS simulator
+          # The test.sh script expects a simulator device named "iPhone 11"
           command: |
             OBX_DEVICE_ID=$(xcrun simctl create "iPhone 11" "iPhone 11")
             xcrun simctl boot $OBX_DEVICE_ID
@@ -131,19 +165,22 @@ jobs:
 #          path: /tmp/test-results
 
 workflows:
-  cocoapods-workflow:
+  integration-test-workflow:
     jobs:
       # For available Xcode images see https://circleci.com/docs/testing-ios/#supported-xcode-versions
+      # 15.2.0 to test with latest Swift 5.9 (macOS 14.1, iOS 17.2)
+      # 15.4.0 to test with latest Swift 5.10 (macOS 14.3.1, iOS 17.5)
+      # 16.2.0 to test with latest Swift 6.0 (macOS 14.6.1, iOS 18.4)
+      # 16.4.0 to test with latest Swift 6.1 (macOS 15.3.2, iOS 18.5)
+      - test-swiftpm:
+          matrix:
+            parameters:
+              xcode-version: [ "15.2.0", "15.4.0", "16.2.0", "16.4.0" ]
+
       - test-cocoapods:
           matrix:
             parameters:
-              # Excluded 14.3.1 because of ruby/cocoapods trouble
-              # ("uninitialized constant ActiveSupport::LoggerThreadSafeLevel::Logger")
-              # 15.2.0 to test with latest Swift 5.9 (macOS 14.1)
-              # 15.4.0 to test with latest Swift 5.10 (macOS 14.3.1)
-              # 16.2.0 to test with latest Swift 6.0 (macOS 14.6.1)
-              # 16.4.0 to test with latest Swift 6.1 (macOS 15.3.2)
-              xcode-version: ["15.2.0", "15.4.0", "16.2.0", "16.4.0"]
+              xcode-version: [ "15.2.0", "15.4.0", "16.2.0", "16.4.0" ]
 
 #      - test-carthage:
 #          matrix:

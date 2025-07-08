@@ -30,3 +30,7 @@ Package.resolved
 
 # generated on the fly by test.sh
 objectbox-framework-spec.json
+
+# SPM default artifacts
+**/.build/
+**/Package.resolved
