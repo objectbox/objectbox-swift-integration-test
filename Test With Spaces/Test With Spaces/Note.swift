@@ -3,7 +3,7 @@
 //  Test With Spaces
 //
 //  Created by objectbox on 16.09.19.
-//  Copyright © 2019 objectbox. All rights reserved.
+//  Copyright © 2019-2025 ObjectBox Ltd. All rights reserved.
 //
 
 import Foundation

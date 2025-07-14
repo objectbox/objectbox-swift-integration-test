@@ -1,3 +1,7 @@
+//
+//  Copyright © 2025 ObjectBox Ltd. All rights reserved.
+//
+
 import ObjectBox
 
 // objectbox: entity

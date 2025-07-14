@@ -1,5 +1,5 @@
 //
-//  Copyright © 2020 ObjectBox. All rights reserved.
+//  Copyright © 2020-2025 ObjectBox Ltd. All rights reserved.
 //
 
 import Foundation
