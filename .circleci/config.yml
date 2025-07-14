@@ -28,7 +28,7 @@ jobs:
       xcode-version:
         type: string
     macos: {xcode: << parameters.xcode-version >> }
-    resource_class: macos.m1.medium.gen1 # https://circleci.com/docs/2.0/executor-types/#using-macos
+    resource_class: m4pro.medium # https://circleci.com/docs/using-macos/#available-resource-classes
     steps:
       - run:
           # Boot as early as possible to avoid test timeout
@@ -59,7 +59,7 @@ jobs:
       xcode-version:
         type: string
     macos: {xcode: << parameters.xcode-version >> }
-    resource_class: macos.m1.medium.gen1 # https://circleci.com/docs/2.0/executor-types/#using-macos
+    resource_class: m4pro.medium # https://circleci.com/docs/using-macos/#available-resource-classes
     steps:
       - run:
           # Boot as early as possible to avoid test timeout
@@ -109,7 +109,7 @@ jobs:
 #      xcode-version:
 #        type: string
 #    macos: {xcode: << parameters.xcode-version >> }
-#    resource_class: macos.m1.medium.gen1 # https://circleci.com/docs/2.0/executor-types/#using-macos
+#    resource_class: m4pro.medium # https://circleci.com/docs/using-macos/#available-resource-classes
 #    steps:
 #      - run:
 #          name: Update Carthage
@@ -141,7 +141,7 @@ jobs:
 #      xcode-version:
 #        type: string
 #    macos: {xcode: << parameters.xcode-version >> }
-#    resource_class: macos.m1.medium.gen1 # https://circleci.com/docs/using-macos/#available-resource-classes
+#    resource_class: m4pro.medium # https://circleci.com/docs/using-macos/#available-resource-classes
 #    steps:
 #      - run:
 #          name: Update Carthage
