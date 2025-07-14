@@ -38,8 +38,11 @@ jobs:
             OBX_DEVICE_ID=$(xcrun simctl create "iPhone 11" "iPhone 11")
             xcrun simctl boot $OBX_DEVICE_ID
       - checkout
+#      - run:
+#          name: Test SwiftPM preview release
+#          command: ./test.sh --clean --swiftpm --version 4.3.0-beta.2
       - run:
-          name: Test SwiftPM preview release
+          name: Test SwiftPM release
           command: ./test.sh --clean --swiftpm --version 4.4.0
       - run:
           command: |
