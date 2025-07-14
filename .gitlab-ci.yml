@@ -29,15 +29,17 @@ cocoapods-latest:
   extends: .common
   script:
     # Run once without version to check if the latest version is found (then verify log output)
-    - ./test.sh --clean
+    # These tests take a long time on our current runner, so test no version only on CircleCI
+    # - ./test.sh --clean
     - ./test.sh --clean --version 4.4.0
     - ./test.sh --clean --version 4.4.0-sync
 
-cocoapods-2nd-latest:
-  extends: .common
-  script:
-    - ./test.sh --clean --version 4.3.0
-    - ./test.sh --clean --version 4.3.0-sync
+# These tests take a long time on our current runner, so test previous version only on CircleCI
+#cocoapods-previous:
+#  extends: .common
+#  script:
+#    - ./test.sh --clean --version 4.3.0
+#    - ./test.sh --clean --version 4.3.0-sync
 
 # Test Carthage releases
 # Only works if runner has matching Swift version

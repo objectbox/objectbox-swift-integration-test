@@ -76,23 +76,23 @@ jobs:
           command: sudo gem install cocoapods
       - checkout
 #      - run:
-#          name: Test CocoaPods staging release
+#          name: Test CocoaPods staging
 #          command: ./test.sh --clean --staging --version 4.4.0-rc.1
       - run:
           # Run once without version to check if the latest version is found (then verify log output)
-          name: Test CocoaPods latest
+          name: Test CocoaPods latest (check if latest in log!)
           command: ./test.sh --clean
       - run:
           name: Test CocoaPods latest explicit
           command: ./test.sh --clean --version 4.4.0
       - run:
-          name: Test CocoaPods latest sync
+          name: Test CocoaPods latest Sync
           command: ./test.sh --clean --version 4.4.0-sync
       - run:
-         name: Test CocoaPods 2nd latest
+         name: Test CocoaPods previous
          command: ./test.sh --clean --version 4.3.0
       - run:
-          name: Test CocoaPods 2nd latest sync version
+          name: Test CocoaPods previous Sync
           command: ./test.sh --clean --version 4.3.0-sync
       - run:
           command: |
