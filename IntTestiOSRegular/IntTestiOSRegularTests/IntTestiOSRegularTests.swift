@@ -101,20 +101,24 @@ class IntTestiOSRegularTests: XCTestCase {
         // there's a ToMany relation in AuthorStruct for NoteStruct
 
         var note = NoteStruct(id: 0, title: "Title", text: "Lorem ipsum", creationDate: Date(), modificationDate: Date(), author: ToOne<Author>(nil))
-        note.id = try! noteStructBox!.put(note) // at v1.0.0-rc6, requires an explicit put
+        // Pass by reference so ID can be assigned
+        try! noteStructBox!.put(&note)
         
-        let notes = ToMany<NoteStruct>([note])
-        let author = AuthorStruct(id: EntityId<AuthorStruct>(0), name: "Arthur", notes: notes)
-        try! authorStructBox!.put(author)
+        let author = AuthorStruct(id: EntityId<AuthorStruct>(0), name: "Arthur", notes: ToMany<NoteStruct>(nil))
+        let authorId = try! authorStructBox!.put(author)
+        
+        // Get author from Box to get initialized ToMany
+        var storedAuthor = try! authorStructBox!.get(authorId)!
+        storedAuthor.notes.append(note)
+        try storedAuthor.notes.applyToDb()
         
         XCTAssertEqual(try noteStructBox!.count(), 1)
         XCTAssertEqual(try authorStructBox!.count(), 1)
         
-        // TODO at v1.0.0-rc7, this doesn't work
-//        XCTAssertEqual(1, authorBox!
-//            .query{AuthorStruct.name.contains("a", caseSensitive: false)}
-//            .link(AuthorStruct.notes){NoteStruct.text.contains("Lorem")}
-//            .build().count())
+        XCTAssertEqual(1, try authorStructBox!
+            .query{AuthorStruct.name.contains("a", caseSensitive: false)}
+            .link(AuthorStruct.notes){NoteStruct.text.contains("Lorem")}
+            .build().count())
     }
     
     func testQueryBool() throws { // Since 1.2
