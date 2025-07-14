@@ -40,7 +40,7 @@ jobs:
       - checkout
       - run:
           name: Test SwiftPM preview release
-          command: ./test.sh --clean --swiftpm --version 4.3.0-beta.2
+          command: ./test.sh --clean --swiftpm --version 4.4.0
       - run:
           command: |
             mkdir -p /tmp/test-results
@@ -72,25 +72,25 @@ jobs:
           name: Update CocoaPods
           command: sudo gem install cocoapods
       - checkout
-      # - run:
-      #     name: Test CocoaPods latest
-      #     command: ./test.sh --clean
-      # - run:
-      #     name: Test CocoaPods latest explicit
-      #     command: ./test.sh --clean -v "4.3.0"
+#      - run:
+#          name: Test CocoaPods staging release
+#          command: ./test.sh --clean --staging --version 4.4.0-rc.1
       - run:
-          name: Test CocoaPods staging release
-          command: ./test.sh --clean --staging --version "4.4.0-rc.1"
-      # - run:
-      #     name: Test CocoaPods latest sync
-      #     command: ./test.sh --clean -v "4.3.0-sync"
-# The 4.2.0 release does not work with Xcode 16, so temporarily disable testing previous release
-#      - run:
-#         name: Test CocoaPods 2nd latest
-#         command: ./test.sh --clean -v "4.2.0"
-#      - run:
-#          name: Test CocoaPods 2nd latest sync version
-#          command: ./test.sh --clean -v "1.5.0-sync"
+          # Run once without version to check if the latest version is found (then verify log output)
+          name: Test CocoaPods latest
+          command: ./test.sh --clean
+      - run:
+          name: Test CocoaPods latest explicit
+          command: ./test.sh --clean --version 4.4.0
+      - run:
+          name: Test CocoaPods latest sync
+          command: ./test.sh --clean --version 4.4.0-sync
+      - run:
+         name: Test CocoaPods 2nd latest
+         command: ./test.sh --clean --version 4.3.0
+      - run:
+          name: Test CocoaPods 2nd latest sync version
+          command: ./test.sh --clean --version 4.3.0-sync
       - run:
           command: |
             mkdir -p /tmp/test-results
