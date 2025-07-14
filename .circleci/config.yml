@@ -29,6 +29,8 @@ jobs:
         type: string
     macos: {xcode: << parameters.xcode-version >> }
     resource_class: m4pro.medium # https://circleci.com/docs/using-macos/#available-resource-classes
+                                 # m4pro.medium with 200 credits/min is the better deal than m2pro with 180 credits/min:
+                                 # https://circleci.com/pricing/price-list/
     steps:
       - run:
           # Boot as early as possible to avoid test timeout
