@@ -123,12 +123,12 @@ if [ -n "$framework" ]; then
   echo "{ \"${version}\": \"${framework}\" }" > "$source"
 fi
 
-#########################
-#### The "main loop" ####
-#########################
-if [ -z "${1-}" ]; then # No tailing "project" param, so loop over dirs and call this script with those
-  # Original args ($@) are gone as we called shift during parsing.
-  # Also, cannot capture original args as string as we need to preserve spaces, i.e. in version values.
+########################################################################################################
+#### If no project parameter was given, loop over project directories and call this script for each ####
+########################################################################################################
+if [ -z "${1-}" ]; then
+  # Original args ($@) are gone as shift was called during parameter parsing above.
+  # Also, cannot capture original args as string as spaces need to be preserved, i.e. in version values.
   additional_args=""
   if [ -n "${file_only}" ]; then
       additional_args+=" --file"
@@ -142,12 +142,12 @@ if [ -z "${1-}" ]; then # No tailing "project" param, so loop over dirs and call
   if [ -n "$use_staging" ]; then
     additional_args+=" --staging"
   fi
-  # Note: we do not need to propagate --clean flag
+  # Note: no need to propagate --clean flag, doing it once on the root directory is enough
   echo "Invoking projects using args: -v \"$version\" -s \"$source\" $additional_args"
   for project in "$script_dir"/*/ ; do
     project_name="$(basename "${project}")"
     if [ "$project_name" == "bin" ]; then
-      continue # Skip our bin/ dir
+      continue # Skip the bin/ dir
     fi
     if [ "$project_name" == "$swift_package_dir" ]; then
       continue # Skip the Swift Package itself, it is not an integration test project
@@ -175,11 +175,11 @@ if [ -z "${1-}" ]; then # No tailing "project" param, so loop over dirs and call
   echo " \X/"
   echo
   exit
-fi  # end of "main loop" execution path
+fi # end of "project loop"
 
-######################################################################
-#### A project parameter was given (by the user or the main loop) ####
-######################################################################
+###############################################################################
+#### A project parameter was given (by the user or the project loop above) ####
+###############################################################################
 project="$1"
 
 if [ -n "${use_swiftpm}" ]; then
