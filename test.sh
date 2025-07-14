@@ -308,7 +308,7 @@ else # --------------------- CocoaPods or Carthage ---------------------
       source="https://github.com/objectbox/objectbox-swift-spec-staging.git"
     fi
 
-    # Set version to mimimum deployment target required by ObjectBox pod.
+    # Set version to minimum deployment target required by ObjectBox pod.
     # Note: all other projects are iOS and might not contain iOS in name.
     if [[ $project =~ "macOS" ]]; then
     echo "platform :osx, '10.15'
