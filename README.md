@@ -80,21 +80,23 @@ To learn more about the test script, use the `--help` parameter, which prints so
 
 ```
 $ ./test.sh --help
+
 Usage: test.sh [options] {project-directory}
 
--v, --version:  The ObjectBox pod or Carthage version or Swift Package repository tag or branch
--s, --source:   The source repository for the Podfile/Cartfile or the Swift Package repository URL
--S, --staging:  use the staging source repository for the Podfile/Cartfile
--f, --file:     only create Podfile/Cartfile
--c, --carthage: Test the Carthage instead of the CocoaPods release
---carthage-bin: use the packaged Carthage executable from our bin dir
---swiftpm:      Test the SwiftPM instead of the CocoaPods release
---clean:        cleans all added/modified files to reset the state to a fresh
-                git checkout. Warning: Data may be LOST!!
-                Does something like 'git clean -fdx && git reset --hard'
---skip:         specify a project to skip
---framework:    specify a HTTPS URL to an uploaded framework to be tested
-                (this creates a local Cartfile pointing to the URL)
+  -v, --version <version>  Set the ObjectBox pod or Carthage version or Swift Package repository tag or branch to test
+  -s, --source <source>    Set the source repository for the Podfile/Cartfile or the Swift Package repository URL
+  -S, --staging            Use our staging source repository for the Podfile/Cartfile
+  -f, --file               Only create the Podfile/Cartfile
+  -c, --carthage           Test the Carthage instead of the CocoaPods release
+  --carthage-bin           Use the packaged Carthage executable from our bin dir
+  --framework <url>        Test the framework uploaded to this HTTPS URL instead of the CocoaPods release
+                           (this creates a local Cartfile pointing to the URL)
+  --swiftpm                Test the SwiftPM instead of the CocoaPods release
+  --clean                  Cleans all added/modified files to reset the state to a fresh
+                           git checkout. Warning: Data may be LOST!!
+                           Does something like 'git clean -fdx && git reset --hard'
+  --skip <project>         Skip the given project
+
 ```
 
 ## What is this doing?

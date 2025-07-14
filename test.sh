@@ -26,21 +26,22 @@ swift_package_dir="obx-swift-package"
 while [ $# -ge 1 ]; do
     case $1 in
     -h|help|--help|usage)
+        echo
         echo "Usage: $(basename "$0") [options] {project-directory}"
         echo
-        echo "  -v, --version:  The ObjectBox pod or Carthage version or Swift Package repository tag or branch"
-        echo "  -s, --source:   The source repository for the Podfile/Cartfile or the Swift Package repository URL"
-        echo "  -S, --staging:  use the staging source repository for the Podfile/Cartfile"
-        echo "  -f, --file:     only create Podfile/Cartfile"
-        echo "  -c, --carthage: Test the Carthage instead of the CocoaPods release"
-        echo "  --carthage-bin: use the packaged Carthage executable from our bin dir"
-        echo "  --swiftpm:      Test the SwiftPM instead of the CocoaPods release"
-        echo "  --clean:        cleans all added/modified files to reset the state to a fresh"
-        echo "                  git checkout. Warning: Data may be LOST!!"
-        echo "                  Does something like 'git clean -fdx && git reset --hard'"
-        echo "  --skip:         specify a project to skip"
-        echo "  --framework:    specify a HTTPS URL to an uploaded framework to be tested"
-        echo "                  (this creates a local Cartfile pointing to the URL)"
+        echo "  -v, --version <version>  Set the ObjectBox pod or Carthage version or Swift Package repository tag or branch to test"
+        echo "  -s, --source <source>    Set the source repository for the Podfile/Cartfile or the Swift Package repository URL"
+        echo "  -S, --staging            Use our staging source repository for the Podfile/Cartfile"
+        echo "  -f, --file               Only create the Podfile/Cartfile"
+        echo "  -c, --carthage           Test the Carthage instead of the CocoaPods release"
+        echo "  --carthage-bin           Use the packaged Carthage executable from our bin dir"
+        echo "  --framework <url>        Test the framework uploaded to this HTTPS URL instead of the CocoaPods release"
+        echo "                           (this creates a local Cartfile pointing to the URL)"
+        echo "  --swiftpm                Test the SwiftPM instead of the CocoaPods release"
+        echo "  --clean                  Cleans all added/modified files to reset the state to a fresh"
+        echo "                           git checkout. Warning: Data may be LOST!!"
+        echo "                           Does something like 'git clean -fdx && git reset --hard'"
+        echo "  --skip <project>         Skip the given project"
         exit 0
         ;;
     -v|--version)
