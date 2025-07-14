@@ -193,8 +193,8 @@ if [ -n "${use_swiftpm}" ]; then
   # TODO Only do this once if called for multiple projects (issues: this script calls itself; this script may be called
   #  multiple times with different versions; CI does not remove this as it's a Git repo).
   echo "Checking out ObjectBox Swift Package from $source at branch/tag $version"
-  rm -rf $swift_package_dir
-  git clone --depth 1 --branch $version $source $swift_package_dir
+  rm -rf "$swift_package_dir"
+  git clone --depth 1 --branch "$version" "$source" "$swift_package_dir"
 fi
 
 cd "${project}"
