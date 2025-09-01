@@ -40,12 +40,12 @@ jobs:
             OBX_DEVICE_ID=$(xcrun simctl create "iPhone 11" "iPhone 11")
             xcrun simctl boot $OBX_DEVICE_ID
       - checkout
-      - run:
-          name: Test SwiftPM preview release
-          command: ./test.sh --clean --swiftpm --version 4.4.1-rc.1
 #      - run:
-#          name: Test SwiftPM release
-#          command: ./test.sh --clean --swiftpm --version 4.4.0
+#          name: Test SwiftPM preview release
+#          command: ./test.sh --clean --swiftpm --version 4.4.1-rc.1
+      - run:
+          name: Test SwiftPM release
+          command: ./test.sh --clean --swiftpm --version 4.4.1
       - run:
           command: |
             mkdir -p /tmp/test-results
@@ -77,28 +77,25 @@ jobs:
           name: Update CocoaPods
           command: sudo gem install cocoapods
       - checkout
+#      - run:
+#          name: Test CocoaPods staging
+#          command: ./test.sh --clean --staging --version 4.4.1-rc.1
       - run:
-          name: Test CocoaPods staging
-          command: ./test.sh --clean --staging --version 4.4.1-rc.1
-#      - run:
-#          # Run once without version to check if the latest version is found (then verify log output)
-#          name: Test CocoaPods latest (check if latest in log!)
-#          command: ./test.sh --clean
-#      - run:
-#          name: Test CocoaPods latest explicit
-#          command: ./test.sh --clean --version 4.4.0
-#      - run:
-#          name: Test CocoaPods latest Sync
-#          command: ./test.sh --clean --version 4.4.0-sync
-      # Note: for 4.3.0 not testing IntTestiOSXcode16 because folders mixed with groups are not picked up by generator
-#      - run:
-#         name: Test CocoaPods previous
-##         command: ./test.sh --clean --version 4.3.0
-#         command: ./test.sh --clean --version 4.3.0 --skip IntTestiOSXcode16
-#      - run:
-#          name: Test CocoaPods previous Sync
-##          command: ./test.sh --clean --version 4.3.0-sync
-#          command: ./test.sh --clean --version 4.3.0-sync --skip IntTestiOSXcode16
+          # Run once without version to check if the latest version is found (then verify log output)
+          name: Test CocoaPods latest (check if latest in log!)
+          command: ./test.sh --clean
+      - run:
+          name: Test CocoaPods latest explicit
+          command: ./test.sh --clean --version 4.4.1
+      - run:
+          name: Test CocoaPods latest Sync
+          command: ./test.sh --clean --version 4.4.1-sync
+      - run:
+         name: Test CocoaPods previous
+         command: ./test.sh --clean --version 4.4.0
+      - run:
+          name: Test CocoaPods previous Sync
+          command: ./test.sh --clean --version 4.4.0-sync
       - run:
           command: |
             mkdir -p /tmp/test-results
