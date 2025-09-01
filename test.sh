@@ -223,7 +223,8 @@ if [ -n "${use_swiftpm}" ]; then # --------------------- SwiftPM ---------------
   swift package reset
   #swift package purge-cache
   swift package update
-  swift package plugin --allow-writing-to-package-directory --allow-network-connections all objectbox-generator --target "$project"
+  # Use --verbose to make generator print additional log output for debugging
+  swift package plugin --allow-writing-to-package-directory --allow-network-connections all objectbox-generator --target "$project" --verbose
   swift build
   if [ -d "${project}Tests" ]; then
     echo "Testing SwiftPM project $project..."
