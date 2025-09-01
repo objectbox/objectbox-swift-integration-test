@@ -223,7 +223,7 @@ if [ -n "${use_swiftpm}" ]; then # --------------------- SwiftPM ---------------
   swift package reset
   #swift package purge-cache
   swift package update
-  swift package plugin --allow-writing-to-package-directory objectbox-generator --target "$project"
+  swift package plugin --allow-writing-to-package-directory --allow-network-connections all objectbox-generator --target "$project"
   swift build
   if [ -d "${project}Tests" ]; then
     echo "Testing SwiftPM project $project..."
