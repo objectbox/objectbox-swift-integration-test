@@ -22,6 +22,20 @@
 
 ## How to run the tests
 
+> [!NOTE]
+> When testing the CocoaPods release, ruby and the cocoapods gem need to be available.
+> 
+> We use rbenv:
+> 
+> ```
+> # Print the version configured in .ruby-version
+> rbenv local
+> # Install that version, e.g.
+> rbenv install 3.0.5
+> # Ensure it is the expected version
+> ruby -v
+> ```
+
 With `test.sh` you can run several integration tests for:
 
 - the CocoaPods release (ObjectBox pod)
