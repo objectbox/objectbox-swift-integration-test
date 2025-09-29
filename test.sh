@@ -19,6 +19,7 @@ framework=""
 
 skip_project=""
 carthage_bin="carthage"
+use_default_ruby=""
 
 # Note: do not use the repo name, 'objectbox-swift-spm', it may accidentally use a different directory than intended
 swift_package_dir="obx-swift-package"
@@ -42,6 +43,7 @@ while [ $# -ge 1 ]; do
         echo "                           git checkout. Warning: Data may be LOST!!"
         echo "                           Does something like 'git clean -fdx && git reset --hard'"
         echo "  --skip <project>         Skip the given project"
+        echo "  --default-ruby           Deletes .ruby-version file so rbenv uses the default version of ruby"
         exit 0
         ;;
     -v|--version)
@@ -80,6 +82,9 @@ while [ $# -ge 1 ]; do
     --swiftpm)
         use_swiftpm="true"
         ;;
+    --default-ruby)
+        use_default_ruby="true"
+        ;;
     *) break     # Assuming project comes next, stop parsing here
         ;;
     esac
@@ -114,6 +119,12 @@ if [ -n "$do_clean" ]; then
   git reset --hard
 fi
 
+if [ -n "${use_default_ruby}" ]; then
+  echo "Removing .ruby-version rbenv config, will use ruby version:"
+  rm .ruby-version
+  ruby --version
+fi
+
 if [ -n "$framework" ]; then
   source="$script_dir/objectbox-framework-spec.json"
   if [ -z "$version" ]; then  # didn't work without a version
@@ -142,7 +153,7 @@ if [ -z "${1-}" ]; then
   if [ -n "$use_staging" ]; then
     additional_args+=" --staging"
   fi
-  # Note: no need to propagate --clean flag, doing it once on the root directory is enough
+  # Note: no need to propagate --clean or --default-ruby flag, doing it once on the root directory is enough
   echo "Invoking projects using args: -v \"$version\" -s \"$source\" $additional_args"
   for project in "$script_dir"/*/ ; do
     project_name="$(basename "${project}")"

@@ -110,7 +110,7 @@ Usage: test.sh [options] {project-directory}
                            git checkout. Warning: Data may be LOST!!
                            Does something like 'git clean -fdx && git reset --hard'
   --skip <project>         Skip the given project
-
+  --default-ruby           Deletes .ruby-version file so rbenv uses the default version of ruby
 ```
 
 ## What is this doing?
