@@ -9,7 +9,6 @@ stages:
   tags:
     - xcode
     - mac
-    - x64
 
 # Test Swift Package releases (uses Swift Package Manager)
 # See docs/release-checklist.md in the objectbox-swift repo on how to create a release.
