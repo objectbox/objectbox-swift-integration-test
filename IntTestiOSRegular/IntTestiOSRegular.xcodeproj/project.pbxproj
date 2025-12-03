@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -177,7 +177,6 @@
 				};
 			};
 			buildConfigurationList = 295A7BDE232A314000F74FE2 /* Build configuration list for PBXProject "IntTestiOSRegular" */;
-			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -185,6 +184,8 @@
 				Base,
 			);
 			mainGroup = 295A7BDA232A314000F74FE2;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
 			productRefGroup = 295A7BE4232A314000F74FE2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

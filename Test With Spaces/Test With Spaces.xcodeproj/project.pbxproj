@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -157,7 +157,6 @@
 				};
 			};
 			buildConfigurationList = 295A7C6C232FB1A600F74FE2 /* Build configuration list for PBXProject "Test With Spaces" */;
-			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -165,6 +164,8 @@
 				Base,
 			);
 			mainGroup = 295A7C68232FB1A600F74FE2;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
 			productRefGroup = 295A7C72232FB1A600F74FE2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

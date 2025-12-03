@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -200,7 +200,6 @@
 				};
 			};
 			buildConfigurationList = 295A7BDE232A314000F74FE2 /* Build configuration list for PBXProject "IntTestiOSRegularSPM" */;
-			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -208,9 +207,11 @@
 				Base,
 			);
 			mainGroup = 295A7BDA232A314000F74FE2;
+			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				154545A22E0FDCFB00DD5CE9 /* XCLocalSwiftPackageReference "../obx-swift-package" */,
 			);
+			preferredProjectObjectVersion = 77;
 			productRefGroup = 295A7BE4232A314000F74FE2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

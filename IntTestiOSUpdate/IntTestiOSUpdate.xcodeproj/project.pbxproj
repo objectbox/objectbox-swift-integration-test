@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -126,7 +126,6 @@
 			children = (
 				7ED632B7D1988403442CEC0E /* EntityInfo-IntTestiOSUpdate.generated.swift */,
 			);
-			name = generated;
 			path = generated;
 			sourceTree = "<group>";
 		};
@@ -192,7 +191,6 @@
 				};
 			};
 			buildConfigurationList = 295A7C0E232A524200F74FE2 /* Build configuration list for PBXProject "IntTestiOSUpdate" */;
-			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -200,6 +198,8 @@
 				Base,
 			);
 			mainGroup = 295A7C0A232A524200F74FE2;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
 			productRefGroup = 295A7C14232A524200F74FE2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
