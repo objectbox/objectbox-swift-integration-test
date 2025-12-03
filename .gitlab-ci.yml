@@ -20,11 +20,11 @@ swiftpm:
 # Test CocoaPods releases
 # See docs/release-checklist.md in the objectbox-swift repo on how to create a staging release.
 cocoapods-staging:
- extends: .common
- script:
-   - ./test.sh --clean --staging --version 5.1.0-rc.1
-   # Optional: test Sync preview release
-   - ./test.sh --clean --staging --version 5.1.0-rc.1-sync
+  extends: .common
+  script:
+    - ./test.sh --clean --staging --version 5.1.0-rc.1
+    # Optional: test Sync preview release
+    - ./test.sh --clean --staging --version 5.1.0-rc.1-sync
 
 # cocoapods-latest:
 #   extends: .common
