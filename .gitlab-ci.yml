@@ -15,25 +15,25 @@ stages:
 swiftpm:
   extends: .common
   script:
-    - ./test.sh --clean --swiftpm --version 5.1.0-rc.1
+    - ./test.sh --clean --swiftpm --version 5.1.0
 
 # Test CocoaPods releases
 # See docs/release-checklist.md in the objectbox-swift repo on how to create a staging release.
-cocoapods-staging:
-  extends: .common
-  script:
-    - ./test.sh --clean --staging --version 5.1.0-rc.1
-    # Optional: test Sync preview release
-    - ./test.sh --clean --staging --version 5.1.0-rc.1-sync
-
-# cocoapods-latest:
+# cocoapods-staging:
 #   extends: .common
 #   script:
-#     # Run once without version to check if the latest version is found (then verify log output)
-#     # These tests take a long time on our current runner, so test no version only on CircleCI
-#     # - ./test.sh --clean
-#     - ./test.sh --clean --version 5.0.0
-#     - ./test.sh --clean --version 5.0.0-sync
+#     - ./test.sh --clean --staging --version 5.1.0-rc.1
+#     # Optional: test Sync preview release
+#     - ./test.sh --clean --staging --version 5.1.0-rc.1-sync
+
+cocoapods-latest:
+  extends: .common
+  script:
+    # Run once without version to check if the latest version is found (then verify log output)
+    # These tests take a long time on our current runner, so test no version only on CircleCI
+    # - ./test.sh --clean
+    - ./test.sh --clean --version 5.1.0
+    - ./test.sh --clean --version 5.1.0-sync
 
 # These tests take a long time on our current runner, so test previous version only on CircleCI
 #cocoapods-previous:
