@@ -1,4 +1,6 @@
 // swift-tools-version:5.9
+// The swift-tools-version declares the minimum version of Swift required to build this package.
+// API reference: https://developer.apple.com/documentation/packagedescription/package
 
 import PackageDescription
 
@@ -6,8 +8,9 @@ let package = Package(
   name: "AnObjectBoxIntegrationTestWithTestTarget",
   defaultLocalization: "en",
   platforms: [
-    .macOS(.v12),
-    .iOS(.v12)
+    // This should match the requirements of ObjectBox.xcframework (so the ObjectBox Swift API and native libraries)
+    // IntTestiOSXcode16 already requires macOS 12
+    .macOS(.v12), .iOS(.v15),
   ],
   dependencies: [
     .package(path: "../obx-swift-package"),

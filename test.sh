@@ -323,10 +323,10 @@ else # --------------------- CocoaPods or Carthage ---------------------
     # Set version to minimum deployment target required by ObjectBox pod.
     # Note: all other projects are iOS and might not contain iOS in name.
     if [[ $project =~ "macOS" ]]; then
-    echo "platform :osx, '10.15'
+    echo "platform :osx, '11.0'
   " > Podfile
     else
-    echo "platform :ios, '12.0'
+    echo "platform :ios, '15.0'
   " > Podfile
     fi
 
