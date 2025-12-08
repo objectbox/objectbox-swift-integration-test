@@ -362,7 +362,13 @@ else # --------------------- CocoaPods or Carthage ---------------------
       exit
     fi
 
-    pod_bin="$(which pod)"
+    pod_bin="$(which pod 2>/dev/null || true)"
+    # On macOS 'which' will return no error message if the command doesn't exist, so manually print one
+    if [ -z "$pod_bin" ]; then
+      echo "Error: the pod command (CocoaPods) was not found. If using rbenv, check if this shell is correctly initialized."
+      echo "Or otherwise, make sure the CocoaPods gem is installed."
+      exit 1
+    fi
 
     cocoapods_version=$($pod_bin --version 2>/dev/null || true)
     echo "Detected CocoaPods version ${cocoapods_version:-N/A}"
