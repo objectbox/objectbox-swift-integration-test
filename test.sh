@@ -267,7 +267,7 @@ if [ -n "${use_swiftpm}" ]; then # --------------------- SwiftPM ---------------
     mkdir generated
     mv IntTestiOSRegularSPM/generated/EntityInfo-IntTestiOSRegularSPM.generated.swift ./generated/
     mv IntTestiOSRegularSPM/model-IntTestiOSRegularSPM.json .
-    xcodebuild -scheme 'IntTestiOSRegularSPMTests' test -destination 'platform=iOS Simulator,name=iPhone 11' -derivedDataPath ./DerivedData
+    xcodebuild -scheme 'IntTestiOSRegularSPMTests' test -destination 'platform=iOS Simulator,name=iPhone 11' -derivedDataPath ./DerivedData -parallel-testing-enabled NO -test-timeouts-enabled NO
   fi
 
 elif [ "$project" == "IntTestiOSRegularSPM" ]; then
@@ -406,7 +406,7 @@ else # --------------------- CocoaPods or Carthage ---------------------
   xcodebuild clean build "${options[@]}"
 
   if [ -d "${project}Tests" ]; then
-    xcodebuild test "${options[@]}" -destination 'platform=iOS Simulator,name=iPhone 11'
+    xcodebuild test "${options[@]}" -destination 'platform=iOS Simulator,name=iPhone 11' -parallel-testing-enabled NO -test-timeouts-enabled NO
   fi
 
 fi

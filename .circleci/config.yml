@@ -45,6 +45,9 @@ jobs:
             echo "Creating simulator with device type: $DEVICE_TYPE and runtime: $RUNTIME"
             OBX_DEVICE_ID=$(xcrun simctl create "iPhone 11" "$DEVICE_TYPE" "$RUNTIME")
             xcrun simctl boot $OBX_DEVICE_ID
+            # Wait for simulator to be fully booted
+            xcrun simctl bootstatus $OBX_DEVICE_ID -b
+            echo "Simulator booted successfully"
       - checkout
       - run:
           name: Test SwiftPM preview release
@@ -91,6 +94,9 @@ jobs:
             echo "Creating simulator with device type: $DEVICE_TYPE and runtime: $RUNTIME"
             OBX_DEVICE_ID=$(xcrun simctl create "iPhone 11" "$DEVICE_TYPE" "$RUNTIME")
             xcrun simctl boot $OBX_DEVICE_ID
+            # Wait for simulator to be fully booted
+            xcrun simctl bootstatus $OBX_DEVICE_ID -b
+            echo "Simulator booted successfully"
       - run:
           name: Update CocoaPods
           command: sudo gem install cocoapods
