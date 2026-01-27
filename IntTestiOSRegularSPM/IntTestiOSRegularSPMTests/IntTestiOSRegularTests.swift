@@ -29,7 +29,7 @@ class IntTestiOSRegularTests: XCTestCase {
         authorStructBox = store?.box(for: AuthorStruct.self)
 
         if(!IntTestiOSRegularTests.printedVersion) {
-            print(Store.versionFullInfo)
+            print("ObjectBox version: " + Store.versionFullInfo)
             IntTestiOSRegularTests.printedVersion=true
         }
 
