@@ -36,8 +36,14 @@ jobs:
           # Boot as early as possible to avoid test timeout
           name: Prepare iOS simulator
           # The test.sh script expects a simulator device named "iPhone 11"
+          # Xcode 26+ no longer includes iPhone 11, so create a different device and rename it
           command: |
-            OBX_DEVICE_ID=$(xcrun simctl create "iPhone 11" "iPhone 11")
+            # Get the latest iOS runtime
+            RUNTIME=$(xcrun simctl list runtimes -j | python3 -c "import sys,json; runtimes=[r['identifier'] for r in json.load(sys.stdin)['runtimes'] if 'iOS' in r['name'] and r['isAvailable']]; print(runtimes[-1] if runtimes else '')")
+            # Get a compatible iPhone device type for this runtime (prefer iPhone 16, fall back to any available)
+            DEVICE_TYPE=$(xcrun simctl list devicetypes -j | python3 -c "import sys,json; types=[d['identifier'] for d in json.load(sys.stdin)['devicetypes'] if 'iPhone' in d['name']]; preferred=[t for t in types if 'iPhone-16' in t or 'iPhone-15' in t or 'iPhone-14' in t]; print(preferred[0] if preferred else types[-1] if types else 'com.apple.CoreSimulator.SimDeviceType.iPhone-16')")
+            echo "Creating simulator with device type: $DEVICE_TYPE and runtime: $RUNTIME"
+            OBX_DEVICE_ID=$(xcrun simctl create "iPhone 11" "$DEVICE_TYPE" "$RUNTIME")
             xcrun simctl boot $OBX_DEVICE_ID
       - checkout
       - run:
@@ -76,8 +82,14 @@ jobs:
           # Boot as early as possible to avoid test timeout
           name: Prepare iOS simulator
           # The test.sh script expects a simulator device named "iPhone 11"
+          # Xcode 26+ no longer includes iPhone 11, so create a different device and rename it
           command: |
-            OBX_DEVICE_ID=$(xcrun simctl create "iPhone 11" "iPhone 11")
+            # Get the latest iOS runtime
+            RUNTIME=$(xcrun simctl list runtimes -j | python3 -c "import sys,json; runtimes=[r['identifier'] for r in json.load(sys.stdin)['runtimes'] if 'iOS' in r['name'] and r['isAvailable']]; print(runtimes[-1] if runtimes else '')")
+            # Get a compatible iPhone device type for this runtime (prefer iPhone 16, fall back to any available)
+            DEVICE_TYPE=$(xcrun simctl list devicetypes -j | python3 -c "import sys,json; types=[d['identifier'] for d in json.load(sys.stdin)['devicetypes'] if 'iPhone' in d['name']]; preferred=[t for t in types if 'iPhone-16' in t or 'iPhone-15' in t or 'iPhone-14' in t]; print(preferred[0] if preferred else types[-1] if types else 'com.apple.CoreSimulator.SimDeviceType.iPhone-16')")
+            echo "Creating simulator with device type: $DEVICE_TYPE and runtime: $RUNTIME"
+            OBX_DEVICE_ID=$(xcrun simctl create "iPhone 11" "$DEVICE_TYPE" "$RUNTIME")
             xcrun simctl boot $OBX_DEVICE_ID
       - run:
           name: Update CocoaPods
