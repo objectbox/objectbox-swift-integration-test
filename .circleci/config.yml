@@ -49,18 +49,18 @@ jobs:
             xcrun simctl bootstatus $OBX_DEVICE_ID -b
             echo "Simulator booted successfully"
       - checkout
-      - run:
-          name: Test SwiftPM preview release
-          command: ./test.sh --clean --swiftpm --version 5.2.0-rc7
-      - run:
-          name: Test SwiftPM preview release Sync
-          command: ./test.sh --clean --swiftpm --version 5.2.0-rc7-sync
+#      - run:
+#          name: Test SwiftPM preview release
+#          command: ./test.sh --clean --swiftpm --version 5.2.0-rc7
+#      - run:
+#          name: Test SwiftPM preview release Sync
+#          command: ./test.sh --clean --swiftpm --version 5.2.0-rc7-sync
       - run:
           name: Test SwiftPM release
-          command: ./test.sh --clean --swiftpm --version 5.1.1
+          command: ./test.sh --clean --swiftpm --version 5.2.0
       - run:
           name: Test SwiftPM release Sync
-          command: ./test.sh --clean --swiftpm --version 5.1.1-sync
+          command: ./test.sh --clean --swiftpm --version 5.2.0-sync
       - run:
           command: |
             mkdir -p /tmp/test-results
