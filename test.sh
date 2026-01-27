@@ -267,7 +267,7 @@ if [ -n "${use_swiftpm}" ]; then # --------------------- SwiftPM ---------------
     mkdir generated
     mv IntTestiOSRegularSPM/generated/EntityInfo-IntTestiOSRegularSPM.generated.swift ./generated/
     mv IntTestiOSRegularSPM/model-IntTestiOSRegularSPM.json .
-    xcodebuild -scheme 'IntTestiOSRegularSPMTests' test -destination 'platform=iOS Simulator,name=iPhone 11'
+    xcodebuild -scheme 'IntTestiOSRegularSPMTests' test -destination 'platform=iOS Simulator,name=iPhone 11' -derivedDataPath ./DerivedData
   fi
 
 elif [ "$project" == "IntTestiOSRegularSPM" ]; then
