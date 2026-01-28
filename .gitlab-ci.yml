@@ -16,6 +16,10 @@ swiftpm:
   extends: .common
   script:
     - ./test.sh --clean --swiftpm --version 5.2.0
+
+swiftpm-sync:
+  extends: .common
+  script:
     - ./test.sh --clean --swiftpm --version 5.2.0-sync
 
 # Test CocoaPods releases
