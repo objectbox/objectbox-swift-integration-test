@@ -227,20 +227,20 @@ class IntTestiOSRegularTests: XCTestCase {
         XCTAssertEqual(teacher1.students.count, 1)
     }
 
-    // TODO enable once we have SyncClient protocol in all tested versions (available since 1.4.0) 
-//    func testDrySync() throws {
-//        print("Sync available: ", Sync.isAvailable())
-//        if Sync.isAvailable() {
-//            let client = try Sync.makeClient(store: store!, urlString: "ws://127.0.0.1:9999")
-//            try client.setCredentials(SyncCredentials.makeUnchecked())
-//            XCTAssertEqual(client.getState(), SyncState.created)
-//            try client.start()
-//            XCTAssertEqual(client.getState(), SyncState.started)
-//            try client.stop()
-//            XCTAssertEqual(client.getState(), SyncState.stopped)
-//            client.close()
-//            XCTAssertEqual(client.getState(), SyncState.dead)
-//        }
-//    }
+   func testDrySync() throws {
+       print("Sync available: ", Sync.isAvailable())
+       if Sync.isAvailable() {
+           let client = try Sync.makeClient(store: store!, urlString: "ws://127.0.0.1:9999")
+           XCTAssertEqual(client.getState(), SyncState.created)
+           try client.setCredentials(SyncCredentials.makeNone())
+           XCTAssertEqual(client.getState(), SyncState.created)
+           try client.start()
+           XCTAssertEqual(client.getState(), SyncState.started)
+           try client.stop()
+           XCTAssertEqual(client.getState(), SyncState.stopped)
+           client.close()
+           XCTAssertEqual(client.getState(), SyncState.dead)
+       }
+   }
 
 }
