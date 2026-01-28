@@ -57,9 +57,13 @@ jobs:
 #          command: ./test.sh --clean --swiftpm --version 5.2.0-rc7-sync
       - run:
           name: Test SwiftPM release
+          environment:
+            OBX_SWIFT_FLAGS: "-DOBJECTBOX_SYNC_OFF -DOBJECTBOX_VERSION_5_2"
           command: ./test.sh --clean --swiftpm --version 5.2.0
       - run:
           name: Test SwiftPM release Sync
+          environment:
+            OBX_SWIFT_FLAGS: "-DOBJECTBOX_SYNC_ON -DOBJECTBOX_VERSION_5_2"
           command: ./test.sh --clean --swiftpm --version 5.2.0-sync
       - run:
           command: |
@@ -111,18 +115,28 @@ jobs:
       - run:
           # Run once without version to check if the latest version is found (then verify log output)
           name: Test CocoaPods latest (check if latest in log!)
+          environment:
+            OBX_SWIFT_FLAGS: "-DOBJECTBOX_SYNC_OFF -DOBJECTBOX_VERSION_5_2"
           command: ./test.sh --clean --default-ruby
       - run:
           name: Test CocoaPods latest explicit
+          environment:
+            OBX_SWIFT_FLAGS: "-DOBJECTBOX_SYNC_OFF -DOBJECTBOX_VERSION_5_2"
           command: ./test.sh --clean --default-ruby --version 5.2.0
       - run:
           name: Test CocoaPods latest Sync
+          environment:
+            OBX_SWIFT_FLAGS: "-DOBJECTBOX_SYNC_ON -DOBJECTBOX_VERSION_5_2"
           command: ./test.sh --clean --default-ruby --version 5.2.0-sync
       - run:
           name: Test CocoaPods previous
+          environment:
+            OBX_SWIFT_FLAGS: "-DOBJECTBOX_SYNC_OFF"
           command: ./test.sh --clean --default-ruby --version 5.1.1
       - run:
           name: Test CocoaPods previous Sync
+          environment:
+            OBX_SWIFT_FLAGS: "-DOBJECTBOX_SYNC_ON"
           command: ./test.sh --clean --default-ruby --version 5.1.1-sync
       - run:
           command: |

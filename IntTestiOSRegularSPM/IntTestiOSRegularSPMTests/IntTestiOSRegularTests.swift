@@ -229,11 +229,26 @@ class IntTestiOSRegularTests: XCTestCase {
 
    func testDrySync() throws {
        print("Sync available: ", Sync.isAvailable())
+       #if OBJECTBOX_SYNC_ON // Assert only if ON/OFF explicitly defined (must still work without any such flags)
+       XCTAssertTrue(Sync.isAvailable())
+       #elseif OBJECTBOX_SYNC_OFF
+       XCTAssertFalse(Sync.isAvailable())
+       #endif
        if Sync.isAvailable() {
            let client = try Sync.makeClient(store: store!, urlString: "ws://127.0.0.1:9999")
            XCTAssertEqual(client.getState(), SyncState.created)
            try client.setCredentials(SyncCredentials.makeNone())
            XCTAssertEqual(client.getState(), SyncState.created)
+           #if OBJECTBOX_VERSION_5_2
+           class TestChangeListener: SyncChangeListener {
+               var changesReceived = [[obx_schema_id: SyncChange]]()
+               func changed(_ changes: [obx_schema_id: SyncChange]) {
+                   changesReceived.append(changes)
+               }
+           }
+           let changeListener = TestChangeListener()
+           client.changeListener = changeListener
+           #endif
            try client.start()
            XCTAssertEqual(client.getState(), SyncState.started)
            try client.stop()

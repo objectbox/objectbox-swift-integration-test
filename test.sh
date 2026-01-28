@@ -267,7 +267,16 @@ if [ -n "${use_swiftpm}" ]; then # --------------------- SwiftPM ---------------
     mkdir generated
     mv IntTestiOSRegularSPM/generated/EntityInfo-IntTestiOSRegularSPM.generated.swift ./generated/
     mv IntTestiOSRegularSPM/model-IntTestiOSRegularSPM.json .
-    xcodebuild -scheme 'IntTestiOSRegularSPMTests' test -destination 'platform=iOS Simulator,name=iPhone 11' -derivedDataPath ./DerivedData -parallel-testing-enabled NO -test-timeouts-enabled NO
+    xcodebuild_opts=(-scheme 'IntTestiOSRegularSPMTests' -destination 'platform=iOS Simulator,name=iPhone 11' -derivedDataPath ./DerivedData -parallel-testing-enabled NO -test-timeouts-enabled NO)
+    # Pass custom Swift flags if set (e.g. OBX_SWIFT_FLAGS="-DOBJECTBOX_SYNC_ON -DOBJECTBOX_VERSION_5_2")
+    # These flags enable compile-time conditionals in Swift test code (e.g. #if OBJECTBOX_SYNC_ON)
+    if [ -n "${OBX_SWIFT_FLAGS:-}" ]; then
+      echo "Using custom Swift flags: $OBX_SWIFT_FLAGS"
+      xcodebuild_opts+=("OTHER_SWIFT_FLAGS=\$(inherited) $OBX_SWIFT_FLAGS")
+    fi
+    # Clean build first to ensure Swift flags are applied (cached builds may have different flags)
+    xcodebuild clean build "${xcodebuild_opts[@]}"
+    xcodebuild test "${xcodebuild_opts[@]}"
   fi
 
 elif [ "$project" == "IntTestiOSRegularSPM" ]; then
@@ -276,6 +285,12 @@ elif [ "$project" == "IntTestiOSRegularSPM" ]; then
 else # --------------------- CocoaPods or Carthage ---------------------
   options=(CODE_SIGN_IDENTITY= CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS= CODE_SIGNING_ALLOWED=NO ENABLE_BITCODE=NO)
   options+=(-derivedDataPath ./DerivedData -scheme "${project}")
+  # Pass custom Swift flags if set (e.g. OBX_SWIFT_FLAGS="-DOBJECTBOX_SYNC_ON -DOBJECTBOX_VERSION_5_2")
+  # These flags enable compile-time conditionals in Swift test code (e.g. #if OBJECTBOX_SYNC_ON)
+  if [ -n "${OBX_SWIFT_FLAGS:-}" ]; then
+    echo "Using custom Swift flags: $OBX_SWIFT_FLAGS"
+    options+=("OTHER_SWIFT_FLAGS=\$(inherited) $OBX_SWIFT_FLAGS")
+  fi
 
   if [ -n "$use_carthage" ]; then # --------------------- Carthage ---------------------
     if [ -n "$use_staging" ]; then
