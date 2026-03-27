@@ -27,7 +27,6 @@
 		295A7C09232A427800F74FE2 /* Author.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295A7C08232A427800F74FE2 /* Author.swift */; };
 		295A7C972330DAC800F74FE2 /* NoteStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295A7C962330DAC800F74FE2 /* NoteStruct.swift */; };
 		295A7C992330DAD300F74FE2 /* AuthorStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295A7C982330DAD300F74FE2 /* AuthorStruct.swift */; };
-		29E0CA1C2E0AAD8300502C96 /* ObjectBox.xcframework in Frameworks */ = {isa = PBXBuildFile; productRef = 29E0CA1B2E0AAD8300502C96 /* ObjectBox.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,7 +64,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				154545A42E0FDCFB00DD5CE9 /* ObjectBox.xcframework in Frameworks */,
-				29E0CA1C2E0AAD8300502C96 /* ObjectBox.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,6 +156,9 @@
 			dependencies = (
 			);
 			name = IntTestiOSRegularSPM;
+			packageProductDependencies = (
+				154545A32E0FDCFB00DD5CE9 /* ObjectBox.xcframework */,
+			);
 			productName = IntTestiOSRegular;
 			productReference = 295A7BE3232A314000F74FE2 /* IntTestiOSRegularSPM.app */;
 			productType = "com.apple.product-type.application";
@@ -176,6 +177,9 @@
 				295A7BF9232A314200F74FE2 /* PBXTargetDependency */,
 			);
 			name = IntTestiOSRegularSPMTests;
+			packageProductDependencies = (
+				154545A52E0FDD1300DD5CE9 /* ObjectBox.xcframework */,
+			);
 			productName = IntTestiOSRegularTests;
 			productReference = 295A7BF7232A314200F74FE2 /* IntTestiOSRegularSPMTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -534,15 +538,12 @@
 /* Begin XCSwiftPackageProductDependency section */
 		154545A32E0FDCFB00DD5CE9 /* ObjectBox.xcframework */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = 154545A22E0FDCFB00DD5CE9 /* XCLocalSwiftPackageReference "../obx-swift-package" */;
 			productName = ObjectBox.xcframework;
 		};
 		154545A52E0FDD1300DD5CE9 /* ObjectBox.xcframework */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 154545A22E0FDCFB00DD5CE9 /* XCLocalSwiftPackageReference "../obx-swift-package" */;
-			productName = ObjectBox.xcframework;
-		};
-		29E0CA1B2E0AAD8300502C96 /* ObjectBox.xcframework */ = {
-			isa = XCSwiftPackageProductDependency;
 			productName = ObjectBox.xcframework;
 		};
 /* End XCSwiftPackageProductDependency section */
