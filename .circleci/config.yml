@@ -59,12 +59,12 @@ jobs:
           name: Test SwiftPM release
           environment:
             OBX_SWIFT_FLAGS: "-DOBJECTBOX_SYNC_OFF -DOBJECTBOX_VERSION_5_2"
-          command: ./test.sh --clean --swiftpm --version 5.3.0-beta.3
+          command: ./test.sh --clean --swiftpm --version 5.3.0-beta.4
       - run:
           name: Test SwiftPM release Sync
           environment:
             OBX_SWIFT_FLAGS: "-DOBJECTBOX_SYNC_ON -DOBJECTBOX_VERSION_5_2"
-          command: ./test.sh --clean --swiftpm --version 5.3.0-beta.3-sync
+          command: ./test.sh --clean --swiftpm --version 5.3.0-beta.4-sync
       - run:
           command: |
             mkdir -p /tmp/test-results
@@ -122,12 +122,12 @@ jobs:
           name: Test CocoaPods latest explicit
           environment:
             OBX_SWIFT_FLAGS: "-DOBJECTBOX_SYNC_OFF -DOBJECTBOX_VERSION_5_2"
-          command: ./test.sh --clean --default-ruby --version 5.3.0-beta.3
+          command: ./test.sh --clean --default-ruby --version 5.3.0-beta.4
       - run:
           name: Test CocoaPods latest Sync
           environment:
             OBX_SWIFT_FLAGS: "-DOBJECTBOX_SYNC_ON -DOBJECTBOX_VERSION_5_2"
-          command: ./test.sh --clean --default-ruby --version 5.3.0-beta.3-sync
+          command: ./test.sh --clean --default-ruby --version 5.3.0-beta.4-sync
       - run:
           name: Test CocoaPods previous
           environment:

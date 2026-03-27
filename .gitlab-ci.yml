@@ -17,14 +17,14 @@ swiftpm:
   variables:
     OBX_SWIFT_FLAGS: "-DOBJECTBOX_SYNC_OFF -DOBJECTBOX_VERSION_5_2"
   script:
-    - ./test.sh --clean --swiftpm --version 5.3.0-beta.3
+    - ./test.sh --clean --swiftpm --version 5.3.0-beta.4
 
 swiftpm-sync:
   extends: .common
   variables:
     OBX_SWIFT_FLAGS: "-DOBJECTBOX_SYNC_ON -DOBJECTBOX_VERSION_5_2"
   script:
-    - ./test.sh --clean --swiftpm --version 5.3.0-beta.3-sync
+    - ./test.sh --clean --swiftpm --version 5.3.0-beta.4-sync
 
 # Test CocoaPods releases
 # See docs/release-checklist.md in the objectbox-swift repo on how to create a staging release.
@@ -44,14 +44,14 @@ cocoapods-latest:
     # Run once without version to check if the latest version is found (then verify log output)
     # These tests take a long time on our current runner, so test no version only on CircleCI
     # - ./test.sh --clean
-    - ./test.sh --clean --version 5.3.0-beta.3
+    - ./test.sh --clean --version 5.3.0-beta.4
 
 cocoapods-sync-latest:
   extends: .common
   variables:
     OBX_SWIFT_FLAGS: "-DOBJECTBOX_SYNC_ON -DOBJECTBOX_VERSION_5_2"
   script:
-    - ./test.sh --clean --version 5.3.0-beta.3-sync
+    - ./test.sh --clean --version 5.3.0-beta.4-sync
 
 # These tests take a long time on our current runner, so test previous version only on CircleCI
 #cocoapods-previous:
