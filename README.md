@@ -71,6 +71,9 @@ To test a Swift Package release:
 ```
 # Note: version can also be a branch
 ./test.sh --clean --swiftpm --version 4.3.0-beta.2
+
+# To use the Sync variant of the framework
+./test.sh --clean --swiftpm --version 4.3.0-beta.2 --sync
 ```
 
 To test the Swift Package from the internal repo:

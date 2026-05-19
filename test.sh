@@ -14,6 +14,7 @@ file_only=""
 do_clean=""
 use_carthage=""
 use_swiftpm=""
+use_swiftpm_sync=""
 use_staging=""
 framework=""
 
@@ -38,7 +39,8 @@ while [ $# -ge 1 ]; do
         echo "  --carthage-bin           Use the packaged Carthage executable from our bin dir"
         echo "  --framework <url>        Test the framework uploaded to this HTTPS URL instead of the CocoaPods release"
         echo "                           (this creates a local Cartfile pointing to the URL)"
-        echo "  --swiftpm                Test the SwiftPM instead of the CocoaPods release"
+        echo "  --swiftpm                Test the Swift Package instead of the CocoaPods release"
+        echo "  --sync                   Test the Swift Package Sync variant"
         echo "  --clean                  Cleans all added/modified files to reset the state to a fresh"
         echo "                           git checkout. Warning: Data may be LOST!!"
         echo "                           Does something like 'git clean -fdx && git reset --hard'"
@@ -81,6 +83,9 @@ while [ $# -ge 1 ]; do
         ;;
     --swiftpm)
         use_swiftpm="true"
+        ;;
+    --sync)
+        use_swiftpm_sync="true"
         ;;
     --default-ruby)
         use_default_ruby="true"
@@ -150,6 +155,9 @@ if [ -z "${1-}" ]; then
   if [ -n "${use_swiftpm}" ]; then
       additional_args+=" --swiftpm"
   fi
+  if [ -n "${use_swiftpm_sync}" ]; then
+      additional_args+=" --sync"
+  fi
   if [ -n "$use_staging" ]; then
     additional_args+=" --staging"
   fi
@@ -203,11 +211,9 @@ if [ -n "${use_swiftpm}" ]; then
 
   # TODO Only do this once if called for multiple projects (issues: this script calls itself; this script may be called
   #  multiple times with different versions; CI does not remove this as it's a Git repo).
-  # Strip -sync suffix from version for git clone (the repo has no separate sync branches/tags)
-  git_version="${version%-sync}"
-  echo "Checking out ObjectBox Swift Package from $source at branch/tag $git_version"
+  echo "Checking out ObjectBox Swift Package from $source at branch/tag $version"
   rm -rf "$swift_package_dir"
-  git clone --depth 1 --branch "$git_version" "$source" "$swift_package_dir"
+  git clone --depth 1 --branch "$version" "$source" "$swift_package_dir"
 fi
 
 cd "${project}"
@@ -232,8 +238,8 @@ if [ -n "${use_swiftpm}" ]; then # --------------------- SwiftPM ---------------
   cp "$script_dir/.templates/$template_name" Package.swift
   sed -i '' "s|\${PROJECT_DIR}|$project|g" Package.swift
 
-  # If version contains "-sync", switch to the Sync xcframework
-  if [[ "$version" == *"-sync"* ]]; then
+  # If sync flag is given, switch to the Sync xcframework
+  if [[ $use_swiftpm_sync == "true" ]]; then
     echo "Using ObjectBox Sync xcframework"
     sed -i '' 's/ObjectBox.xcframework/ObjectBox-Sync.xcframework/g' Package.swift
   fi
