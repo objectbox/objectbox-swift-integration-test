@@ -116,6 +116,27 @@ fi
 #macOS's readlink does not have -f option, do this instead:
 script_dir=$( cd "$(dirname "$0")" ; pwd -P )
 
+# Returns an xcodebuild -destination string for an available iOS simulator.
+# Prefers "iPhone 11" for backward compatibility, but falls back to any available iPhone
+# simulator if "iPhone 11" is not installed (e.g. Xcode 26+ dropped it).
+get_ios_simulator_destination() {
+  # Check if a simulator named exactly "iPhone 11" exists (not e.g. "iPhone 11 Pro")
+  if xcrun simctl list devices available 2>/dev/null | grep -q "iPhone 11 ("; then
+    echo "platform=iOS Simulator,name=iPhone 11"
+    return
+  fi
+  # Fall back: pick the first available iPhone simulator
+  local sim_name
+  sim_name=$(xcrun simctl list devices available 2>/dev/null \
+    | grep -E "^[[:space:]]+iPhone" | head -1 | sed -E 's/^[[:space:]]+(.*) \([A-F0-9-]+\).*/\1/')
+  if [ -n "$sim_name" ]; then
+    echo "platform=iOS Simulator,name=$sim_name"
+    return
+  fi
+  # Last resort: use generic platform (lets xcodebuild pick any available simulator)
+  echo "platform=iOS Simulator,OS=latest,name=iPhone 16"
+}
+
 cd "$script_dir" # allow to call from any dir
 
 if [ -n "$do_clean" ]; then
@@ -273,7 +294,9 @@ if [ -n "${use_swiftpm}" ]; then # --------------------- SwiftPM ---------------
     mkdir generated
     mv IntTestiOSRegularSPM/generated/EntityInfo-IntTestiOSRegularSPM.generated.swift ./generated/
     mv IntTestiOSRegularSPM/model-IntTestiOSRegularSPM.json .
-    xcodebuild_opts=(-scheme 'IntTestiOSRegularSPMTests' -destination 'platform=iOS Simulator,name=iPhone 11' -derivedDataPath ./DerivedData -parallel-testing-enabled NO -test-timeouts-enabled NO)
+    ios_sim_dest=$(get_ios_simulator_destination)
+    echo "Using iOS simulator destination: $ios_sim_dest"
+    xcodebuild_opts=(-scheme 'IntTestiOSRegularSPMTests' -destination "$ios_sim_dest" -derivedDataPath ./DerivedData -parallel-testing-enabled NO -test-timeouts-enabled NO)
     # Pass custom Swift flags if set (e.g. OBX_SWIFT_FLAGS="-DOBJECTBOX_SYNC_ON")
     # These flags enable compile-time conditionals in Swift test code (e.g. #if OBJECTBOX_SYNC_ON)
     if [ -n "${OBX_SWIFT_FLAGS:-}" ]; then
@@ -427,7 +450,9 @@ else # --------------------- CocoaPods or Carthage ---------------------
   xcodebuild clean build "${options[@]}"
 
   if [ -d "${project}Tests" ]; then
-    xcodebuild test "${options[@]}" -destination 'platform=iOS Simulator,name=iPhone 11' -parallel-testing-enabled NO -test-timeouts-enabled NO
+    ios_sim_dest=$(get_ios_simulator_destination)
+    echo "Using iOS simulator destination: $ios_sim_dest"
+    xcodebuild test "${options[@]}" -destination "$ios_sim_dest" -parallel-testing-enabled NO -test-timeouts-enabled NO
   fi
 
 fi
