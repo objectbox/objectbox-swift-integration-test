@@ -116,9 +116,9 @@ the IntTestiOSRegularSPM xcodebuild run). It is *not* passed to `swift build`/`s
 
 ### What test.sh does per mode
 
-**CocoaPods (default):** writes a fresh `Podfile` (`platform :ios, '15.0'`, or `:osx, '11.0'` if the project name
+**CocoaPods (default):** writes a fresh `Podfile` (`platform :ios, '15.0'`, or `:osx, '12.0'` if the project name
 contains "macOS"; optional `source`; `pod 'ObjectBox', '<version>'`; a `<Project>Tests` target if that directory
-exists), runs `pod repo update`, `pod install` (or `pod update`), `Pods/ObjectBox/setup.rb`, then
+exists; for macOS a `post_install` hook raising pod targets to macOS 12.0, see "Conventions"), runs `pod repo update`, `pod install` (or `pod update`), `Pods/ObjectBox/setup.rb`, then
 `xcodebuild clean build` on `<Project>.xcworkspace` with scheme `<Project>` and code signing disabled, and
 `xcodebuild test` on the iOS simulator if `<Project>Tests/` exists.
 
@@ -178,7 +178,9 @@ version" and "previous version" runs are CircleCI-only because the GitLab runner
   them on macOS. A project needs at least one non-excluded Swift source file.
 - **Deployment targets:** iOS 15.0 and macOS 11.0 everywhere (Podfile written by `test.sh`, package templates,
   `project.pbxproj`). Exceptions: `IntTestiOSXcode16` uses iOS 18.2, and `PackageWithTest.swift` uses macOS 12 for
-  it. All Xcode projects use the Xcode 16 format (`objectVersion = 77`).
+  it. CocoaPods on macOS (`IntTestmacOSOneEntity` project and generated Podfile) uses macOS 12.0 because Xcode 27
+  supports no lower target; as the ObjectBox podspec still declares osx 11.0, the generated Podfile raises pod targets
+  to 12.0 in a `post_install` hook. Remove that workaround once the podspec in objectbox-swift requires macOS 12.0. All Xcode projects use the Xcode 16 format (`objectVersion = 77`).
 - **Schemes:** only `IntTestiOSRegularSPM` ships a shared scheme. The other projects rely on `xcodebuild`
   auto-creating a scheme named after the app target.
 - **Merge requests** use `.gitlab/merge_request_templates/Default.md` and reference issues as `objectbox-swift#NUMBER`.
