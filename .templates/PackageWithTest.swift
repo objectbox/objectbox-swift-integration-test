@@ -27,6 +27,7 @@ let package = Package(
       exclude: [
         "AppDelegate.swift",
         "Assets.xcassets",
+        "Base.lproj", // iOS storyboards; the Swift Build backend (default with Xcode 27) tries to compile them for macOS
         "Info.plist",
         "ObxSwiftUiTestApp.swift",
         "ViewController.swift",
