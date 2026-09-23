@@ -229,6 +229,11 @@ class IntTestiOSRegularTests: XCTestCase {
 
    func testDrySync() throws {
        print("Sync available: ", Sync.isAvailable())
+       #if OBJECTBOX_SYNC_ON // Assert only if ON/OFF explicitly defined (must still work without any such flags)
+       XCTAssertTrue(Sync.isAvailable())
+       #elseif OBJECTBOX_SYNC_OFF
+       XCTAssertFalse(Sync.isAvailable())
+       #endif
        if Sync.isAvailable() {
            let client = try Sync.makeClient(store: store!, urlString: "ws://127.0.0.1:26485")  // Some "unlikely" port
            XCTAssertEqual(client.getState(), SyncState.created)
