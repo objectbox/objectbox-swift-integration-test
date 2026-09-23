@@ -379,8 +379,11 @@ else # --------------------- CocoaPods or Carthage ---------------------
 
     # Set version to minimum deployment target required by ObjectBox pod.
     # Note: all other projects are iOS and might not contain iOS in name.
+    # macOS: the ObjectBox podspec requires 11.0, but Xcode 27 only supports 12.0+.
+    # TODO Remove once the osx deployment target in the ObjectBox podspec was increased to 12.0 in the objectbox-swift
+    #  project, then use the podspec's minimum again.
     if [[ $project =~ "macOS" ]]; then
-    echo "platform :osx, '11.0'
+    echo "platform :osx, '12.0'
   " > Podfile
     else
     echo "platform :ios, '15.0'
@@ -414,6 +417,23 @@ else # --------------------- CocoaPods or Carthage ---------------------
 
     echo "
   end" >> Podfile
+
+    if [[ $project =~ "macOS" ]]; then
+      # Workaround a user would need with Xcode 27: CocoaPods uses the podspec's osx deployment target (11.0) for the
+      # ObjectBox pod target, but Xcode 27 fails with \"range of supported deployment target versions is 12.0 to ...\".
+      # TODO Remove once the osx deployment target in the ObjectBox podspec was increased to 12.0 in the objectbox-swift
+      #  project (so this test again catches podspec deployment targets not supported by Xcode).
+      echo "
+  post_install do |installer|
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        if config.build_settings['MACOSX_DEPLOYMENT_TARGET'].to_f < 12.0
+          config.build_settings['MACOSX_DEPLOYMENT_TARGET'] = '12.0'
+        end
+      end
+    end
+  end" >> Podfile
+    fi
 
     if [ -n "${file_only}" ]; then
       exit
