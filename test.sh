@@ -294,6 +294,11 @@ if [ -n "${use_swiftpm}" ]; then # --------------------- SwiftPM ---------------
     mkdir generated
     mv IntTestiOSRegularSPM/generated/EntityInfo-IntTestiOSRegularSPM.generated.swift ./generated/
     mv IntTestiOSRegularSPM/model-IntTestiOSRegularSPM.json .
+    # The Xcode project references the ObjectBox.xcframework product, so also switch it to the Sync variant
+    if [[ $use_swiftpm_sync == "true" ]]; then
+      echo "Using ObjectBox Sync xcframework for Xcode project"
+      sed -i '' 's/ObjectBox\.xcframework/ObjectBox-Sync.xcframework/g' IntTestiOSRegularSPM.xcodeproj/project.pbxproj
+    fi
     ios_sim_dest=$(get_ios_simulator_destination)
     echo "Using iOS simulator destination: $ios_sim_dest"
     xcodebuild_opts=(-scheme 'IntTestiOSRegularSPMTests' -destination "$ios_sim_dest" -derivedDataPath ./DerivedData -parallel-testing-enabled NO -test-timeouts-enabled NO)
