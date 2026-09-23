@@ -11,9 +11,6 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true
@@ -44,3 +41,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+// The UIScene life cycle is required for apps built with the iOS 27 SDK (they fail to launch otherwise).
+// The scene loads Main.storyboard, see UIApplicationSceneManifest in Info.plist.
+class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+
+    var window: UIWindow?
+
+}
