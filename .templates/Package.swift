@@ -9,7 +9,7 @@ let package = Package(
   defaultLocalization: "en",
   platforms: [
     // This should match the requirements of ObjectBox.xcframework (so the ObjectBox Swift API and native libraries)
-    .macOS(.v11), .iOS(.v15),
+    .macOS(.v12), .iOS(.v15),
   ],
   dependencies: [
     .package(path: "../obx-swift-package"),
