@@ -48,6 +48,12 @@ To test the latest CocoaPods release, simply run the script without any paramete
 ./test.sh
 ```
 
+To test a Swift Package preview (the `staging` branch of `objectbox-swift-spm`; `--version` also takes a branch):
+
+```
+./test.sh --clean --swiftpm --version staging --sync
+```
+
 To test only a specific project:
 
 ```

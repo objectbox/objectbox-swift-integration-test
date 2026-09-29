@@ -26,6 +26,18 @@ swiftpm-sync:
   script:
     - ./test.sh --clean --swiftpm --version 5.3.0 --sync
 
+# Test the Swift Package preview: the "staging" branch of objectbox-swift-spm (previews are branches, not tags; a good
+# preview is promoted by tagging its commit). Its Sync variant is the current pre-release build; see
+# docs/mesh-sync.md and docs/release-checklist.md in the objectbox-swift repo.
+swiftpm-staging:
+  extends: .common
+  variables:
+    OBX_SWIFT_FLAGS: "-DOBJECTBOX_SYNC_ON"
+  script:
+    - ./test.sh --clean --swiftpm --version staging --sync
+    # Optional: the regular variant of the preview manifest (currently the latest release's xcframework)
+    # - ./test.sh --clean --swiftpm --version staging
+
 # Test CocoaPods releases
 # See docs/release-checklist.md in the objectbox-swift repo on how to create a staging release.
 # Note: hide the job by prefixing it with a dot, enable it (remove the dot) when testing new staging releases
