@@ -17,6 +17,10 @@
   - Tests generator detects all source files for an Xcode 16 project that uses "buildable folders" and groups.
 - IntTestmacOSOneEntity
   - Like IntTestiOSOneEntity, but for a macOS project.
+- IntTestmacOSMeshSync
+  - Tests the mesh sync add-on of the Swift package (Sync variant, `MeshSync` trait) on macOS: creates a sync
+    client with a Nearby mesh attached without starting it (no radios or permissions needed). Only with
+    `--swiftpm --sync --meshsync` and a package version that has the trait (e.g. the `staging` branch).
 - Test With Spaces
   - Tests setup and generator works for a project with spaces in the project path.
 
@@ -51,7 +55,7 @@ To test the latest CocoaPods release, simply run the script without any paramete
 To test a Swift Package preview (the `staging` branch of `objectbox-swift-spm`; `--version` also takes a branch):
 
 ```
-./test.sh --clean --swiftpm --version staging --sync
+./test.sh --clean --swiftpm --version staging --sync --meshsync   # --meshsync adds IntTestmacOSMeshSync
 ```
 
 To test only a specific project:

@@ -15,6 +15,7 @@ do_clean=""
 use_carthage=""
 use_swiftpm=""
 use_swiftpm_sync=""
+use_meshsync=""
 use_staging=""
 framework=""
 
@@ -41,6 +42,8 @@ while [ $# -ge 1 ]; do
         echo "                           (this creates a local Cartfile pointing to the URL)"
         echo "  --swiftpm                Test the Swift Package instead of the CocoaPods release"
         echo "  --sync                   Test the Swift Package Sync variant"
+        echo "  --meshsync               Also test the mesh sync add-on (IntTestmacOSMeshSync; needs --swiftpm --sync and a"
+        echo "                           package version with the MeshSync trait, e.g. --version staging)"
         echo "  --clean                  Cleans all added/modified files to reset the state to a fresh"
         echo "                           git checkout. Warning: Data may be LOST!!"
         echo "                           Does something like 'git clean -fdx && git reset --hard'"
@@ -86,6 +89,9 @@ while [ $# -ge 1 ]; do
         ;;
     --sync)
         use_swiftpm_sync="true"
+        ;;
+    --meshsync)
+        use_meshsync="true"
         ;;
     --default-ruby)
         use_default_ruby="true"
@@ -179,6 +185,9 @@ if [ -z "${1-}" ]; then
   if [ -n "${use_swiftpm_sync}" ]; then
       additional_args+=" --sync"
   fi
+  if [ -n "${use_meshsync}" ]; then
+      additional_args+=" --meshsync"
+  fi
   if [ -n "$use_staging" ]; then
     additional_args+=" --staging"
   fi
@@ -251,7 +260,13 @@ if [ -n "${use_swiftpm}" ]; then # --------------------- SwiftPM ---------------
   # Make the existing test projects into Swift Package projects by adding a Package file,
   # then build and run tests using swift tools instead of xcodebuild.
   # This only works because the Package file excludes iOS/macOS (UI) app specific files.
-  if [ $project_has_tests == "true" ]; then
+  if [ "$project" == "IntTestmacOSMeshSync" ] && { [ -z "$use_meshsync" ] || [ -z "$use_swiftpm_sync" ]; }; then
+    echo "Skip IntTestmacOSMeshSync: needs --meshsync and --sync (a package version with the MeshSync trait)"
+    exit 0
+  fi
+  if [ -f "$script_dir/.templates/Package-${project}.swift" ]; then
+      template_name="Package-${project}.swift"  # project-specific manifest, e.g. with package traits
+  elif [ $project_has_tests == "true" ]; then
       template_name="PackageWithTest.swift"
   else
       template_name="Package.swift"
@@ -313,8 +328,8 @@ if [ -n "${use_swiftpm}" ]; then # --------------------- SwiftPM ---------------
     xcodebuild test "${xcodebuild_opts[@]}"
   fi
 
-elif [ "$project" == "IntTestiOSRegularSPM" ]; then
-  echo "Skip IntTestiOSRegularSPM for CocoaPods/Carthage, only supported when using --swiftpm option"
+elif [ "$project" == "IntTestiOSRegularSPM" ] || [ "$project" == "IntTestmacOSMeshSync" ]; then
+  echo "Skip $project for CocoaPods/Carthage, only supported when using --swiftpm option"
 
 else # --------------------- CocoaPods or Carthage ---------------------
   options=(CODE_SIGN_IDENTITY= CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS= CODE_SIGNING_ALLOWED=NO ENABLE_BITCODE=NO)

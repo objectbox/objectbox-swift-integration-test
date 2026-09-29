@@ -34,7 +34,7 @@ swiftpm-staging:
   variables:
     OBX_SWIFT_FLAGS: "-DOBJECTBOX_SYNC_ON"
   script:
-    - ./test.sh --clean --swiftpm --version staging --sync
+    - ./test.sh --clean --swiftpm --version staging --sync --meshsync
     # Optional: the regular variant of the preview manifest (currently the latest release's xcframework)
     # - ./test.sh --clean --swiftpm --version staging
 
