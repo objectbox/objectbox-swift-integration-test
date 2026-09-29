@@ -72,7 +72,7 @@ jobs:
           name: Test SwiftPM pre-release Sync with mesh sync
           environment:
             OBX_SWIFT_FLAGS: "-DOBJECTBOX_SYNC_ON"
-          command: ./test.sh --clean --swiftpm --version 6.0.0-beta.1 --sync --meshsync
+          command: ./test.sh --clean --swiftpm --version 6.0.0-beta.2 --sync --meshsync
       - run:
           command: |
             mkdir -p /tmp/test-results
