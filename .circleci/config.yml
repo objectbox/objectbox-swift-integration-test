@@ -160,17 +160,19 @@ jobs:
 workflows:
   integration-test-workflow:
     jobs:
-      # For available Xcode images see https://circleci.com/docs/testing-ios/#supported-xcode-versions
+      # For available Xcode images see https://circleci.com/docs/guides/test/testing-ios/#supported-xcode-versions
+      # (images marked deprecated there are rejected after their date, e.g. 26.1.1 to 26.3.0 on macOS 15.6)
       # 16.4.0 to test with Swift 6.1 tools (macOS 15.3.2, iOS 18.5); oldest supported Xcode 16
-      # 26.3.0 to test the latest Xcode 26 on macOS 15.6
+      # 26.4.1 to test the oldest supported Xcode 26 (macOS 26.3)
       # 26.6   to test the latest Xcode 26 (macOS 26.5.1)
-      # 27.2   to test the latest Xcode (macOS 26.6.2)
+      # 27.2   to test the latest Xcode release (macOS 26.6.2)
+      # 27.3   to test the latest Xcode beta (27C5020n, macOS 26.6.2)
       - test-swiftpm:
           matrix:
             parameters:
-              xcode-version: [ "16.4.0", "26.3.0", "26.6", "27.2" ]
+              xcode-version: [ "16.4.0", "26.4.1", "26.6", "27.2", "27.3" ]
 
       - test-cocoapods:
           matrix:
             parameters:
-              xcode-version: [ "16.4.0", "26.3.0", "26.6", "27.2" ]
+              xcode-version: [ "16.4.0", "26.4.1", "26.6", "27.2", "27.3" ]

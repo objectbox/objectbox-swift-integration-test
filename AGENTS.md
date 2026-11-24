@@ -142,7 +142,7 @@ Both CIs run `test.sh --clean` with explicit versions. See `docs/release-checkli
 for how releases and staging releases are created.
 
 **CircleCI** (`.circleci/config.yml`, primary): jobs `test-swiftpm` and `test-cocoapods`, each a matrix over Xcode
-images (currently 16.4.0, 26.0.0, 26.1.1, 26.2.0, 26.3.0) on `m4pro.medium`. Each job first creates and boots an
+images (currently 16.4.0, 26.4.1, 26.6, 27.2, beta 27.3) on `m4pro.medium`. Each job first creates and boots an
 "iPhone 11" simulator, then runs:
 
 - SwiftPM: current version, current version `-sync`.
