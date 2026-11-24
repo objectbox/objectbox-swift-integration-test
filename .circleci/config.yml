@@ -19,6 +19,44 @@ version: 2.1
 # 1.4.1: 5.3 (swiftlang-1200.0.29.2 clang-1200.0.30.1), Xcode 12.0
 # 1.4.0: 5.2.4, Xcode 11.4(?)
 
+commands:
+  prepare-ios-simulator:
+    description: Create and boot an iOS simulator named "iPhone 11"
+    steps:
+      - run:
+          name: Prepare iOS simulator
+          # The test.sh script expects a simulator device named "iPhone 11"
+          # Xcode 26+ no longer includes iPhone 11, so create a different device and name it "iPhone 11"
+          command: |
+            xcrun simctl list runtimes
+            # Get an iPhone device type (prefer iPhone 16, fall back to any available)
+            DEVICE_TYPE=$(xcrun simctl list devicetypes -j | python3 -c "import sys,json; types=[d['identifier'] for d in json.load(sys.stdin)['devicetypes'] if 'iPhone' in d['name']]; preferred=[t for t in types if 'iPhone-16' in t or 'iPhone-15' in t or 'iPhone-14' in t]; print(preferred[0] if preferred else types[-1] if types else 'com.apple.CoreSimulator.SimDeviceType.iPhone-16')")
+            # The available iOS runtimes, newest first
+            RUNTIMES=$(xcrun simctl list runtimes -j | python3 -c "
+            import json, re, sys
+            runtimes = [r for r in json.load(sys.stdin)['runtimes'] if 'iOS' in r['name'] and r['isAvailable']]
+            runtimes.sort(key=lambda r: [int(n) for n in re.findall(r'\d+', r.get('version', ''))], reverse=True)
+            print(' '.join(r['identifier'] for r in runtimes))
+            ")
+            # Use the newest runtime that supports the device type: an image may also have runtimes for specific
+            # devices, e.g. Xcode 27.2 has a second iOS 27.2 runtime (iOS-27-2-iPhone19-4) only for the "iPhone Duo"
+            OBX_DEVICE_ID=""
+            for RUNTIME in $RUNTIMES; do
+              echo "Creating simulator with device type: $DEVICE_TYPE and runtime: $RUNTIME"
+              if OBX_DEVICE_ID=$(xcrun simctl create "iPhone 11" "$DEVICE_TYPE" "$RUNTIME"); then
+                break
+              fi
+              echo "Runtime $RUNTIME does not support $DEVICE_TYPE, trying the next one"
+            done
+            if [ -z "$OBX_DEVICE_ID" ]; then
+              echo "No iOS runtime supports $DEVICE_TYPE (runtimes: $RUNTIMES)"
+              exit 1
+            fi
+            xcrun simctl boot "$OBX_DEVICE_ID"
+            # Wait for simulator to be fully booted
+            xcrun simctl bootstatus "$OBX_DEVICE_ID" -b
+            echo "Simulator booted successfully"
+
 jobs:
 
   # Test Swift Package releases (uses Swift Package Manager)
@@ -32,22 +70,7 @@ jobs:
                                  # m4pro.medium with 200 credits/min is the better deal than m2pro with 180 credits/min:
                                  # https://circleci.com/pricing/price-list/
     steps:
-      - run:
-          # Boot as early as possible to avoid test timeout
-          name: Prepare iOS simulator
-          # The test.sh script expects a simulator device named "iPhone 11"
-          # Xcode 26+ no longer includes iPhone 11, so create a different device and rename it
-          command: |
-            # Get the latest iOS runtime
-            RUNTIME=$(xcrun simctl list runtimes -j | python3 -c "import sys,json; runtimes=[r['identifier'] for r in json.load(sys.stdin)['runtimes'] if 'iOS' in r['name'] and r['isAvailable']]; print(runtimes[-1] if runtimes else '')")
-            # Get a compatible iPhone device type for this runtime (prefer iPhone 16, fall back to any available)
-            DEVICE_TYPE=$(xcrun simctl list devicetypes -j | python3 -c "import sys,json; types=[d['identifier'] for d in json.load(sys.stdin)['devicetypes'] if 'iPhone' in d['name']]; preferred=[t for t in types if 'iPhone-16' in t or 'iPhone-15' in t or 'iPhone-14' in t]; print(preferred[0] if preferred else types[-1] if types else 'com.apple.CoreSimulator.SimDeviceType.iPhone-16')")
-            echo "Creating simulator with device type: $DEVICE_TYPE and runtime: $RUNTIME"
-            OBX_DEVICE_ID=$(xcrun simctl create "iPhone 11" "$DEVICE_TYPE" "$RUNTIME")
-            xcrun simctl boot $OBX_DEVICE_ID
-            # Wait for simulator to be fully booted
-            xcrun simctl bootstatus $OBX_DEVICE_ID -b
-            echo "Simulator booted successfully"
+      - prepare-ios-simulator # Boot as early as possible (before the checkout) to avoid test timeouts
       - checkout
 #      - run:
 #          name: Test SwiftPM preview release
@@ -99,22 +122,7 @@ jobs:
     macos: {xcode: << parameters.xcode-version >> }
     resource_class: m4pro.medium # https://circleci.com/docs/using-macos/#available-resource-classes
     steps:
-      - run:
-          # Boot as early as possible to avoid test timeout
-          name: Prepare iOS simulator
-          # The test.sh script expects a simulator device named "iPhone 11"
-          # Xcode 26+ no longer includes iPhone 11, so create a different device and rename it
-          command: |
-            # Get the latest iOS runtime
-            RUNTIME=$(xcrun simctl list runtimes -j | python3 -c "import sys,json; runtimes=[r['identifier'] for r in json.load(sys.stdin)['runtimes'] if 'iOS' in r['name'] and r['isAvailable']]; print(runtimes[-1] if runtimes else '')")
-            # Get a compatible iPhone device type for this runtime (prefer iPhone 16, fall back to any available)
-            DEVICE_TYPE=$(xcrun simctl list devicetypes -j | python3 -c "import sys,json; types=[d['identifier'] for d in json.load(sys.stdin)['devicetypes'] if 'iPhone' in d['name']]; preferred=[t for t in types if 'iPhone-16' in t or 'iPhone-15' in t or 'iPhone-14' in t]; print(preferred[0] if preferred else types[-1] if types else 'com.apple.CoreSimulator.SimDeviceType.iPhone-16')")
-            echo "Creating simulator with device type: $DEVICE_TYPE and runtime: $RUNTIME"
-            OBX_DEVICE_ID=$(xcrun simctl create "iPhone 11" "$DEVICE_TYPE" "$RUNTIME")
-            xcrun simctl boot $OBX_DEVICE_ID
-            # Wait for simulator to be fully booted
-            xcrun simctl bootstatus $OBX_DEVICE_ID -b
-            echo "Simulator booted successfully"
+      - prepare-ios-simulator # Boot as early as possible (before the checkout) to avoid test timeouts
       - run:
           name: Update CocoaPods
           command: sudo gem install cocoapods
