@@ -17,14 +17,14 @@ swiftpm:
   variables:
     OBX_SWIFT_FLAGS: "-DOBJECTBOX_SYNC_OFF"
   script:
-    - ./test.sh --clean --swiftpm --version 5.3.0
+    - ./test.sh --clean --swiftpm --version 6.0.0-rc
 
 swiftpm-sync:
   extends: .common
   variables:
     OBX_SWIFT_FLAGS: "-DOBJECTBOX_SYNC_ON"
   script:
-    - ./test.sh --clean --swiftpm --version 5.3.0 --sync
+    - ./test.sh --clean --swiftpm --version 6.0.0-rc --sync
 
 # Test the Swift Package preview: the "staging" branch of objectbox-swift-spm (previews are branches, not tags; a good
 # preview is promoted by tagging its commit). Currently 6.0.0-rc (both variants); see docs/mesh-sync.md and
@@ -56,14 +56,14 @@ cocoapods-latest:
     # Run once without version to check if the latest version is found (then verify log output)
     # These tests take a long time on our current runner, so test no version only on CircleCI
     # - ./test.sh --clean
-    - ./test.sh --clean --version 5.3.0
+    - ./test.sh --clean --version 6.0.0-rc
 
 cocoapods-sync-latest:
   extends: .common
   variables:
     OBX_SWIFT_FLAGS: "-DOBJECTBOX_SYNC_ON"
   script:
-    - ./test.sh --clean --version 5.3.0-sync
+    - ./test.sh --clean --version 6.0.0-rc-sync
 
 # These tests take a long time on our current runner, so test previous version only on CircleCI
 #cocoapods-previous:
