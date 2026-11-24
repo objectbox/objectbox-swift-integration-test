@@ -135,12 +135,12 @@ class IntTestiOSRegularTests: XCTestCase {
         
         let query = try noteBox!.query{Note.done == true && "2nd bool" .= Note.done.isEqual(to: true)}.build()
         XCTAssertEqual(try query.findUnique()!.text, "fertig")
-        query.setParameter(Note.done, to: true)
-        query.setParameter("2nd bool", to: true)
+        try query.setParameter(Note.done, to: true)
+        try query.setParameter("2nd bool", to: true)
         XCTAssertEqual(try query.findUnique()!.text, "fertig")
 
-        query.setParameter(Note.done, to: false)
-        query.setParameter("2nd bool", to: false)
+        try query.setParameter(Note.done, to: false)
+        try query.setParameter("2nd bool", to: false)
         XCTAssertEqual(try query.count(), 1)
         XCTAssertEqual(try query.findUnique()!.text, "todo")
     }
@@ -159,12 +159,12 @@ class IntTestiOSRegularTests: XCTestCase {
         
         let query = try noteBox!.query{Note.upvotes > 10 && "2nd" .= Note.upvotes.isEqual(to: 13)}.build()
         XCTAssertEqual(try query.findUnique()!.text, "first")
-        query.setParameter(Note.upvotes, to: 10)
-        query.setParameter("2nd", to: 13)
+        try query.setParameter(Note.upvotes, to: 10)
+        try query.setParameter("2nd", to: 13)
         XCTAssertEqual(try query.findUnique()!.text, "first")
 
-        query.setParameter(Note.upvotes, to: 20)
-        query.setParameter("2nd", to: 42)
+        try query.setParameter(Note.upvotes, to: 20)
+        try query.setParameter("2nd", to: 42)
         XCTAssertEqual(try query.count(), 1)
         XCTAssertEqual(try query.findUnique()!.text, "second")
     }
@@ -188,11 +188,11 @@ class IntTestiOSRegularTests: XCTestCase {
         let query = try authorBox!.query{Author.yearOfBirth > 1900 && "2nd" .= Author.yearOfBirth < 2020 }.build()
         XCTAssertEqual(try query.count(), 2)
 
-        query.setParameter(Author.yearOfBirth, to: 2000)
+        try query.setParameter(Author.yearOfBirth, to: 2000)
         XCTAssertEqual(try query.count(), 1)
         XCTAssertEqual(try query.findUnique()!.name, "Bob")
 
-        query.setParameter("2nd", to: 1950)
+        try query.setParameter("2nd", to: 1950)
         XCTAssertEqual(try query.count(), 0)
 
         let queryNil = try authorBox!.query{ Author.yearOfBirth.isNil() }.build()
@@ -240,7 +240,9 @@ class IntTestiOSRegularTests: XCTestCase {
            try client.setCredentials(SyncCredentials.makeNone())
            XCTAssertEqual(client.getState(), SyncState.created)
            try client.start()
-           XCTAssertEqual(client.getState(), SyncState.started)
+           // Without a server, the first connection attempt may have failed already (since 6.0, start() also
+           // starts a network monitor)
+           XCTAssertTrue([SyncState.started, .disconnected].contains(client.getState()))
            try client.stop()
            XCTAssertEqual(client.getState(), SyncState.stopped)
            client.close()
