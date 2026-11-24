@@ -151,10 +151,11 @@ images (currently 16.4.0, 26.0.0, 26.1.1, 26.2.0, 26.3.0) on `m4pro.medium`. Eac
 
 On failure `.xcresult` bundles and simulator crash reports are stored as artifacts.
 
-**GitLab CI** (`.gitlab-ci.yml`): jobs `swiftpm`, `swiftpm-sync`, `cocoapods-latest`, `cocoapods-sync-latest` on a
-macOS runner (tags `xcode`, `mac`), serialized via `resource_group: ios-simulator`. The staging job
-`.cocoapods-staging` is hidden (dot prefix) and only enabled temporarily when testing a staging release. The "no
-version" and "previous version" runs are CircleCI-only because the GitLab runner is slow.
+**GitLab CI** (`.gitlab-ci.yml`): jobs `swiftpm`, `swiftpm-sync`, `swiftpm-staging`, `cocoapods-latest`,
+`cocoapods-sync-latest` on a macOS runner (tags `xcode`, `mac`), serialized via `resource_group: ios-simulator`. The
+staging job `cocoapods-staging` is only enabled while testing a staging release; otherwise hide it with a dot prefix
+(`.cocoapods-staging`). The "no version" and "previous version" runs are CircleCI-only because the GitLab runner is
+slow.
 
 **Bumping the tested ObjectBox version** (the most common change in this repo, commit style `CI: test obx X.Y.Z`):
 
